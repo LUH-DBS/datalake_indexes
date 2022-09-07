@@ -1,4 +1,5 @@
 import math
+import time
 from operator import itemgetter
 import pandas as pd
 import numpy as np
@@ -338,6 +339,7 @@ class COCOA:
             return []
 
         self.__logger.info('=== Starting COCOA multicolumn ===')
+        preparation_start = time.time()
 
         # -----------------------------------------------------------------------------------------------------------
         # INPUT PREPARATION
@@ -404,6 +406,8 @@ class COCOA:
                 join_map[inverted_join_map[k]] = k
             join_maps += [join_map]
 
+        preparation_runtime = time.time() - preparation_start
+
         # -----------------------------------------------------------------------------------------------------------
         # PREPARATION
         # -----------------------------------------------------------------------------------------------------------
@@ -414,6 +418,7 @@ class COCOA:
         # -----------------------------------------------------------------------------------------------------------
         # CORRELATION CALCULATION
         # -----------------------------------------------------------------------------------------------------------
+        correlation_calculation_start = time.time()
         self.__logger.info('Calculating correlations...')
         for i in tqdm(np.arange(len(table_ids))):
             columns = column_ids[i]
@@ -537,6 +542,16 @@ class COCOA:
             topk_table_col_ids += [important_column[1]]
         if 'new_external_rank' in dataset:
             dataset = dataset.drop('new_external_rank', axis=1)
+
+        correlation_calculation_runtime = time.time() - correlation_calculation_start
+
+        print(f"Total runtime: {preparation_runtime + correlation_calculation_runtime:.2f}s")
+        print(f"Preparation runtime: {preparation_runtime:.2f}s")
+        print(f"Correlation calculation runtime: {correlation_calculation_runtime:.2f}s")
+        print()
+        print(f"Evaluated features: {len(sorted_list)}")
+        print(f"Max. correlation coefficient: {sorted_list[0][0]:.4f}")
+        print(f"Min. correlation coefficient: {sorted_list[-1][0]:.4f}")
 
         return sorted_list[:k_c]
 

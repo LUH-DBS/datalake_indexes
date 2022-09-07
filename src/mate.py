@@ -126,15 +126,18 @@ class MATE:
         # TODO: Do we need this?
         is_linear = (self.hash_function == '')
 
-        print('{} DATASET'.format(dataset_name))
+        print(f"Running MATE on the {dataset_name} dataset.")
 
         max_table_check = 500   # TODO: top-500 posting lists are evaluated, like k_t in cocoa -> find a name
         row_block_size = 1
         total_runtime = 0
         db_runtime = 0
         total_match = 0
+        total_fp = 0
+        total_pruned = 0
         max_SQL_parameter_size = 1000000
         total_approved = 0
+        total_filtered = 0
         hash_verification_time = 0
         evaluation_time = 0
         relevant_rows_time = 0
@@ -158,7 +161,6 @@ class MATE:
         # NEW for join map:
         row_id_index = list(input_data.columns.values).index('MateRowID')
         index_to_mate_row_id = input_data['MateRowID'].to_dict()
-
 
         # -----------------------------------------------------------------------------------------------------------
         # FETCHING JOINABLE TABLES
@@ -210,6 +212,9 @@ class MATE:
                         len(hitting_posting_list_concatinated) < round(self.min_join_ratio * input_size)):
                 pruned = True
 
+            if pruned:
+                total_pruned += 1
+
             already_checked_hits = 0
             for hit in sorted(hitting_posting_list_concatinated):
                 if len(top_joinable_tables) >= k and (
@@ -242,6 +247,8 @@ class MATE:
                         candidate_input_rows += [input_row[:row_id_index]]      # NEW for join map
                         candidate_table_ids += [tableid]
                         candidate_table_rows += ['{}_{}'.format(tableid, rowid)]
+                    else:
+                        total_filtered += 1
 
                 total_runtime += (time.time() - start_time)
                 hash_verification_time += (time.time() - hash_verification_start_time)
@@ -299,6 +306,8 @@ class MATE:
                         # make sure that smallest index of each group is assigned
                         if join_maps[candidate_table_ids[i]][complete_matched_columns][input_row_ids[i]] == -1 or join_maps[candidate_table_ids[i]][complete_matched_columns][input_row_ids[i]] > int(candidate_external_row_ids[i]):
                             join_maps[candidate_table_ids[i]][complete_matched_columns][input_row_ids[i]] = candidate_external_row_ids[i]
+                    else:
+                        total_fp += 1
 
                 for tbl in set(candidate_table_ids):
                     if tbl in overlaps_dict and len(overlaps_dict[tbl]) > 0:
@@ -339,6 +348,20 @@ class MATE:
 
                 join_maps[table_id][complete_matched_columns] = final_join_map
 
-        top_joinable_tables_with_join_maps = [[score, table_id, columns, join_maps[table_id][columns]] for score, table_id, columns in top_joinable_tables]
+        top_joinable_tables_with_join_maps = [[score - 1, table_id, columns, join_maps[table_id][columns]] for score, table_id, columns in top_joinable_tables]
+
+        # -----------------------------------------------------------------------------------------------------------
+        # STATISTICS
+        # -----------------------------------------------------------------------------------------------------------
+        print(f"MATE runtime:     {total_runtime:.2f}s")
+        #print(f"Database runtime: {db_runtime:.2f}s")
+        print()
+        #print(f"Total tables:  {len(table_dictionary)}")
+        #print(f"Pruned tables: {total_pruned}")
+
+        print(f"Hash-based filtered rows: {total_filtered}")
+        print(f"Hash-based approved rows: {total_approved}")
+        print(f"Matching rows:            {total_match}")
+        print(f"FP rows:                  {total_fp}")
 
         return sorted(top_joinable_tables_with_join_maps, key=lambda x: x[0], reverse=True)

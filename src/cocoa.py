@@ -3,7 +3,7 @@ import time
 from operator import itemgetter
 import pandas as pd
 import numpy as np
-from util import get_cleaned_text
+from util import get_cleaned_text, create_cocoa_index
 from typing import Dict, List
 from data_handler import DataHandler
 from tqdm import tqdm
@@ -308,11 +308,28 @@ class COCOA:
             input_dataset: pd.DataFrame,
             top_joinable_tables: List,
             k_c: int,
-            target_column: str = 'target') -> List:
+            target_column: str = 'target',
+            online_index_generation: bool = False
+    ) -> List:
         """
 
         Parameters
         ----------
+        input_dataset : pd.DataFrame
+            Dataset to add features to.
+
+        top_joinable_tables : List
+            Joinable tables containing Join Maps, returned by MATE.
+
+        k_c : int
+            Number of features that will be returned.
+
+        target_column : str
+            Name of the target column which is used for correlation calculation with each
+            external feature.
+
+        online_index_generation : bool
+            If true, the COCOA order index is generated online.
 
         Returns
         -------
@@ -380,15 +397,29 @@ class COCOA:
         min_dict = {}
         numerics_dict = {}
 
-        self.__logger.info('Fetching cocoa index...')
-        cocoa_index = self.__data_handler.get_cocoa_index(table_col_ids)
+        if not online_index_generation:
+            self.__logger.info('Generating cocoa index online...')
+            external_columns = self.__data_handler.get_columns(table_col_ids)
+            for _, column in external_columns.iterrows():
+                table_col_id = column['table_col_id']
+                order_list, binary_list, min_index, is_numeric = create_cocoa_index(
+                    list(column['tokenized'])
+                )
 
-        for _, index in cocoa_index.iterrows():
-            table_col_id = index['table_col_id']
-            order_dict[table_col_id] = index['order_list']
-            binary_dict[table_col_id] = index['binary_list']
-            min_dict[table_col_id] = int(index['min_index'])
-            numerics_dict[table_col_id] = bool(index['is_numeric'])
+                order_dict[table_col_id] = order_list
+                binary_dict[table_col_id] = binary_list
+                min_dict[table_col_id] = int(min_index)
+                numerics_dict[table_col_id] = bool(is_numeric)
+        else:
+            self.__logger.info('Fetching cocoa index...')
+            cocoa_index = self.__data_handler.get_cocoa_index(table_col_ids)
+
+            for _, index in cocoa_index.iterrows():
+                table_col_id = index['table_col_id']
+                order_dict[table_col_id] = index['order_list']
+                binary_dict[table_col_id] = index['binary_list']
+                min_dict[table_col_id] = int(index['min_index'])
+                numerics_dict[table_col_id] = bool(index['is_numeric'])
         self.__logger.info('Finished.')
 
         # -----------------------------------------------------------------------------------------------------------

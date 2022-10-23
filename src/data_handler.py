@@ -1,5 +1,5 @@
 import time
-from typing import Any, List, Tuple
+from typing import Any, List, Tuple, Callable
 from util import get_cleaned_text, create_cocoa_index, XASH
 import pandas as pd
 import numpy as np
@@ -81,7 +81,7 @@ class DataHandler:
                  cocoa_index_table: str = 'cafe_cocoa_index',
                  cocoa: bool = True,
                  mate: bool = True,
-                 mate_hash_size: int = 128,
+                 hash_function: Callable = XASH,
                  logger: Any = logging
                  ):
 

@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 from collections import Counter
 import math
+from typing import Dict
+import hashlib
 
 
 def get_cleaned_text(text):
@@ -108,7 +110,12 @@ def create_cocoa_index(values):
     return min_index, final_order_list, final_binary_list, is_num
 
 
-def XASH(token: str, hash_dict=None, hash_size=128) -> int:
+def XASH(
+        token: str,
+        hash_dict: Dict = None,
+        hash_size: int = 128,
+        rotation: bool = True
+) -> int:
     """
     Computes XASH value of given token.
 
@@ -145,17 +152,18 @@ def XASH(token: str, hash_dict=None, hash_size=128) -> int:
 
     n = int(result)
 
-    # Normalize the rotation based on the location of length bit.
-    # For instance in 128 bits that length segment has 17 bits and hash segment has 111 bits,
-    # if the token has length of 10, the normalized number of rotation bits is 111 * 10 / 17
-    d = int((length_bit_start * (len(token) % (hash_size - length_bit_start))) / (
-            hash_size - length_bit_start))
+    if rotation:
+        # Normalize the rotation based on the location of length bit.
+        # For instance in 128 bits that length segment has 17 bits and hash segment has 111 bits,
+        # if the token has length of 10, the normalized number of rotation bits is 111 * 10 / 17
+        d = int((length_bit_start * (len(token) % (hash_size - length_bit_start))) / (
+                hash_size - length_bit_start))
 
-    int_bits = int(length_bit_start)
-    x = n << d
-    y = n >> (int_bits - d)
-    r = int(math.pow(2, int_bits))
-    result = int((x | y) % r)
+        int_bits = int(length_bit_start)
+        x = n << d
+        y = n >> (int_bits - d)
+        r = int(math.pow(2, int_bits))
+        result = int((x | y) % r)
 
     result = int(result) | int(
         math.pow(2, len(token) % (hash_size - length_bit_start)) * math.pow(2, length_bit_start))
@@ -163,3 +171,26 @@ def XASH(token: str, hash_dict=None, hash_size=128) -> int:
     if hash_dict:
         hash_dict[token] = result
     return result
+
+def BF(token: str, hash_dict: Dict = None, hash_size: int = 128) -> int:
+    """
+    Computes value of given token.
+
+    :param token: Token
+    :return: XASH of token
+    """
+
+    # TODO: implement bloom filter
+
+    return int(hashlib.md5(token).hexdigest(), 16)
+
+
+def MD5(token: str, hash_dict: Dict = None, hash_size: int = 128) -> int:
+    """
+    Computes MD5 value of given token.
+
+    :param token: Token
+    :return: XASH of token
+    """
+
+    return int(hashlib.md5(token).hexdigest(), 16)

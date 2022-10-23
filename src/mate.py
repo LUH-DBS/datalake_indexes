@@ -4,7 +4,7 @@ import time
 from tqdm import tqdm
 from heapq import heapify, heappush, heappop
 from util import get_cleaned_text, XASH
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Callable
 from data_handler import DataHandler
 
 
@@ -12,27 +12,23 @@ class MATE:
     def __init__(
             self,
             data_handler: DataHandler,
-            hash_size=128,
-            number_of_ones=5,
-            min_join_ratio=0,
-            is_min_join_ratio_absolute=True,
-            hash_function=XASH
+            hash_size: int = 128,
+            number_of_ones: int = 5,
+            min_join_ratio: int = 0,
+            is_min_join_ratio_absolute: bool = True,
+            hash_function: Callable = XASH
     ):
         """
         Creates a new MATE instance with given specification. This instance be used to enrich datasets.
 
         :param hash_size: Number of bits of hash.
-        :param number_of_ones:
-        :param min_join_ratio:
-        :param is_min_join_ratio_absolute:
+        :param number_of_ones: Number of bits in XASH with value 1.
         """
         self.__data_handler = data_handler
         self.logging = data_handler.get_logger()
 
         self.hash_size = hash_size
         self.number_of_ones = number_of_ones
-        self.min_join_ratio = min_join_ratio
-        self.is_min_join_ratio_absolute = is_min_join_ratio_absolute
 
         self.__hash_dict = {}
         self.hash_function = hash_function
@@ -82,22 +78,38 @@ class MATE:
                         matching_column_order += '_{}'.format(str(colid))
         return True, matching_column_order
 
-    # TODO: add join
     def enrich(
             self,
             input_data: pd.DataFrame,   # -> query_dataset_path
             query_columns: List[str],
             k: int,
-            dataset_name=''
+            min_join_ratio: int = 0,
+            dataset_name: str = ''
     ) -> List:
         """
         Enriches the input dataset with top-k tables joinable on given columns.
 
-        :param input_data: Input dataset.
-        :param query_columns: Query columns to join on.
-        :param k: Number of tables to join.
-        :param dataset_name: Name of the input dataset. Is set to filename by default.
-        :return: Top joinable tables.
+        Parameters
+        ----------
+        input_data : pd.DataFrame
+            Input dataset containing query columns.
+
+        query_columns : List[str]
+            List of query columns based on which MATE discovers joinable tables.
+
+        k : int
+            Top-k joinable tables are returned.
+
+        min_join_ratio : int
+            Minimum number of joinable rows a table must contain.
+
+        dataset_name : str
+            Name of the input dataset. If not provided, filename without type ending is used.
+
+        Returns
+        -------
+        List
+            Top joinable tables.
         """
 
         # -----------------------------------------------------------------------------------------------------------
@@ -144,7 +156,8 @@ class MATE:
         table_dictionary_generation_runtime = 0
 
         if not is_linear:
-            input_data.loc[:, 'SuperKey'] = input_data.apply(lambda row: self.hash_row_values(row, query_columns), axis=1)
+            input_data.loc[:, 'SuperKey'] = input_data.apply(
+                lambda row: self.hash_row_values(row,query_columns), axis=1)
 
         # NEW for join map: index has to be a separate row
         input_data.loc[:, 'MateRowID'] = np.arange(input_size)
@@ -162,16 +175,18 @@ class MATE:
         row_id_index = list(input_data.columns.values).index('MateRowID')
         index_to_mate_row_id = input_data['MateRowID'].to_dict()
 
-        # -----------------------------------------------------------------------------------------------------------
+        # -----------------------------------------------------------------------------------------
         # FETCHING JOINABLE TABLES
-        # -----------------------------------------------------------------------------------------------------------
+        # -----------------------------------------------------------------------------------------
         top_joinable_tables = []  # each item includes: Tableid, joinable_rows
         heapify(top_joinable_tables)
 
         if not is_linear:
-            table_row = self.__data_handler.get_concatinated_posting_list_with_hash(input_data[query_columns[0]])
+            table_row = self.__data_handler.get_concatinated_posting_list_with_hash(
+                input_data[query_columns[0]])
         else:
-            table_row = self.__data_handler.get_concatinated_posting_list(input_data[query_columns[0]])
+            table_row = self.__data_handler.get_concatinated_posting_list(
+                input_data[query_columns[0]])
 
         table_dictionary_generation_start_runtime = time.time()
         table_dictionary = {}
@@ -183,7 +198,8 @@ class MATE:
                 table_dictionary[tableid] += [i]
             else:
                 table_dictionary[tableid] = [i]
-        table_dictionary_generation_runtime += time.time() - table_dictionary_generation_start_runtime
+        table_dictionary_generation_runtime += time.time() -\
+                                               table_dictionary_generation_start_runtime
         input_row_ids = []
         candidate_external_row_ids = []
         candidate_external_col_ids = []
@@ -196,20 +212,19 @@ class MATE:
 
         join_maps = {}
 
-        # -----------------------------------------------------------------------------------------------------------
+        # -----------------------------------------------------------------------------------------
         # PRUNING
-        # -----------------------------------------------------------------------------------------------------------
+        # -----------------------------------------------------------------------------------------
         for tableid in tqdm(
-                sorted(table_dictionary, key=lambda k: len(table_dictionary[k]), reverse=True)[:max_table_check]):
+                sorted(table_dictionary,
+                       key=lambda k: len(table_dictionary[k]), reverse=True)[:max_table_check]):
 
             set_of_rowids = set()
             hitting_posting_list_concatinated = table_dictionary[tableid]
             if len(top_joinable_tables) >= k and top_joinable_tables[0][0] >= len(
                     hitting_posting_list_concatinated):
                 pruned = True
-            if self.is_min_join_ratio_absolute and len(hitting_posting_list_concatinated) < self.min_join_ratio \
-                    or (not self.is_min_join_ratio_absolute and
-                        len(hitting_posting_list_concatinated) < round(self.min_join_ratio * input_size)):
+            if len(hitting_posting_list_concatinated) < min_join_ratio:
                 pruned = True
 
             if pruned:
@@ -218,8 +233,8 @@ class MATE:
             already_checked_hits = 0
             for hit in sorted(hitting_posting_list_concatinated):
                 if len(top_joinable_tables) >= k and (
-                        (len(hitting_posting_list_concatinated) - already_checked_hits + len(set_of_rowids)) <
-                        top_joinable_tables[0][0]):
+                        (len(hitting_posting_list_concatinated) - already_checked_hits +
+                         len(set_of_rowids)) < top_joinable_tables[0][0]):
                     break
                 tablerowid = hit.split(';')[0]
                 rowid = tablerowid.split('_')[1]
@@ -239,12 +254,17 @@ class MATE:
                 relevant_rows_time += (time.time() - relevant_rows_start_time)
                 for input_row in relevant_input_rows:
                     if is_linear or ((input_row[super_key_index] | superkey) == superkey):
-                        input_row_ids += [int(input_row[row_id_index])]    # NEW for join map, store input rowid separately
+                        # NEW for join map, store input rowid separately
+                        input_row_ids += [int(input_row[row_id_index])]
+
                         candidate_external_row_ids += [rowid]
                         set_of_rowids.add(rowid)
                         candidate_external_col_ids += [colid]
                         # candidate_input_rows += [input_row]
-                        candidate_input_rows += [input_row[:row_id_index]]      # NEW for join map
+
+                        # NEW for join map
+                        candidate_input_rows += [input_row[:row_id_index]]
+
                         candidate_table_ids += [tableid]
                         candidate_table_rows += ['{}_{}'.format(tableid, rowid)]
                     else:
@@ -263,12 +283,16 @@ class MATE:
                 candidate_table_ids = np.array(candidate_table_ids)
                 temp_start_db_time = time.time()
                 if len(candidate_table_rows) > max_SQL_parameter_size:
-                    pls = self.__data_handler.get_pl_by_table_and_rows_incremental(candidate_table_rows, max_SQL_parameter_size)
+                    pls = self.__data_handler.get_pl_by_table_and_rows_incremental(
+                        candidate_table_rows, max_SQL_parameter_size)
                 else:
                     pls = self.__data_handler.get_pl_by_table_and_rows(candidate_table_rows)
 
                 db_runtime += (time.time() - temp_start_db_time)
-                table_row_dict = {}  # contains rowid that each rowid has dict that maps colids to tokenized
+
+                # contains rowid that each rowid has dict that maps colids to tokenized
+                table_row_dict = {}
+
                 for i in pls:
                     if i[0] not in table_row_dict:
                         table_row_dict[str(i[0])] = {}
@@ -287,7 +311,8 @@ class MATE:
                     total_approved += 1
                     if match:
                         total_match += 1
-                        complete_matched_columns = f'{str(candidate_external_col_ids[i])}{matched_columns}'
+                        complete_matched_columns = f'{str(candidate_external_col_ids[i])}' \
+                                                   f'{matched_columns}'
                         if candidate_table_ids[i] not in overlaps_dict:
                             overlaps_dict[candidate_table_ids[i]] = {}
 
@@ -301,11 +326,16 @@ class MATE:
                             join_maps[candidate_table_ids[i]] = {}
 
                         if complete_matched_columns not in join_maps[candidate_table_ids[i]]:
-                            join_maps[candidate_table_ids[i]][complete_matched_columns] = np.full([input_size], -1)
+                            join_maps[candidate_table_ids[i]][complete_matched_columns] = np.full(
+                                [input_size], -1)
 
                         # make sure that smallest index of each group is assigned
-                        if join_maps[candidate_table_ids[i]][complete_matched_columns][input_row_ids[i]] == -1 or join_maps[candidate_table_ids[i]][complete_matched_columns][input_row_ids[i]] > int(candidate_external_row_ids[i]):
-                            join_maps[candidate_table_ids[i]][complete_matched_columns][input_row_ids[i]] = candidate_external_row_ids[i]
+                        if join_maps[candidate_table_ids[i]][complete_matched_columns][
+                            input_row_ids[i]] == -1 \
+                                or join_maps[candidate_table_ids[i]][complete_matched_columns][
+                            input_row_ids[i]] > int(candidate_external_row_ids[i]):
+                            join_maps[candidate_table_ids[i]][complete_matched_columns][
+                                input_row_ids[i]] = candidate_external_row_ids[i]
                     else:
                         total_fp += 1
 

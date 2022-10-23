@@ -3,8 +3,8 @@ import pandas as pd
 import time
 from tqdm import tqdm
 from heapq import heapify, heappush, heappop
-from util import get_cleaned_text, XASH
-from typing import List, Dict, Tuple, Callable
+from util import get_cleaned_text
+from typing import List, Dict, Tuple
 from data_handler import DataHandler
 
 
@@ -12,41 +12,37 @@ class MATE:
     def __init__(
             self,
             data_handler: DataHandler,
-            hash_size: int = 128,
-            number_of_ones: int = 5,
-            min_join_ratio: int = 0,
-            is_min_join_ratio_absolute: bool = True,
-            hash_function: Callable = XASH
     ):
         """
-        Creates a new MATE instance with given specification. This instance be used to enrich datasets.
+        Provides MATE algorithm and related functions.
 
-        :param hash_size: Number of bits of hash.
-        :param number_of_ones: Number of bits in XASH with value 1.
+        Parameters
+        ----------
+        data_handler : DataHandler
+            Allows database communication.
         """
         self.__data_handler = data_handler
         self.logging = data_handler.get_logger()
 
-        self.hash_size = hash_size
-        self.number_of_ones = number_of_ones
-
-        self.__hash_dict = {}
-        self.hash_function = hash_function
-
-    def hash_row_values(self, row, query_columns) -> int:
+    def hash_row_values(self, row: pd.DataFrame, query_columns: List[str]) -> int:
         """
         Calculates hash for a row in a dataset.
 
-        :param row: Row data
-        :param query_columns: List of columns to compute hash for.
-        :return: Hash value for complete row.
+        Parameters
+        ----------
+        row : pd.DataFrame
+            Table row to compute hash value for.
+
+        query_columns : List[str]
+            Columns to compute hash value for.
+
+        Returns
+        -------
+            Hash value.
         """
         hash_value = 0
         for q in query_columns:
-            hash_value = self.hash_function(row[q],
-                                            hash_dict=self.__hash_dict,
-                                            hash_size=self.hash_size)
-            hash_value = hash_value | hash_value
+            hash_value |= self.__data_handler.hash_function(row[q])
         return hash_value
 
     def evaluate_rows(self,
@@ -55,12 +51,14 @@ class MATE:
                       input_data: pd.DataFrame,
                       query_columns: List[str]) -> Tuple:
         """
+        Evaluate a single row.
 
-        :param input_row:
-        :param col_dict:
-        :param input_data:
-        :param query_columns:
-        :return:
+        Parameters
+        ----------
+
+
+        Returns
+        -------
         """
         vals = list(col_dict.values())
         query_cols_arr = np.array(query_columns)
@@ -78,16 +76,17 @@ class MATE:
                         matching_column_order += '_{}'.format(str(colid))
         return True, matching_column_order
 
-    def enrich(
+    def join_search(
             self,
             input_data: pd.DataFrame,   # -> query_dataset_path
             query_columns: List[str],
             k: int,
+            k_c: int = 500,
             min_join_ratio: int = 0,
             dataset_name: str = ''
     ) -> List:
         """
-        Enriches the input dataset with top-k tables joinable on given columns.
+        Finds top-k joinable tables based on selected query columns.
 
         Parameters
         ----------
@@ -99,6 +98,9 @@ class MATE:
 
         k : int
             Top-k joinable tables are returned.
+
+        k_c : int
+            Number of candidate tables to evaluate based on first query column.
 
         min_join_ratio : int
             Minimum number of joinable rows a table must contain.
@@ -135,12 +137,10 @@ class MATE:
         if len(input_data) == 0:
             return []
 
-        # TODO: Do we need this?
-        is_linear = (self.hash_function == '')
+        is_linear = (self.__data_handler.hash_function is None)
 
         print(f"Running MATE on the {dataset_name} dataset.")
 
-        max_table_check = 500   # TODO: top-500 posting lists are evaluated, like k_t in cocoa -> find a name
         row_block_size = 1
         total_runtime = 0
         db_runtime = 0
@@ -217,7 +217,7 @@ class MATE:
         # -----------------------------------------------------------------------------------------
         for tableid in tqdm(
                 sorted(table_dictionary,
-                       key=lambda k: len(table_dictionary[k]), reverse=True)[:max_table_check]):
+                       key=lambda k: len(table_dictionary[k]), reverse=True)[:k_c]):
 
             set_of_rowids = set()
             hitting_posting_list_concatinated = table_dictionary[tableid]

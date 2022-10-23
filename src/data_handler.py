@@ -70,20 +70,21 @@ class DataHandler:
 
     mate : bool
 
-    mate_hash_size : int
+    hash_function : str
 
     """
-    def __init__(self,
-                 conn: Any,
-                 main_table: str = 'cafe_main_tokenized',
-                 column_headers_table: str = 'cafe_columns_tokenized',
-                 table_info_table: str = 'cafe_table_info',
-                 cocoa_index_table: str = 'cafe_cocoa_index',
-                 cocoa: bool = True,
-                 mate: bool = True,
-                 hash_function: Callable = XASH,
-                 logger: Any = logging
-                 ):
+    def __init__(
+            self,
+            conn: Any,
+            main_table: str = 'cafe_main_tokenized',
+            column_headers_table: str = 'cafe_columns_tokenized',
+            table_info_table: str = 'cafe_table_info',
+            cocoa_index_table: str = 'cafe_cocoa_index',
+            cocoa: bool = True,
+            mate: bool = True,
+            hash_function: Callable[[str], int] = XASH,
+            logger: Any = logging
+    ):
 
         if not cocoa and not mate:
             raise Exception('Please choose at least one tool: [COCOA, MATE].')
@@ -102,7 +103,7 @@ class DataHandler:
         self.__cocoa = cocoa
         self.__mate = mate
 
-        self.mate_hash_size = mate_hash_size
+        self.hash_function: Callable[[str], int] = hash_function
 
         self.__logger = logger
 

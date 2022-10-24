@@ -5,6 +5,7 @@ from collections import Counter
 import math
 from typing import Dict, List, Tuple
 import hashlib
+from simhash import Simhash
 
 
 def get_cleaned_text(text):
@@ -137,10 +138,11 @@ def create_cocoa_index(values: List[str]) -> Tuple[int, List[int], List[str], bo
     return min_index, final_order_list, final_binary_list, is_num
 
 
-def XASH(
+def generate_XASH(
         token: str,
         hash_size: int = 128,
-        rotation: bool = True
+        rotation: bool = True,
+        number_of_ones: int = 5
 ) -> int:
     """
     Computes XASH value of given token.
@@ -156,12 +158,13 @@ def XASH(
     rotation : bool
         If true, XASH rotation is used.
 
+    number_of_ones : int
+        Number of bits in the hash with value "1".
+
     Returns
     -------
         XASH value.
     """
-    number_of_ones = 5
-
     if token in ['', 'None', ' ', '\'\'']:
         return 0
 
@@ -221,7 +224,9 @@ def BF(token: str) -> int:
     raise NotImplementedError
 
 
-def MD5(token: str) -> int:
+def generate_MD5(
+        token: str
+) -> int:
     """
     Computes MD5 hash value of given token.
 
@@ -230,10 +235,41 @@ def MD5(token: str) -> int:
     token : str
         Token that is hashed.
 
+    hash_size : int
+        Number of bits.
+
     Returns
     -------
         MD5 hash value.
     """
+    hasher = hashlib.md5()
+    hasher.update(token.encode('UTF-8'))
+    return int(hasher.hexdigest(), 16)
 
-    return int(hashlib.md5(token).hexdigest(), 16)
+
+def generate_Simhash(
+        token: str,
+        hash_size: int = 128,
+) -> Tuple[Dict, int]:
+    """Calculates SIM Hash for token.
+
+    Parameters
+    ----------
+    token : str
+        Input token.
+
+    hash_size : int
+        Number of bits.
+
+    Returns
+    -------
+    Tuple[Dict, int]
+        int: Hash for given token.
+    """
+
+    width = 3
+    token = token.lower()
+    token = re.sub(r'[^\w]+', '', token)
+    features = [token[i:i + width] for i in range(max(len(token) - width + 1, 1))]
+    return Simhash(features, f=hash_size).value
 

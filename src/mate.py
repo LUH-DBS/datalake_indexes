@@ -83,7 +83,8 @@ class MATE:
             k: int,
             k_c: int = 500,
             min_join_ratio: int = 0,
-            dataset_name: str = ''
+            dataset_name: str = '',
+            use_hash_optimization: bool = True
     ) -> List:
         """
         Finds top-k joinable tables based on selected query columns.
@@ -107,6 +108,9 @@ class MATE:
 
         dataset_name : str
             Name of the input dataset. If not provided, filename without type ending is used.
+
+        use_hash_optimization : bool
+            If false, it runs join search without hash-based filtering.
 
         Returns
         -------
@@ -253,7 +257,7 @@ class MATE:
 
                 relevant_rows_time += (time.time() - relevant_rows_start_time)
                 for input_row in relevant_input_rows:
-                    if is_linear or ((input_row[super_key_index] | superkey) == superkey):
+                    if not use_hash_optimization or is_linear or ((input_row[super_key_index] | superkey) == superkey):
                         # NEW for join map, store input rowid separately
                         input_row_ids += [int(input_row[row_id_index])]
 

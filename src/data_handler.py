@@ -1,6 +1,6 @@
 import time
-from typing import Any, List, Tuple, Callable
-from util import get_cleaned_text, create_cocoa_index, XASH
+from typing import Any, List, Tuple, Callable, Dict
+from util import get_cleaned_text, create_cocoa_index, generate_XASH
 import pandas as pd
 import numpy as np
 from io import StringIO
@@ -110,7 +110,7 @@ class DataHandler:
         self.__cur_id = 1         # next table id that will be assigned
         self.__tables = []        # stores all tables and their ids
 
-        self.__index_updated = False   # handler can only be used if index is up to date
+        self.__index_updated = False   # handler can only be used if index is up-to-date
         self.__db_ready = False        # data can only be inserted after the db preparation is done
 
         self.__inserted_tables = 0
@@ -133,7 +133,6 @@ class DataHandler:
         result += '----------------------------------------------------\n'
         result += f'COCOA enabled: {self.__cocoa}\n'
         result += f'MATE enabled: {self.__mate}\n'
-        result += f'MATE hash size: {self.mate_hash_size}\n'
 
         result += '\nCurrent State\n'
         result += '----------------------------------------------------\n'

@@ -6,6 +6,7 @@ from heapq import heapify, heappush, heappop
 from util import get_cleaned_text
 from typing import List, Dict, Tuple
 from data_handler import DataHandler
+from bloom_filter import BloomFilter
 
 
 class MATE:
@@ -44,6 +45,32 @@ class MATE:
         for q in query_columns:
             hash_value |= self.__data_handler.hash_function(row[q])
         return hash_value
+
+    def hash_row_vals_bf(self, row: pd.DataFrame, hash_size: int) -> str:
+        """Calculates Hash value for row using Bloom Filter.
+
+        Parameters
+        ----------
+        row : Any
+            Input row.
+        hash_size : int
+            Number of bits.
+        Returns
+        -------
+        int
+            Hash value for row.
+        """
+        bf = BloomFilter(6, hash_size, self.__data_handler.number_of_ones)
+        for q in self.query_columns:
+            bf.add(row[q])
+
+        string_output = ''
+        for i in bf.bit_array:
+            if i:
+                string_output += '1'
+            else:
+                string_output += '0'
+        return string_output
 
     def evaluate_rows(self,
                       input_row: pd.Series,
@@ -84,7 +111,8 @@ class MATE:
             k_c: int = 500,
             min_join_ratio: int = 0,
             dataset_name: str = '',
-            use_hash_optimization: bool = True
+            use_hash_optimization: bool = True,
+            use_bloom_filter: bool = False
     ) -> List:
         """
         Finds top-k joinable tables based on selected query columns.
@@ -111,6 +139,9 @@ class MATE:
 
         use_hash_optimization : bool
             If false, it runs join search without hash-based filtering.
+
+        use_bloom_filter : bool
+            If true, bloom filter is used for hashing the input cells.
 
         Returns
         -------
@@ -159,9 +190,12 @@ class MATE:
         relevant_rows_time = 0
         table_dictionary_generation_runtime = 0
 
-        if not is_linear:
+        if use_bloom_filter:
+            input_data['SuperKey'] = input_data.apply(
+                lambda row: self.hash_row_vals_bf(row, self.__data_handler), axis=1)
+        elif not is_linear:
             input_data.loc[:, 'SuperKey'] = input_data.apply(
-                lambda row: self.hash_row_values(row,query_columns), axis=1)
+                lambda row: self.hash_row_values(row, query_columns), axis=1)
 
         # NEW for join map: index has to be a separate row
         input_data.loc[:, 'MateRowID'] = np.arange(input_size)

@@ -82,7 +82,7 @@ class DataHandler:
             cocoa_index_table: str = 'cafe_cocoa_index',
             cocoa: bool = True,
             mate: bool = True,
-            hash_function: Callable[[str], int] = XASH,
+            hash_function: Callable[[str], int] = generate_XASH,
             logger: Any = logging
     ):
 

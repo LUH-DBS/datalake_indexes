@@ -110,7 +110,6 @@ class MATE:
             k: int,
             k_c: int = 500,
             min_join_ratio: int = 0,
-            dataset_name: str = '',
             use_hash_optimization: bool = True,
             use_bloom_filter: bool = False
     ) -> List:
@@ -133,9 +132,6 @@ class MATE:
 
         min_join_ratio : int
             Minimum number of joinable rows a table must contain.
-
-        dataset_name : str
-            Name of the input dataset. If not provided, filename without type ending is used.
 
         use_hash_optimization : bool
             If false, it runs join search without hash-based filtering.
@@ -173,8 +169,6 @@ class MATE:
             return []
 
         is_linear = (self.__data_handler.hash_function is None)
-
-        print(f"Running MATE on the {dataset_name} dataset.")
 
         row_block_size = 1
         total_runtime = 0

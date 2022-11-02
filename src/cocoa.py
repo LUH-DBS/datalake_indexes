@@ -397,12 +397,12 @@ class COCOA:
         min_dict = {}
         numerics_dict = {}
 
-        if not online_index_generation:
+        if online_index_generation:
             self.__logger.info('Generating cocoa index online...')
             external_columns = self.__data_handler.get_columns(table_col_ids)
             for _, column in external_columns.iterrows():
                 table_col_id = column['table_col_id']
-                order_list, binary_list, min_index, is_numeric = create_cocoa_index(
+                min_index, order_list, binary_list, is_numeric = create_cocoa_index(
                     list(column['tokenized'])
                 )
 
@@ -494,7 +494,7 @@ class COCOA:
                             external_rank[input_index] = counter
                             current_counter_assigned = True
 
-                        # T = value[i] = value[i + 1] in column
+                        # '1' = value[i] = value[i + 1] in column
                         if binary_index[pointer] == '1':
                             if equal_values_count:
                                 equal_values[equal_values_count] = pointer
@@ -528,7 +528,6 @@ class COCOA:
 
                         pointer = order_index[pointer]
                     cor = np.corrcoef(dataset['rank_target'], external_rank)[0, 1]
-
                 else:
                     # Pearson correlation coefficient
                     max_correlation = 0

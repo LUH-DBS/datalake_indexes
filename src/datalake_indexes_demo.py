@@ -9,7 +9,7 @@ import logging
 import json
 from typing import List, Tuple
 from pyvis.network import Network
-from util import get_cleaned_text
+from util import get_cleaned_text, generate_XASH
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -232,13 +232,21 @@ class DatalakeIndexesDemo:
 
         # TODO remove duplicates from top joinable tables
 
-    def analyze_XASH_alternations(self):
-        # TODO: which of the following appraoches do we want to use?
-        # 1) precompute index for each alternation
-        # 2) generate index online and compare alternations w.r.t to FPs <- might be the best option
-        #    -> ignore runtime in this case
-        # 3) index a small corpus for each alternation during demo
-        pass
+    def analyze_XASH_alternations(self, hash_size: int, rotation: bool, number_of_ones: int):
+        def custom_xash(s: str) -> int:
+            return generate_XASH(s,
+                                 hash_size=hash_size,
+                                 rotation=rotation,
+                                 number_of_ones=number_of_ones)
+
+        self.__data_handler.hash_function = custom_xash
+        mate = MATE(self.__data_handler)
+
+        mate.join_search(self.__input_dataset,
+                         self.__query_columns,
+                         10,
+                         online_hash_calculation=True)
+        self.__data_handler.hash_function = generate_XASH
 
     def correlation_calculation(self):
         cocoa = COCOA(self.__data_handler)

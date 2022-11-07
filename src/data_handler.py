@@ -1,5 +1,5 @@
 import time
-from typing import Any, List, Tuple, Callable, Dict
+from typing import Any, List, Tuple, Callable, Union
 from util import get_cleaned_text, create_cocoa_index, generate_XASH
 import pandas as pd
 import numpy as np
@@ -82,8 +82,8 @@ class DataHandler:
             cocoa_index_table: str = 'cafe_cocoa_index',
             cocoa: bool = True,
             mate: bool = True,
-            hash_function: Callable[[str], int] = generate_XASH,
-            logger: Any = logging
+            logger: Any = logging,
+            hash_function: Callable[[str], int] = generate_XASH
     ):
 
         if not cocoa and not mate:
@@ -765,13 +765,13 @@ class DataHandler:
 
         return [item for sublist in self.__cur.fetchall() for item in sublist]
 
-    def get_pl_by_table_and_rows_incremental(self, token_list: List[str], max_parameter_length: int) -> List[str]:
+    def get_pl_by_table_and_rows_incremental(self, token_list: Union[List[str], pd.Series], max_parameter_length: int) -> List[str]:
         """
 
 
         Parameters
         ----------
-        token_list : pd.Series
+        token_list : Union[List[str], pd.Series]
 
         max_parameter_length : int
 
@@ -807,7 +807,7 @@ class DataHandler:
 
         return pl
 
-    def get_pl_by_table_and_rows(self, joint_list: List[str]) -> List[str]:
+    def get_pl_by_table_and_rows(self, joint_list: Union[List[str], pd.Series]) -> List[str]:
         """
 
 

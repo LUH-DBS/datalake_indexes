@@ -13,6 +13,8 @@ class MATE:
     def __init__(
             self,
             data_handler: DataHandler,
+            bf_hash_size: int = 128,
+            bf_number_of_ones: int = 5
     ):
         """
         Provides MATE algorithm and related functions.
@@ -21,9 +23,18 @@ class MATE:
         ----------
         data_handler : DataHandler
             Allows database communication.
+
+        bf_hash_size : int
+            Hash size for bloom filter that can be used in join_search().
+
+        bf_number_of_ones : int
+            Number of one bits for bloom filter that can be used in join_search().
         """
         self.__data_handler = data_handler
         self.logging = data_handler.get_logger()
+
+        self.__bf_hash_size = bf_hash_size
+        self.__bf_number_of_ones = bf_number_of_ones
 
     def hash_row_values(self, row: pd.DataFrame, query_columns: List[str]) -> int:
         """
@@ -39,29 +50,31 @@ class MATE:
 
         Returns
         -------
-            Hash value.
+            Hash value for row.
         """
         hash_value = 0
         for q in query_columns:
             hash_value |= self.__data_handler.hash_function(row[q])
         return hash_value
 
-    def hash_row_vals_bf(self, row: pd.DataFrame, hash_size: int) -> str:
+    def hash_row_vals_bf(self, row: pd.DataFrame, query_columns: List[str]) -> str:
         """Calculates Hash value for row using Bloom Filter.
 
         Parameters
         ----------
-        row : Any
-            Input row.
-        hash_size : int
-            Number of bits.
+        row : pd.DataFrame
+            Table row to compute hash value for.
+
+        query_columns : List[str]
+            Columns to compute hash value for.
+
         Returns
         -------
         int
             Hash value for row.
         """
-        bf = BloomFilter(6, hash_size, self.__data_handler.number_of_ones)
-        for q in self.query_columns:
+        bf = BloomFilter(6, self.__bf_hash_size, self.__bf_number_of_ones)
+        for q in query_columns:
             bf.add(row[q])
 
         string_output = ''
@@ -111,7 +124,8 @@ class MATE:
             k_c: int = 500,
             min_join_ratio: int = 0,
             use_hash_optimization: bool = True,
-            use_bloom_filter: bool = False
+            use_bloom_filter: bool = False,
+            online_hash_calculation: bool = False
     ) -> List:
         """
         Finds top-k joinable tables based on selected query columns.
@@ -139,6 +153,9 @@ class MATE:
         use_bloom_filter : bool
             If true, bloom filter is used for hashing the input cells.
 
+        online_hash_calculation : bool
+            If true, row hashes are calculated during filtering and not fetched from the database.
+
         Returns
         -------
         List
@@ -159,11 +176,6 @@ class MATE:
         for q in query_columns:
             input_data.dropna(subset=[q], inplace=True)
         input_size = len(input_data)
-
-        # TODO decide which approach to use
-        #input_data = pd.read_csv(dataset_path).applymap(str).applymap(get_cleaned_text)
-        #input_size = len(input_data)
-        #print(input_size)
 
         if len(input_data) == 0:
             return []
@@ -207,13 +219,17 @@ class MATE:
         row_id_index = list(input_data.columns.values).index('MateRowID')
         index_to_mate_row_id = input_data['MateRowID'].to_dict()
 
+        if online_hash_calculation:
+            hash_dictionary = {}
+            token_dict_for_hash = {}
+
         # -----------------------------------------------------------------------------------------
         # FETCHING JOINABLE TABLES
         # -----------------------------------------------------------------------------------------
         top_joinable_tables = []  # each item includes: Tableid, joinable_rows
         heapify(top_joinable_tables)
 
-        if not is_linear:
+        if not is_linear and not online_hash_calculation:
             table_row = self.__data_handler.get_concatinated_posting_list_with_hash(
                 input_data[query_columns[0]])
         else:
@@ -262,6 +278,17 @@ class MATE:
             if pruned:
                 total_pruned += 1
 
+            if online_hash_calculation:
+                hit_rows = pd.Series([x.split(';')[0] for x in hitting_posting_list_concatinated])
+                if len(hit_rows) > max_SQL_parameter_size:
+                    hit_row_values = self.__data_handler.get_pl_by_table_and_rows_incremental(hit_rows, max_SQL_parameter_size)  # table_row, col, tokenized
+                else:
+                    hit_row_values = self.__data_handler.get_pl_by_table_and_rows(hit_rows)  # table_row, col, tokenized
+                for i in hit_row_values:
+                    if i[0] not in token_dict_for_hash:
+                        token_dict_for_hash[i[0]] = {}
+                    token_dict_for_hash[i[0]][i[1]] = i[2]
+
             already_checked_hits = 0
             for hit in sorted(hitting_posting_list_concatinated):
                 if len(top_joinable_tables) >= k and (
@@ -272,8 +299,18 @@ class MATE:
                 rowid = tablerowid.split('_')[1]
                 colid = hit.split(';')[1].split('$')[0].split('_')[0]
                 token = hit.split(';')[1].split('$')[0].split('_')[1]
-                if not is_linear:
+                if not is_linear and not online_hash_calculation:
                     superkey = int(hit.split('$')[1], 2)
+
+                # SuperKey Generation for this row
+                if online_hash_calculation:
+                    if tablerowid not in token_dict_for_hash:
+                        continue
+                    col_dictionary = token_dict_for_hash[tablerowid]
+                    superkey = 0
+                    for col_key in sorted(col_dictionary):
+                        h = self.__data_handler.hash_function(str(col_dictionary[col_key]))
+                        superkey = superkey | h
 
                 hash_verification_start_time = time.time()
                 relevant_rows_start_time = time.time()

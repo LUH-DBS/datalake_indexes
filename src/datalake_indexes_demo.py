@@ -12,6 +12,35 @@ from pyvis.network import Network
 from util import get_cleaned_text, generate_XASH
 import matplotlib.pyplot as plt
 import seaborn as sns
+from IPython.display import display, HTML
+
+
+def highlight_cells(
+        table: pd.DataFrame,
+        query_columns: List[str],
+        row_ids: np.ndarray = None,
+        target_column: str = None,
+):
+    def highlight_query(s):
+        color = 'lightgreen'
+        return 'background-color: %s' % color
+
+    def highlight_target(s):
+        color = 'orange'
+        return 'background-color: %s' % color
+
+    if row_ids is None:
+        row_ids = np.arange(len(table))
+
+    # keep only row ids that are actually in table
+    row_ids = row_ids[np.isin(row_ids, table.index)]
+
+    table = table.style.applymap(highlight_query,
+                                 subset=pd.IndexSlice[row_ids, query_columns])
+    if target_column:
+        table = table.applymap(highlight_target, subset=pd.IndexSlice[row_ids, target_column])
+
+    return table
 
 
 class DatalakeIndexesDemo:
@@ -21,7 +50,8 @@ class DatalakeIndexesDemo:
     def __init__(
             self,
             config_path: str,
-            datalake: str
+            datalake: str,
+            display_table_rows: int = 5
     ):
         db_config = json.load(open(config_path))
         conn = psycopg2.connect(**db_config)
@@ -49,7 +79,9 @@ class DatalakeIndexesDemo:
         self.__spearman_dict = {}
         self.__pearson_dict = {}
 
-    def read_input(self, path: str) -> None:
+        self.__display_table_rows = display_table_rows
+
+    def read_input(self, path: str, rows: int = 500) -> None:
         """
         Reads and stores an input dataset from csv.
 
@@ -59,8 +91,8 @@ class DatalakeIndexesDemo:
             Path to csv file.
         """
         _, self.__input_dataset = self.__data_handler.read_csv(path)
-        # TODO display input dataset
-        print(self.__input_dataset.head())
+        print(f"Shape: {self.__input_dataset.shape}")
+        display(HTML(self.__input_dataset.head(self.__display_table_rows).to_html()))
 
     def set_query_columns(self, query_columns: List[str]) -> None:
         """
@@ -82,9 +114,9 @@ class DatalakeIndexesDemo:
 
         self.__query_columns = query_columns
 
-        # TODO display input dataset with highlighted query columns
-        print(self.__query_columns)
-        print(self.__input_dataset.head())
+        html_table = highlight_cells(self.__input_dataset.head(self.__display_table_rows),
+                                     query_columns=self.__query_columns).to_html()
+        display(HTML(html_table))
 
     def set_target_column(self, target_column: str):
         """
@@ -105,9 +137,10 @@ class DatalakeIndexesDemo:
 
         self.__target_column = target_column
 
-        # TODO display input dataset with highlighted query and target columns
-        print(self.__target_column)
-        print(self.__input_dataset.head())
+        html_table = highlight_cells(self.__input_dataset.head(self.__display_table_rows),
+                                     query_columns=self.__query_columns,
+                                     target_column=target_column).to_html()
+        display(HTML(html_table))
 
     def joinability_discovery(
             self,
@@ -125,6 +158,8 @@ class DatalakeIndexesDemo:
         self.__top_joinable_tables = mate.join_search(self.__input_dataset,
                                                       self.__query_columns,
                                                       k)
+
+        print(f"Found {len(self.__top_joinable_tables)} joinable tables.")
 
         for score, table_id, columns, join_map in self.__top_joinable_tables:
             self.__joinable_columns_dict[table_id] = columns
@@ -161,13 +196,13 @@ class DatalakeIndexesDemo:
         Parameters
         ----------
         rank : int
-            Rank of table in [1, k + 1].
+            Rank of table.
         """
         if rank < 1 or rank > len(self.__top_joinable_tables):
-            print(f"Invalid rank: {rank}. Must be in [1, k + 1]")
+            print(f"Invalid rank: {rank}. Must be in [1, {len(self.__top_joinable_tables)}]")
             return
 
-        score, table_id, columns, _ = self.__top_joinable_tables[rank + 1]
+        score, table_id, columns, join_map = self.__top_joinable_tables[rank + 1]
 
         print(f"Score: {score} \n"
               f"Table ID: {table_id} \n"
@@ -175,10 +210,13 @@ class DatalakeIndexesDemo:
               f"#rows: {self.__tables_dict[table_id].shape[0]} \n"
               f"#columns: {self.__tables_dict[table_id].shape[1]} ")
 
-        # TODO display table
-        print(self.__tables_dict[table_id].head())
-        #highlight_sample = highlight_columns(tables_dict[table_id], column_headers_dict[table_id])
-        #display(HTML(highlight_sample.to_html()))
+        # extract matching row ids from join map
+        highlighted_rows = np.where(join_map >= 0)[0]
+
+        html_table = highlight_cells(self.__input_dataset.head(),
+                                     self.__column_headers_dict[table_id],
+                                     row_ids=highlighted_rows).to_html()
+        display(HTML(html_table))
 
     def duplicate_detection(self):
         dup = DuplicateDetection(self.__data_handler)

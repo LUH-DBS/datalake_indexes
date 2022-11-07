@@ -118,7 +118,7 @@ class MATE:
 
     def join_search(
             self,
-            input_data: pd.DataFrame,   # -> query_dataset_path
+            input_data: pd.DataFrame,
             query_columns: List[str],
             k: int,
             k_c: int = 500,
@@ -198,7 +198,7 @@ class MATE:
 
         if use_bloom_filter:
             input_data['SuperKey'] = input_data.apply(
-                lambda row: self.hash_row_vals_bf(row, self.__data_handler), axis=1)
+                lambda row: self.hash_row_vals_bf(row, query_columns), axis=1)
         elif not is_linear:
             input_data.loc[:, 'SuperKey'] = input_data.apply(
                 lambda row: self.hash_row_values(row, query_columns), axis=1)
@@ -220,7 +220,6 @@ class MATE:
         index_to_mate_row_id = input_data['MateRowID'].to_dict()
 
         if online_hash_calculation:
-            hash_dictionary = {}
             token_dict_for_hash = {}
 
         # -----------------------------------------------------------------------------------------
@@ -232,7 +231,7 @@ class MATE:
         if not is_linear and not online_hash_calculation:
             table_row = self.__data_handler.get_concatinated_posting_list_with_hash(
                 input_data[query_columns[0]])
-        else:
+        elif online_hash_calculation:
             table_row = self.__data_handler.get_concatinated_posting_list(
                 input_data[query_columns[0]])
 
@@ -453,11 +452,11 @@ class MATE:
         # STATISTICS
         # -----------------------------------------------------------------------------------------------------------
         print(f"MATE runtime:     {total_runtime:.2f}s")
-        #print(f"Database runtime: {db_runtime:.2f}s")
+        print(f"Database runtime: {db_runtime:.2f}s")
         print()
-        #print(f"Total tables:  {len(table_dictionary)}")
-        #print(f"Pruned tables: {total_pruned}")
-
+        print(f"Total tables:             {len(table_dictionary)}")
+        print(f"Pruned tables:            {total_pruned}")
+        print()
         print(f"Hash-based filtered rows: {total_filtered}")
         print(f"Hash-based approved rows: {total_approved}")
         print(f"Matching rows:            {total_match}")

@@ -13,6 +13,10 @@ from util import get_cleaned_text, generate_XASH
 import matplotlib.pyplot as plt
 import seaborn as sns
 from IPython.display import display, HTML
+from collections import defaultdict
+from sklearn import linear_model, model_selection, preprocessing
+import numpy.ma as ma
+
 
 
 def highlight_cells(
@@ -81,7 +85,7 @@ class DatalakeIndexesDemo:
 
         self.__display_table_rows = display_table_rows
 
-    def read_input(self, path: str, rows: int = 500) -> None:
+    def read_input(self, path: str, rows: int = None) -> None:
         """
         Reads and stores an input dataset from csv.
 
@@ -89,8 +93,18 @@ class DatalakeIndexesDemo:
         ----------
         path : str
             Path to csv file.
+
+        rows: str
+            Maximum number of rows.
         """
-        _, self.__input_dataset = self.__data_handler.read_csv(path)
+        read_func = self.__data_handler.read_csv
+        if path.split(".")[-1] == "arff":
+            read_func = self.__data_handler.read_arff
+        _, self.__input_dataset = read_func(path)
+
+        if rows is not None:
+            self.__input_dataset = self.__input_dataset.iloc[:rows]
+
         print(f"Shape: {self.__input_dataset.shape}")
         display(HTML(self.__input_dataset.head(self.__display_table_rows).to_html()))
 
@@ -159,8 +173,6 @@ class DatalakeIndexesDemo:
                                                       self.__query_columns,
                                                       k)
 
-        print(f"Found {len(self.__top_joinable_tables)} joinable tables.")
-
         for score, table_id, columns, join_map in self.__top_joinable_tables:
             self.__joinable_columns_dict[table_id] = columns
 
@@ -179,8 +191,6 @@ class DatalakeIndexesDemo:
         for score, _, _, _ in self.__top_joinable_tables:
             scores += [score]
 
-        # TODO all of top-k are accepted by default, do we want to fetch more candidates or
-        # or display plot only for top-k?
         plot_data = pd.DataFrame([], columns=["Rank", "Joinability Score"])
         plot_data["Rank"] = np.arange(1, len(self.__top_joinable_tables) + 1)
         plot_data["Joinability Score"] = scores
@@ -213,7 +223,7 @@ class DatalakeIndexesDemo:
         # extract matching row ids from join map
         highlighted_rows = np.where(join_map >= 0)[0]
 
-        html_table = highlight_cells(self.__input_dataset.head(),
+        html_table = highlight_cells(self.__tables_dict[table_id].head(),
                                      self.__column_headers_dict[table_id],
                                      row_ids=highlighted_rows).to_html()
         display(HTML(html_table))
@@ -268,7 +278,28 @@ class DatalakeIndexesDemo:
         net.prep_notebook(custom_template=True, custom_template_path="template_new.html")
         return net
 
-        # TODO remove duplicates from top joinable tables
+    def remove_duplicates(self):
+        # group relations by first table in tuple
+        duplicates_dict = defaultdict(list)
+        for t1, t2 in self.__duplicate_relations:
+            duplicates_dict[t1] += [t2]
+
+        # merge dictionary into groups
+        remove_tables = []  # tables that will be removed
+        for t1 in duplicates_dict:
+            for t2 in duplicates_dict[t1]:
+                if t2 in duplicates_dict:
+                    duplicates_dict[t1] += duplicates_dict[t2]
+                    duplicates_dict[t2] = []
+            duplicates_dict[t1] = list(set(duplicates_dict[t1]))
+            remove_tables += duplicates_dict[t1]
+
+        top_joinable_tables_filtered = []
+        for i in range(len(self.__top_joinable_tables)):
+            if self.__top_joinable_tables[i][1] not in remove_tables:
+                top_joinable_tables_filtered += [self.__top_joinable_tables[i]]
+
+        self.__top_joinable_tables = top_joinable_tables_filtered
 
     def analyze_XASH_alternations(self, hash_size: int, rotation: bool, number_of_ones: int):
         def custom_xash(s: str) -> int:
@@ -292,13 +323,21 @@ class DatalakeIndexesDemo:
                                                                   self.__top_joinable_tables, 10,
                                                                   target_column=self.__target_column)
 
+    def add_external_features(self, features: int):
+        """
+
+        Parameters
+        ----------
+        features : int
+            Rank of last feature that is added.
+        """
         # add tokenized input columns for the join
         output_dataset = self.__input_dataset.copy()
         for input_column in self.__query_columns:
             output_dataset[input_column + "_tokenized"] = self.__input_dataset[input_column].apply(
                 get_cleaned_text)
 
-        for cor, table_col_id in self.__top_correlating_columns[:3]:
+        for cor, table_col_id in self.__top_correlating_columns[:features]:
             table_id = int(table_col_id.split('_')[0])
             column_id = int(table_col_id.split('_')[1])
             table = self.__tables_dict[table_id]
@@ -329,8 +368,9 @@ class DatalakeIndexesDemo:
             except ValueError:
                 y = output_dataset[new_col_name].astype('category').cat.codes
 
-            self.__pearson_dict[new_col_name] = np.corrcoef(x, y)[0]
-            self.__spearman_dict[new_col_name] = cor
+            self.__pearson_dict[new_col_name] = abs(ma.corrcoef(ma.masked_invalid(x),
+                                                            ma.masked_invalid(y))[0][1])
+            self.__spearman_dict[new_col_name] = abs(cor)
 
             # remove external join columns
             for ext_col in self.__column_headers_dict[table_id]:
@@ -343,17 +383,26 @@ class DatalakeIndexesDemo:
         output_dataset = output_dataset[
             [c for c in output_dataset.columns if not c.endswith('_tokenized')]]
 
-        # TODO display corr coefficients for each external column
-        print(self.__spearman_dict)
-        print(self.__pearson_dict)
-
-        # TODO display output dataset
-        print(output_dataset)
         self.__output_dataset = output_dataset
-        #output_sample = highlight_columns(output_dataset, input_columns, target=external_columns)
-        #display(HTML(output_sample.to_html()))
+        output_sample = highlight_cells(output_dataset.head(), self.__query_columns)
+        display(HTML(output_sample.to_html()))
 
-    def plot_correlation(self):
+    def plot_spearman_pearson(self):
+        corr_data = defaultdict(list)
+        for ext_col in self.__spearman_dict:
+            for corr_type, corr_dict in zip(["SCC", "RBC"],
+                                            [self.__spearman_dict, self.__pearson_dict]):
+                corr_data["feature"] += [ext_col]
+                corr_data["correlation"] += [corr_dict[ext_col]]
+                corr_data["type"] += [corr_type]
+
+        plt.figure(figsize=(8, 4))
+        sns.barplot(data=pd.DataFrame(corr_data), x="feature", y="correlation", hue="type")
+
+        plt.tight_layout()
+        plt.show()
+
+    def plot_correlation_heatmap(self):
         if self.__output_dataset is None:
             print("No output dataset available.")
             return
@@ -375,5 +424,42 @@ class DatalakeIndexesDemo:
         plt.show()
 
     def fit_and_evaluate_model(self):
-        pass
+        for dataset_name, dataset in zip(["Input", "Enriched"],
+                           [self.__input_dataset.copy(), self.__output_dataset.copy()]):
+            columns = []
+            for col in dataset.columns:
+                if col != self.__target_column:
+                    try:
+                        # numerical feature
+                        dataset[col] = dataset[col].astype(float).fillna(0)
+                        columns += [col]
+                    except ValueError:
+                        # categorical feature
+                        oh_enc = preprocessing.OneHotEncoder()
+                        oh_enc.fit(dataset[[col]])
+                        dummies = pd.DataFrame(oh_enc.transform(dataset[[col]]).todense(),
+                                               columns=oh_enc.get_feature_names_out(),
+                                               index=dataset.index)
+                        dataset = dataset.join(dummies)
+                        columns += list(oh_enc.get_feature_names_out())
+
+            X, y = dataset.loc[:, columns], dataset.loc[:, self.__target_column].astype(float)
+
+            X_train, X_test, y_train, y_test = model_selection.train_test_split(X,
+                                                                                y,
+                                                                                test_size=0.33,
+                                                                                random_state=42)
+
+            model = linear_model.LinearRegression()
+            model.fit(X_train, y_train)
+
+            error = np.mean((y_test - model.predict(X_test)) ** 2)
+
+            print(f"{dataset_name} dataset, squared error = {error:.2f}")
+
+
+
+
+
+
 

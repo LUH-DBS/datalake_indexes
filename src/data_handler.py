@@ -8,6 +8,8 @@ import os
 from tqdm import tqdm
 import logging
 import csv
+from scipy.io.arff import loadarff
+
 #import vertica_python
 
 # Vertica
@@ -276,7 +278,7 @@ class DataHandler:
             super_key = 0
             if self.__mate:
                 for _, token in row.items():
-                    super_key |= XASH(token, hash_size=self.mate_hash_size, hash_dict=self.__mate_hash_dict)
+                    super_key |= self.hash_function(token)
             max_row_id = max(max_row_id, int(row_id))
 
             col_id = 0
@@ -362,12 +364,15 @@ class DataHandler:
         # READ FILES
         # -----------------------------------------------------------------------------------------------------------
         for filepath in tqdm(self.__tables, ascii=True):
-            if filepath.split('.')[-1] == 'csv':
+            ending = filepath.split('.')[-1]
+            if ending == 'csv':
                 read_func = self.read_csv
-            elif filepath.split('.')[-1] == 'json':
+            elif ending == 'json':
                 read_func = self.__read_json
-            elif filepath.split('.')[-1] == 'parquet':
+            elif ending == 'parquet':
                 read_func = self.read_parquet
+            elif ending == 'arff':
+                read_func = self.read_arff
             else:
                 logging.info('Invalid file format: ' + filepath.split('.')[-1])
                 self.__file_errors += 1
@@ -381,9 +386,7 @@ class DataHandler:
                     table_name = result[0]
                     table = result[1]
             except Exception as e:
-                print(e)
                 logging.info('Unable to read file: ' + filepath)
-                self.__file_errors += 1
                 continue
 
             # --------------------------------------------------------------------------------------------------------
@@ -499,14 +502,41 @@ class DataHandler:
                 read_tables += 1
         self.__logger.info(f'Found {read_tables} tables.')
 
-    def read_csv(self, filepath) -> Tuple[str, pd.DataFrame]:
+    def read_arff(self, filepath) -> Tuple[str, pd.DataFrame]:
         """
-
+        Reads a dataset in arff format from file.
 
         Parameters
         ----------
         filepath : str
+            Dataset path.
 
+        Returns
+        -------
+        Tuple[str, pd.DataFrame]
+            Dataset name and content.
+        """
+        try:
+            table = pd.DataFrame(loadarff(filepath)[0])
+        except:
+            self.__file_errors += 1
+            raise ValueError()
+
+        return filepath.split('/')[-1], table
+
+    def read_csv(self, filepath) -> Tuple[str, pd.DataFrame]:
+        """
+        Reads a dataset in csv format from file.
+
+        Parameters
+        ----------
+        filepath : str
+            Dataset path.
+
+        Returns
+        -------
+        Tuple[str, pd.DataFrame]
+            Dataset name and content.
         """
         def extract_delimiter_from_line(file: str) -> str:
             """
@@ -765,7 +795,11 @@ class DataHandler:
 
         return [item for sublist in self.__cur.fetchall() for item in sublist]
 
-    def get_pl_by_table_and_rows_incremental(self, token_list: Union[List[str], pd.Series], max_parameter_length: int) -> List[str]:
+    def get_pl_by_table_and_rows_incremental(
+            self,
+            token_list: Union[List[str], pd.Series],
+            max_parameter_length: int
+    ) -> List[str]:
         """
 
 

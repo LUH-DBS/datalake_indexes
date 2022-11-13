@@ -451,15 +451,18 @@ class MATE:
         # -----------------------------------------------------------------------------------------------------------
         # STATISTICS
         # -----------------------------------------------------------------------------------------------------------
-        print(f"MATE runtime:     {total_runtime:.2f}s")
-        print(f"Database runtime: {db_runtime:.2f}s")
+        print("Runtime:")
+        print("--------------------------------------------")
+        print(f"Fetching candidate tables: {table_dictionary_generation_runtime:.2f}s")
+        print(f"MATE filtering:            {total_runtime:.2f}s")
+        print(f"Fetching row values:       {db_runtime:.2f}s")
         print()
-        print(f"Total tables:             {len(table_dictionary)}")
-        print(f"Pruned tables:            {total_pruned}")
-        print()
-        print(f"Hash-based filtered rows: {total_filtered}")
-        print(f"Hash-based approved rows: {total_approved}")
-        print(f"Matching rows:            {total_match}")
-        print(f"FP rows:                  {total_fp}")
+        print("Statistics:")
+        print("--------------------------------------------")
+        print(f"Hash-based filtered rows:  {total_filtered}")
+        print(f"Hash-based approved rows:  {total_approved}")
+        print(f"Matching rows:             {total_match}")
+        print(f"FP rows:                   {total_fp}")
+        print(f"Precision:                 {total_match / total_approved:.3f}")
 
         return sorted(top_joinable_tables_with_join_maps, key=lambda x: x[0], reverse=True)

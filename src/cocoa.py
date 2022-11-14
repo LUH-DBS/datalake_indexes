@@ -309,7 +309,8 @@ class COCOA:
             top_joinable_tables: List,
             k_c: int,
             target_column: str = 'target',
-            online_index_generation: bool = False
+            online_index_generation: bool = False,
+            stats: Dict = None
     ) -> List:
         """
 
@@ -445,6 +446,7 @@ class COCOA:
         input_size = len(dataset)
         column_name = []
         column_correlation = []
+        column_type = []
 
         # -----------------------------------------------------------------------------------------------------------
         # CORRELATION CALCULATION
@@ -557,13 +559,14 @@ class COCOA:
                     cor = max_correlation
                 column_name += [t_c_key]
                 column_correlation += [cor]
+                column_type += [is_numeric_column]
 
         self.__logger.info('Finished.')
 
         # Now we get the topk columns with highest correlation
         overall_list = []
         for i in np.arange(len(column_correlation)):
-            overall_list += [[column_correlation[i], column_name[i]]]
+            overall_list += [[column_correlation[i], column_name[i], column_type[i]]]
         sorted_list = sorted(overall_list, key=lambda x: abs(x[0]), reverse=True)
 
         topk_table_col_ids = []
@@ -575,13 +578,12 @@ class COCOA:
 
         correlation_calculation_runtime = time.time() - correlation_calculation_start
 
-        print(f"Total runtime: {preparation_runtime + correlation_calculation_runtime:.2f}s")
-        print(f"Preparation runtime: {preparation_runtime:.2f}s")
-        print(f"Correlation calculation runtime: {correlation_calculation_runtime:.2f}s")
-        print()
-        print(f"Evaluated features: {len(sorted_list)}")
-        print(f"Max. correlation coefficient: {sorted_list[0][0]:.4f}")
-        print(f"Min. correlation coefficient: {sorted_list[-1][0]:.4f}")
+        if stats is not None:
+            stats["total_runtime"] = preparation_runtime + correlation_calculation_runtime
+            stats["preparation_runtime"] = preparation_runtime
+            stats["correlation_calculation_runtime"] = correlation_calculation_runtime
+            stats["evaluated_features"] = len(sorted_list)
+            stats["max_corr_coeff"] = sorted_list[0][0]
 
         return sorted_list[:k_c]
 

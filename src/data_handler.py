@@ -8,7 +8,8 @@ import os
 from tqdm import tqdm
 import logging
 import csv
-from scipy.io.arff import loadarff
+import arff
+from collections import defaultdict
 
 #import vertica_python
 
@@ -517,7 +518,16 @@ class DataHandler:
             Dataset name and content.
         """
         try:
-            table = pd.DataFrame(loadarff(filepath)[0])
+            data = defaultdict(list)
+            arff_gen = arff.load(filepath)
+            for row in arff_gen:
+                n_values = len(row._values)
+                keys = [key for key in list(row._data.keys())[:n_values]]
+
+                for key in keys:
+                    data[key] += [row._data[key]]
+
+            table = pd.DataFrame(data)
         except:
             self.__file_errors += 1
             raise ValueError()

@@ -5,7 +5,6 @@ from cocoa import COCOA
 from mate import MATE
 from duplicate_detection import DuplicateDetection
 import psycopg2
-import logging
 import json
 from typing import List, Tuple
 from pyvis.network import Network
@@ -15,8 +14,10 @@ import seaborn as sns
 from IPython.display import display, HTML
 from collections import defaultdict
 from sklearn import linear_model, model_selection, preprocessing
+from sklearn.metrics import mean_squared_error
 import numpy.ma as ma
-
+import itertools
+from tqdm import tqdm
 
 
 def highlight_cells(
@@ -84,6 +85,8 @@ class DatalakeIndexesDemo:
         self.__pearson_dict = {}
 
         self.__display_table_rows = display_table_rows
+
+        sns.set(font_scale=1.5)
 
     def read_input(self, path: str, rows: int = None) -> None:
         """
@@ -158,7 +161,8 @@ class DatalakeIndexesDemo:
 
     def joinability_discovery(
             self,
-            k: int = 10
+            k: int = 10,
+            verbose: bool = False
     ) -> None:
         """
         Finds joinable tables within the datalake using MATE.
@@ -167,11 +171,17 @@ class DatalakeIndexesDemo:
         ----------
         k : int
             Number of candidates that will be returned.
+
+        verbose : bool
+            If true, detailed output is printed.
         """
-        mate = MATE(self.__data_handler)
+        stats = {}
+
+        mate = MATE(self.__data_handler, verbose=verbose)
         self.__top_joinable_tables = mate.join_search(self.__input_dataset,
                                                       self.__query_columns,
-                                                      k)
+                                                      k,
+                                                      stats=stats)
 
         for score, table_id, columns, join_map in self.__top_joinable_tables:
             self.__joinable_columns_dict[table_id] = columns
@@ -185,6 +195,25 @@ class DatalakeIndexesDemo:
             column_headers = [table.columns[int(col_id)] for col_id in columns.split('_')][
                              :len(self.__query_columns)]
             self.__column_headers_dict[table_id] = column_headers
+
+        # -----------------------------------------------------------------------------------------------------------
+        # STATISTICS
+        # -----------------------------------------------------------------------------------------------------------
+        print("--------------------------------------------")
+        print("Runtime:")
+        print("--------------------------------------------")
+        print(f"Fetching candidate tables: {stats['table_dict_runtime']:.2f}s")
+        print(f"MATE filtering:            {stats['mate_runtime']:.2f}s")
+        print(f"Fetching row values:       {stats['db_runtime']:.2f}s")
+        print()
+        print("--------------------------------------------")
+        print("Statistics:")
+        print("--------------------------------------------")
+        print(f"Hash-based filtered rows:  {stats['total_filtered']}")
+        print(f"Hash-based approved rows:  {stats['total_approved']}")
+        print(f"Matching rows:             {stats['matching_rows']}")
+        print(f"FP rows:                   {stats['total_fp']}")
+        print(f"Precision:                 {stats['precision']:.3f}")
 
     def plot_joinability_scores(self):
         scores = []
@@ -214,9 +243,8 @@ class DatalakeIndexesDemo:
 
         score, table_id, columns, join_map = self.__top_joinable_tables[rank + 1]
 
-        print(f"Score: {score} \n"
+        print(f"Joinability score: {score} \n"
               f"Table ID: {table_id} \n"
-              f"Joinable columns: {columns} \n"
               f"#rows: {self.__tables_dict[table_id].shape[0]} \n"
               f"#columns: {self.__tables_dict[table_id].shape[1]} ")
 
@@ -299,29 +327,87 @@ class DatalakeIndexesDemo:
             if self.__top_joinable_tables[i][1] not in remove_tables:
                 top_joinable_tables_filtered += [self.__top_joinable_tables[i]]
 
+        n_unfiltered = len(self.__top_joinable_tables)
         self.__top_joinable_tables = top_joinable_tables_filtered
+        n_filtered = len(self.__top_joinable_tables)
+        print(f"Reduced the number of joinable tables from {n_unfiltered} to {n_filtered}.")
 
-    def analyze_XASH_alternations(self, hash_size: int, rotation: bool, number_of_ones: int):
-        def custom_xash(s: str) -> int:
-            return generate_XASH(s,
-                                 hash_size=hash_size,
-                                 rotation=rotation,
-                                 number_of_ones=number_of_ones)
+    def analyze_XASH_alternations(self):
+        alternations = [
+            [64, 128, 256, 512],    # hash size
+            [True, False],          # rotation
+            [5]                     # number of ones
+        ]
 
-        self.__data_handler.hash_function = custom_xash
-        mate = MATE(self.__data_handler)
+        iterations = np.product([len(alt) for alt in alternations])
 
-        mate.join_search(self.__input_dataset,
-                         self.__query_columns,
-                         10,
-                         online_hash_calculation=True)
+        results = defaultdict(list)
+        for hash_size, rotation, number_of_ones in tqdm(itertools.product(*alternations),
+                                                        total=iterations):
+            def custom_xash(s: str) -> int:
+                return generate_XASH(s,
+                                     hash_size=hash_size,
+                                     rotation=rotation,
+                                     number_of_ones=number_of_ones)
+            stats = {}
+
+            self.__data_handler.hash_function = custom_xash
+            mate = MATE(self.__data_handler)
+
+            mate.join_search(self.__input_dataset,
+                             self.__query_columns,
+                             10,
+                             online_hash_calculation=True,
+                             stats=stats)
+
+            results["Hash size"] += [hash_size]
+            results["Rotation"] += ["Enabled" if rotation else "Disabled"]
+            results["Precision"] += [stats["precision"]]
+
+        result_data = pd.DataFrame(results).sort_values(by=["Precision"])
+
+        plt.figure(figsize=(8, 6))
+        g = sns.barplot(data=result_data, x="Hash size", y="Precision", hue="Rotation")
+        sns.move_legend(g, "upper left", bbox_to_anchor=(1, 1))
+
+        plt.tight_layout()
+        plt.show()
+
         self.__data_handler.hash_function = generate_XASH
 
     def correlation_calculation(self):
+        stats = {}
         cocoa = COCOA(self.__data_handler)
         self.__top_correlating_columns = cocoa.enrich_multicolumn(self.__input_dataset,
                                                                   self.__top_joinable_tables, 10,
-                                                                  target_column=self.__target_column)
+                                                                  target_column=self.__target_column,
+                                                                  stats=stats)
+        print("--------------------------------------------")
+        print("Runtime:")
+        print("--------------------------------------------")
+        print(f"Total runtime: {stats['total_runtime']:.2f}s")
+        print(f"Preparation runtime: {stats['preparation_runtime']:.2f}s")
+        print(f"Correlation calculation runtime: {stats['correlation_calculation_runtime']:.2f}s")
+        print()
+        print("--------------------------------------------")
+        print("Statistics:")
+        print("--------------------------------------------")
+        print(f"Evaluated features: {stats['evaluated_features']}")
+        print(f"Max. correlation coefficient: {stats['max_corr_coeff']:.4f}")
+
+    def plot_correlation_coefficients(self):
+        corr_coeffs = []
+        for corr, table_col_id, is_numeric in self.__top_correlating_columns:
+            corr_coeffs += [abs(corr)]
+
+        plot_data = pd.DataFrame([], columns=["Rank", "Joinability Score"])
+        plot_data["Rank"] = np.arange(1, len(self.__top_correlating_columns) + 1)
+        plot_data["|Correlation Coefficient|"] = corr_coeffs
+
+        g = sns.catplot(data=plot_data, x="Rank", y="|Correlation Coefficient|")
+        g.fig.set_size_inches(10, 4)
+        plt.tight_layout()
+        plt.show()
 
     def add_external_features(self, features: int):
         """
@@ -337,7 +423,7 @@ class DatalakeIndexesDemo:
             output_dataset[input_column + "_tokenized"] = self.__input_dataset[input_column].apply(
                 get_cleaned_text)
 
-        for cor, table_col_id in self.__top_correlating_columns[:features]:
+        for cor, table_col_id, is_numeric in self.__top_correlating_columns[:features]:
             table_id = int(table_col_id.split('_')[0])
             column_id = int(table_col_id.split('_')[1])
             table = self.__tables_dict[table_id]
@@ -358,19 +444,12 @@ class DatalakeIndexesDemo:
                 suffixes=('', '_extern')
             )
 
-            # TODO fix correlation for categorical columns
-            try:
-                x = output_dataset[self.__target_column].astype(float)
-            except ValueError:
-                x = output_dataset[self.__target_column].astype('category').cat.codes
-            try:
-                y = output_dataset[new_col_name].astype(float)
-            except ValueError:
-                y = output_dataset[new_col_name].astype('category').cat.codes
-
-            self.__pearson_dict[new_col_name] = abs(ma.corrcoef(ma.masked_invalid(x),
-                                                            ma.masked_invalid(y))[0][1])
-            self.__spearman_dict[new_col_name] = abs(cor)
+            if is_numeric:
+                self.__pearson_dict[new_col_name] = abs(
+                    ma.corrcoef(ma.masked_invalid(output_dataset[self.__target_column].astype(float)),
+                                ma.masked_invalid(output_dataset[new_col_name].astype(float)))[0][1]
+                )
+                self.__spearman_dict[new_col_name] = abs(cor)
 
             # remove external join columns
             for ext_col in self.__column_headers_dict[table_id]:
@@ -390,14 +469,18 @@ class DatalakeIndexesDemo:
     def plot_spearman_pearson(self):
         corr_data = defaultdict(list)
         for ext_col in self.__spearman_dict:
-            for corr_type, corr_dict in zip(["SCC", "RBC"],
+            for corr_type, corr_dict in zip(["Spearman", "Pearson"],
                                             [self.__spearman_dict, self.__pearson_dict]):
-                corr_data["feature"] += [ext_col]
-                corr_data["correlation"] += [corr_dict[ext_col]]
-                corr_data["type"] += [corr_type]
+                corr_data["External feature"] += [ext_col]
+                corr_data["Correlation coefficient"] += [corr_dict[ext_col]]
+                corr_data["Type"] += [corr_type]
 
-        plt.figure(figsize=(8, 4))
-        sns.barplot(data=pd.DataFrame(corr_data), x="feature", y="correlation", hue="type")
+        plt.figure(figsize=(14, 8))
+        g = sns.barplot(data=pd.DataFrame(corr_data), x="External feature", y="Correlation coefficient",
+                        hue="Type")
+        sns.move_legend(g, "upper left", bbox_to_anchor=(1, 1))
+
+        plt.xticks(rotation=45)
 
         plt.tight_layout()
         plt.show()
@@ -416,7 +499,7 @@ class DatalakeIndexesDemo:
                 output_dataset[col] = output_dataset[col].astype('category').cat.codes
 
         corr = output_dataset.corr()
-        plt.figure(figsize=(10, 6))
+        plt.figure(figsize=(14, 10))
         heatmap = sns.heatmap(corr, vmin=-1, vmax=1, annot=True)
         heatmap.set_title('Correlation Heatmap', fontdict={'fontsize': 12}, pad=12)
 
@@ -424,8 +507,12 @@ class DatalakeIndexesDemo:
         plt.show()
 
     def fit_and_evaluate_model(self):
-        for dataset_name, dataset in zip(["Input", "Enriched"],
-                           [self.__input_dataset.copy(), self.__output_dataset.copy()]):
+        datasets = ["Input", "Enriched"]
+        errors = []
+
+        for dataset_name, dataset in zip(datasets,
+                                         [self.__input_dataset.copy(),
+                                          self.__output_dataset.copy()]):
             columns = []
             for col in dataset.columns:
                 if col != self.__target_column:
@@ -453,9 +540,18 @@ class DatalakeIndexesDemo:
             model = linear_model.LinearRegression()
             model.fit(X_train, y_train)
 
-            error = np.mean((y_test - model.predict(X_test)) ** 2)
+            errors += [mean_squared_error(y_test, model.predict(X_test))]
 
-            print(f"{dataset_name} dataset, squared error = {error:.2f}")
+        mse_data = pd.DataFrame({
+            "Dataset": datasets,
+            "Mean Squared Error": errors
+        })
+
+        plt.figure(figsize=(6, 6))
+        g = sns.barplot(data=mse_data, x="Dataset", y="Mean Squared Error")
+
+        plt.tight_layout()
+        plt.show()
 
 
 

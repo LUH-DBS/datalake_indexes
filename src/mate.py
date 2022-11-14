@@ -14,7 +14,8 @@ class MATE:
             self,
             data_handler: DataHandler,
             bf_hash_size: int = 128,
-            bf_number_of_ones: int = 5
+            bf_number_of_ones: int = 5,
+            verbose: bool = False
     ):
         """
         Provides MATE algorithm and related functions.
@@ -28,13 +29,18 @@ class MATE:
             Hash size for bloom filter that can be used in join_search().
 
         bf_number_of_ones : int
-            Number of one bits for bloom filter that can be used in join_search().
+            Number of "1" bits for bloom filter that can be used in join_search().
+
+        verbose : bool
+            If true, detailed output is printed.
         """
         self.__data_handler = data_handler
         self.logging = data_handler.get_logger()
 
         self.__bf_hash_size = bf_hash_size
         self.__bf_number_of_ones = bf_number_of_ones
+
+        self.__verbose = verbose
 
     def hash_row_values(self, row: pd.DataFrame, query_columns: List[str]) -> int:
         """
@@ -125,7 +131,8 @@ class MATE:
             min_join_ratio: int = 0,
             use_hash_optimization: bool = True,
             use_bloom_filter: bool = False,
-            online_hash_calculation: bool = False
+            online_hash_calculation: bool = False,
+            stats: dict = None
     ) -> List:
         """
         Finds top-k joinable tables based on selected query columns.
@@ -156,6 +163,9 @@ class MATE:
         online_hash_calculation : bool
             If true, row hashes are calculated during filtering and not fetched from the database.
 
+        stats : dict
+            Dictionary to store algorithm stats in.
+
         Returns
         -------
         List
@@ -165,6 +175,8 @@ class MATE:
         # -----------------------------------------------------------------------------------------------------------
         # INPUT PREPARATION
         # -----------------------------------------------------------------------------------------------------------
+        if self.__verbose:
+            print("Preparing input dataset...")
         orig_input_data = input_data.copy()
         orig_input_data = orig_input_data.applymap(lambda x: get_cleaned_text(x)).replace('', np.nan).replace('nan', np.nan)\
             .replace('unknown', np.nan)
@@ -222,9 +234,15 @@ class MATE:
         if online_hash_calculation:
             token_dict_for_hash = {}
 
+        if self.__verbose:
+            print("Done.")
+
         # -----------------------------------------------------------------------------------------
         # FETCHING JOINABLE TABLES
         # -----------------------------------------------------------------------------------------
+        if self.__verbose:
+            print("Fetching joinable tables based on first query column...")
+
         top_joinable_tables = []  # each item includes: Tableid, joinable_rows
         heapify(top_joinable_tables)
 
@@ -259,13 +277,20 @@ class MATE:
 
         join_maps = {}
 
+        if self.__verbose:
+            print("Done.")
+
         # -----------------------------------------------------------------------------------------
         # PRUNING
         # -----------------------------------------------------------------------------------------
-        for tableid in tqdm(
-                sorted(table_dictionary,
-                       key=lambda k: len(table_dictionary[k]), reverse=True)[:k_c]):
+        if self.__verbose:
+            print("Running hash-based row filtering...")
+        iterator = sorted(table_dictionary,
+                          key=lambda k: len(table_dictionary[k]), reverse=True)[:k_c]
+        if self.__verbose:
+            iterator = tqdm(iterator)
 
+        for tableid in iterator:
             set_of_rowids = set()
             hitting_posting_list_concatinated = table_dictionary[tableid]
             if len(top_joinable_tables) >= k and top_joinable_tables[0][0] >= len(
@@ -431,9 +456,15 @@ class MATE:
             if pruned:
                 break
 
+        if self.__verbose:
+            print("Done.")
+
         # -----------------------------------------------------------------------------------------------------------
         # CREATE FINAL JOIN MAPS
         # -----------------------------------------------------------------------------------------------------------
+        if self.__verbose:
+            print("Generating join maps...")
+
         for table_id in join_maps:
             for complete_matched_columns in join_maps[table_id]:
                 final_join_map = np.full(len(orig_input_data), -1)
@@ -448,21 +479,17 @@ class MATE:
 
         top_joinable_tables_with_join_maps = [[score - 1, table_id, columns, join_maps[table_id][columns]] for score, table_id, columns in top_joinable_tables]
 
-        # -----------------------------------------------------------------------------------------------------------
-        # STATISTICS
-        # -----------------------------------------------------------------------------------------------------------
-        print("Runtime:")
-        print("--------------------------------------------")
-        print(f"Fetching candidate tables: {table_dictionary_generation_runtime:.2f}s")
-        print(f"MATE filtering:            {total_runtime:.2f}s")
-        print(f"Fetching row values:       {db_runtime:.2f}s")
-        print()
-        print("Statistics:")
-        print("--------------------------------------------")
-        print(f"Hash-based filtered rows:  {total_filtered}")
-        print(f"Hash-based approved rows:  {total_approved}")
-        print(f"Matching rows:             {total_match}")
-        print(f"FP rows:                   {total_fp}")
-        print(f"Precision:                 {total_match / total_approved:.3f}")
+        if stats is not None:
+            stats["table_dict_runtime"] = table_dictionary_generation_runtime
+            stats["mate_runtime"] = total_runtime
+            stats["db_runtime"] = db_runtime
+            stats["total_filtered"] = total_filtered
+            stats["total_approved"] = total_approved
+            stats["matching_rows"] = total_match
+            stats["total_fp"] = total_fp
+            stats["precision"] = total_match / total_approved
+
+        if self.__verbose:
+            print("Done.")
 
         return sorted(top_joinable_tables_with_join_maps, key=lambda x: x[0], reverse=True)

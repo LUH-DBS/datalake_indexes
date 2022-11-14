@@ -1,0 +1,101 @@
+movie_title,duration,director_name,genres,imdb_score
+Avatar ,178,James Cameron,Action|Adventure|Fantasy|Sci-Fi,7.9
+Pirates of the Caribbean: At World's End ,169,Gore Verbinski,Action|Adventure|Fantasy,7.1
+Spectre ,148,Sam Mendes,Action|Adventure|Thriller,6.8
+The Dark Knight Rises ,164,Christopher Nolan,Action|Thriller,8.5
+Star Wars: Episode VII - The Force Awakens             ,,Doug Walker,Documentary,7.1
+John Carter ,132,Andrew Stanton,Action|Adventure|Sci-Fi,6.6
+Spider-Man 3 ,156,Sam Raimi,Action|Adventure|Romance,6.2
+Tangled ,100,Nathan Greno,Adventure|Animation|Comedy|Family|Fantasy|Musical|Romance,7.8
+Avengers: Age of Ultron ,141,Joss Whedon,Action|Adventure|Sci-Fi,7.5
+Harry Potter and the Half-Blood Prince ,153,David Yates,Adventure|Family|Fantasy|Mystery,7.5
+Batman v Superman: Dawn of Justice ,183,Zack Snyder,Action|Adventure|Sci-Fi,6.9
+Superman Returns ,169,Bryan Singer,Action|Adventure|Sci-Fi,6.1
+Quantum of Solace ,106,Marc Forster,Action|Adventure,6.7
+Pirates of the Caribbean: Dead Man's Chest ,151,Gore Verbinski,Action|Adventure|Fantasy,7.3
+The Lone Ranger ,150,Gore Verbinski,Action|Adventure|Western,6.5
+Man of Steel ,143,Zack Snyder,Action|Adventure|Fantasy|Sci-Fi,7.2
+The Chronicles of Narnia: Prince Caspian ,150,Andrew Adamson,Action|Adventure|Family|Fantasy,6.6
+The Avengers ,173,Joss Whedon,Action|Adventure|Sci-Fi,8.1
+Pirates of the Caribbean: On Stranger Tides ,136,Rob Marshall,Action|Adventure|Fantasy,6.7
+Men in Black 3 ,106,Barry Sonnenfeld,Action|Adventure|Comedy|Family|Fantasy|Sci-Fi,6.8
+The Hobbit: The Battle of the Five Armies ,164,Peter Jackson,Adventure|Fantasy,7.5
+The Amazing Spider-Man ,153,Marc Webb,Action|Adventure|Fantasy,7.0
+Robin Hood ,156,Ridley Scott,Action|Adventure|Drama|History,6.7
+The Hobbit: The Desolation of Smaug ,186,Peter Jackson,Adventure|Fantasy,7.9
+The Golden Compass ,113,Chris Weitz,Adventure|Family|Fantasy,6.1
+King Kong ,201,Peter Jackson,Action|Adventure|Drama|Romance,7.2
+Titanic ,194,James Cameron,Drama|Romance,7.7
+Captain America: Civil War ,147,Anthony Russo,Action|Adventure|Sci-Fi,8.2
+Battleship ,131,Peter Berg,Action|Adventure|Sci-Fi|Thriller,5.9
+Jurassic World ,124,Colin Trevorrow,Action|Adventure|Sci-Fi|Thriller,7.0
+Skyfall ,143,Sam Mendes,Action|Adventure|Thriller,7.8
+Spider-Man 2 ,135,Sam Raimi,Action|Adventure|Fantasy|Romance,7.3
+Iron Man 3 ,195,Shane Black,Action|Adventure|Sci-Fi,7.2
+Alice in Wonderland ,108,Tim Burton,Adventure|Family|Fantasy,6.5
+X-Men: The Last Stand ,104,Brett Ratner,Action|Adventure|Fantasy|Sci-Fi|Thriller,6.8
+Monsters University ,104,Dan Scanlon,Adventure|Animation|Comedy|Family|Fantasy,7.3
+Transformers: Revenge of the Fallen ,150,Michael Bay,Action|Adventure|Sci-Fi,6.0
+Transformers: Age of Extinction ,165,Michael Bay,Action|Adventure|Sci-Fi,5.7
+Oz the Great and Powerful ,130,Sam Raimi,Adventure|Family|Fantasy,6.4
+The Amazing Spider-Man 2 ,142,Marc Webb,Action|Adventure|Fantasy|Sci-Fi,6.7
+TRON: Legacy ,125,Joseph Kosinski,Action|Adventure|Sci-Fi,6.8
+Cars 2 ,106,John Lasseter,Adventure|Animation|Comedy|Family|Sport,6.3
+Green Lantern ,123,Martin Campbell,Action|Adventure|Sci-Fi,5.6
+Toy Story 3 ,103,Lee Unkrich,Adventure|Animation|Comedy|Family|Fantasy,8.3
+Terminator Salvation ,118,McG,Action|Adventure|Sci-Fi,6.6
+Furious 7 ,140,James Wan,Action|Crime|Thriller,7.2
+World War Z ,123,Marc Forster,Action|Adventure|Horror|Sci-Fi|Thriller,7.0
+X-Men: Days of Future Past ,149,Bryan Singer,Action|Adventure|Fantasy|Sci-Fi|Thriller,8.0
+Star Trek Into Darkness ,132,J.J. Abrams,Action|Adventure|Sci-Fi,7.8
+Jack the Giant Slayer ,114,Bryan Singer,Adventure|Fantasy,6.3
+The Great Gatsby ,143,Baz Luhrmann,Drama|Romance,7.3
+Prince of Persia: The Sands of Time ,116,Mike Newell,Action|Adventure|Fantasy|Romance,6.6
+Pacific Rim ,131,Guillermo del Toro,Action|Adventure|Sci-Fi,7.0
+Transformers: Dark of the Moon ,154,Michael Bay,Action|Adventure|Sci-Fi,6.3
+Indiana Jones and the Kingdom of the Crystal Skull ,122,Steven Spielberg,Action|Adventure|Fantasy,6.2
+The Good Dinosaur ,93,Peter Sohn,Adventure|Animation|Comedy|Family|Fantasy,6.8
+Brave ,93,Mark Andrews,Adventure|Animation|Comedy|Family|Fantasy,7.2
+Star Trek Beyond ,122,Justin Lin,Action|Adventure|Sci-Fi|Thriller,7.5
+WALL·E ,98,Andrew Stanton,Adventure|Animation|Family|Sci-Fi,8.4
+Rush Hour 3 ,91,Brett Ratner,Action|Comedy|Crime|Thriller,6.2
+2012 ,158,Roland Emmerich,Action|Adventure|Sci-Fi,5.8
+A Christmas Carol ,96,Robert Zemeckis,Animation|Drama|Family|Fantasy,6.8
+Jupiter Ascending ,127,Lana Wachowski,Action|Adventure|Sci-Fi,5.4
+The Legend of Tarzan ,110,David Yates,Action|Adventure|Drama|Romance,6.6
+"The Chronicles of Narnia: The Lion, the Witch and the Wardrobe ",150,Andrew Adamson,Adventure|Family|Fantasy,6.9
+X-Men: Apocalypse ,144,Bryan Singer,Action|Adventure|Sci-Fi,7.3
+The Dark Knight ,152,Christopher Nolan,Action|Crime|Drama|Thriller,9.0
+Up ,96,Pete Docter,Adventure|Animation|Comedy|Family,8.3
+Monsters vs. Aliens ,94,Rob Letterman,Action|Adventure|Animation|Comedy|Family|Sci-Fi,6.5
+Iron Man ,126,Jon Favreau,Action|Adventure|Sci-Fi,7.9
+Hugo ,126,Martin Scorsese,Adventure|Drama|Family|Mystery,7.5
+Wild Wild West ,106,Barry Sonnenfeld,Action|Comedy|Sci-Fi|Western,4.8
+The Mummy: Tomb of the Dragon Emperor ,112,Rob Cohen,Action|Adventure|Fantasy|Horror|Thriller,5.2
+Suicide Squad ,123,David Ayer,Action|Adventure|Comedy|Sci-Fi,6.9
+Evan Almighty ,96,Tom Shadyac,Comedy|Family|Fantasy,5.4
+Edge of Tomorrow ,113,Doug Liman,Action|Adventure|Sci-Fi,7.9
+Waterworld ,176,Kevin Reynolds,Action|Adventure|Sci-Fi|Thriller,6.1
+G.I. Joe: The Rise of Cobra ,118,Stephen Sommers,Action|Adventure|Sci-Fi|Thriller,5.8
+Inside Out ,95,Pete Docter,Adventure|Animation|Comedy|Drama|Family|Fantasy,8.3
+The Jungle Book ,106,Jon Favreau,Adventure|Drama|Family|Fantasy,7.8
+Iron Man 2 ,124,Jon Favreau,Action|Adventure|Sci-Fi,7.0
+Snow White and the Huntsman ,132,Rupert Sanders,Action|Adventure|Drama|Fantasy,6.1
+Maleficent ,97,Robert Stromberg,Action|Adventure|Family|Fantasy|Romance,7.0
+Dawn of the Planet of the Apes ,130,Matt Reeves,Action|Adventure|Drama|Sci-Fi,7.6
+The Lovers ,109,Roland Joffé,Action|Adventure|Romance|Sci-Fi,4.5
+47 Ronin ,128,Carl Rinsch,Action|Adventure|Drama|Fantasy,6.3
+Captain America: The Winter Soldier ,136,Anthony Russo,Action|Adventure|Sci-Fi,7.8
+Shrek Forever After ,93,Mike Mitchell,Adventure|Animation|Comedy|Family|Fantasy,6.4
+Tomorrowland ,130,Brad Bird,Action|Adventure|Family|Mystery|Sci-Fi,6.5
+Big Hero 6 ,102,Don Hall,Action|Adventure|Animation|Comedy|Drama|Family|Sci-Fi,7.9
+Wreck-It Ralph ,101,Rich Moore,Adventure|Animation|Comedy|Family|Sci-Fi,7.8
+The Polar Express ,100,Robert Zemeckis,Adventure|Animation|Family|Fantasy,6.6
+Independence Day: Resurgence ,120,Roland Emmerich,Action|Adventure|Sci-Fi,5.5
+How to Train Your Dragon ,98,Dean DeBlois,Adventure|Animation|Family|Fantasy,8.2
+Terminator 3: Rise of the Machines ,109,Jonathan Mostow,Action|Sci-Fi,6.4
+Guardians of the Galaxy ,121,James Gunn,Action|Adventure|Sci-Fi,8.1
+Interstellar ,169,Christopher Nolan,Adventure|Drama|Sci-Fi,8.6
+Inception ,148,Christopher Nolan,Action|Adventure|Sci-Fi|Thriller,8.8
+Godzilla Resurgence ,120,Hideaki Anno,Action|Adventure|Drama|Horror|Sci-Fi,8.2
+The Hobbit: An Unexpected Journey ,182,Peter Jackson,Adventure|Fantasy,7.9

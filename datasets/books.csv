@@ -1,0 +1,1001 @@
+Unnamed: 0,Title,Category,Price,Price_After_Tax,Tax_amount,Avilability,Number_of_reviews,Stars
+0,A Light in the Attic,Poetry,51.77,51.77,0.0,22,0,3
+1,Tipping the Velvet,Historical Fiction,53.74,53.74,0.0,20,0,1
+2,Soumission,Fiction,50.1,50.1,0.0,20,0,1
+3,Sharp Objects,Mystery,47.82,47.82,0.0,20,0,4
+4,Sapiens: A Brief History of Humankind,History,54.23,54.23,0.0,20,0,5
+5,The Requiem Red,Young Adult,22.65,22.65,0.0,19,0,1
+6,The Dirty Little Secrets of Getting Your Dream Job,Business,33.34,33.34,0.0,19,0,4
+7,"The Coming Woman: A Novel Based on the Life of the Infamous Feminist, Victoria Woodhull",Default,17.93,17.93,0.0,19,0,3
+8,The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics,Default,22.6,22.6,0.0,19,0,4
+9,The Black Maria,Poetry,52.15,52.15,0.0,19,0,1
+10,"Starving Hearts (Triangular Trade Trilogy, #1)",Default,13.99,13.99,0.0,19,0,2
+11,Shakespeare's Sonnets,Poetry,20.66,20.66,0.0,19,0,4
+12,Set Me Free,Young Adult,17.46,17.46,0.0,19,0,5
+13,Scott Pilgrim's Precious Little Life (Scott Pilgrim #1),Sequential Art,52.29,52.29,0.0,19,0,5
+14,Rip it Up and Start Again,Music,35.02,35.02,0.0,19,0,5
+15,"Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991",Music,57.25,57.25,0.0,19,0,3
+16,Olio,Poetry,23.88,23.88,0.0,19,0,1
+17,Mesaerion: The Best Science Fiction Stories 1800-1849,Science Fiction,37.59,37.59,0.0,19,0,1
+18,Libertarianism for Beginners,Politics,51.33,51.33,0.0,19,0,2
+19,It's Only the Himalayas,Travel,45.17,45.17,0.0,19,0,2
+20,In Her Wake,Thriller,12.84,12.84,0.0,19,0,1
+21,How Music Works,Music,37.32,37.32,0.0,19,0,2
+22,"Foolproof Preserving: A Guide to Small Batch Jams, Jellies, Pickles, Condiments, and More: A Foolproof Guide to Making Small Batch Jams, Jellies, Pickles, Condiments, and More",Food and Drink,30.52,30.52,0.0,19,0,3
+23,Chase Me (Paris Nights #2),Romance,25.27,25.27,0.0,19,0,5
+24,Black Dust,Romance,34.53,34.53,0.0,19,0,5
+25,Birdsong: A Story in Pictures,Childrens,54.64,54.64,0.0,19,0,3
+26,America's Cradle of Quarterbacks: Western Pennsylvania's Football Factory from Johnny Unitas to Joe Montana,Default,22.5,22.5,0.0,19,0,3
+27,Aladdin and His Wonderful Lamp,Default,53.13,53.13,0.0,19,0,3
+28,Worlds Elsewhere: Journeys Around Shakespeareâs Globe,Nonfiction,40.3,40.3,0.0,18,0,5
+29,Wall and Piece,Art,44.18,44.18,0.0,18,0,4
+30,The Four Agreements: A Practical Guide to Personal Freedom,Spirituality,17.66,17.66,0.0,18,0,5
+31,The Five Love Languages: How to Express Heartfelt Commitment to Your Mate,Nonfiction,31.05,31.05,0.0,18,0,3
+32,The Elephant Tree,Thriller,23.82,23.82,0.0,18,0,5
+33,The Bear and the Piano,Childrens,36.89,36.89,0.0,18,0,1
+34,Sophie's World,Philosophy,15.94,15.94,0.0,18,0,5
+35,Penny Maybe,Default,33.29,33.29,0.0,18,0,3
+36,Maude (1883-1993):She Grew Up with the country,Default,18.02,18.02,0.0,18,0,2
+37,"In a Dark, Dark Wood",Mystery,19.63,19.63,0.0,18,0,1
+38,Behind Closed Doors,Thriller,52.22,52.22,0.0,18,0,4
+39,You can't bury them all: Poems,Poetry,33.63,33.63,0.0,17,0,2
+40,Slow States of Collapse: Poems,Poetry,57.31,57.31,0.0,17,0,3
+41,Reasons to Stay Alive,Nonfiction,26.41,26.41,0.0,17,0,2
+42,Private Paris (Private #10),Fiction,47.61,47.61,0.0,17,0,5
+43,#HigherSelfie: Wake Up Your Life. Free Your Soul. Find Your Tribe.,Nonfiction,23.11,23.11,0.0,17,0,5
+44,Without Borders (Wanderlove #1),New Adult,45.07,45.07,0.0,16,0,2
+45,When We Collided,Contemporary,31.77,31.77,0.0,16,0,1
+46,"We Love You, Charlie Freeman",Fiction,50.27,50.27,0.0,16,0,5
+47,Untitled Collection: Sabbath Poems 2014,Poetry,14.27,14.27,0.0,16,0,4
+48,"Unseen City: The Majesty of Pigeons, the Discreet Charm of Snails & Other Wonders of the Urban Wilderness",Nonfiction,44.18,44.18,0.0,16,0,4
+49,Unicorn Tracks,Fantasy,18.78,18.78,0.0,16,0,3
+50,"Unbound: How Eight Technologies Made Us Human, Transformed Society, and Brought Our World to the Brink",History,25.52,25.52,0.0,16,0,1
+51,Tsubasa: WoRLD CHRoNiCLE 2 (Tsubasa WoRLD CHRoNiCLE #2),Sequential Art,16.28,16.28,0.0,16,0,1
+52,Throwing Rocks at the Google Bus: How Growth Became the Enemy of Prosperity,Nonfiction,31.12,31.12,0.0,16,0,3
+53,This One Summer,Sequential Art,19.49,19.49,0.0,16,0,4
+54,Thirst,Fiction,17.27,17.27,0.0,16,0,5
+55,The Torch Is Passed: A Harding Family Story,Add a comment,19.09,19.09,0.0,16,0,1
+56,The Secret of Dreadwillow Carse,Childrens,56.13,56.13,0.0,16,0,1
+57,"The Pioneer Woman Cooks: Dinnertime: Comfort Classics, Freezer Food, 16-Minute Meals, and Other Delicious Ways to Solve Supper!",Food and Drink,56.41,56.41,0.0,16,0,1
+58,The Past Never Ends,Mystery,56.5,56.5,0.0,16,0,4
+59,The Natural History of Us (The Fine Art of Pretending #2),Young Adult,45.22,45.22,0.0,16,0,3
+60,The Nameless City (The Nameless City #1),Sequential Art,38.16,38.16,0.0,16,0,4
+61,The Murder That Never Was (Forensic Instincts #5),Fiction,54.11,54.11,0.0,16,0,3
+62,The Most Perfect Thing: Inside (and Outside) a Bird's Egg,Science,42.96,42.96,0.0,16,0,4
+63,"The Mindfulness and Acceptance Workbook for Anxiety: A Guide to Breaking Free from Anxiety, Phobias, and Worry Using Acceptance and Commitment Therapy",Add a comment,23.89,23.89,0.0,16,0,4
+64,The Life-Changing Magic of Tidying Up: The Japanese Art of Decluttering and Organizing,Nonfiction,16.77,16.77,0.0,16,0,3
+65,"The Inefficiency Assassin: Time Management Tactics for Working Smarter, Not Longer",Default,20.59,20.59,0.0,16,0,5
+66,The Gutsy Girl: Escapades for Your Life of Epic Adventure,Nonfiction,37.13,37.13,0.0,16,0,1
+67,The Electric Pencil: Drawings from Inside State Hospital No. 3,Nonfiction,56.06,56.06,0.0,16,0,1
+68,The Death of Humanity: and the Case for Life,Philosophy,58.11,58.11,0.0,16,0,4
+69,"The Bulletproof Diet: Lose up to a Pound a Day, Reclaim Energy and Focus, Upgrade Your Life",Health,49.05,49.05,0.0,16,0,3
+70,The Art Forger,Add a comment,40.76,40.76,0.0,16,0,3
+71,The Age of Genius: The Seventeenth Century and the Birth of the Modern Mind,History,19.73,19.73,0.0,16,0,1
+72,The Activist's Tao Te Ching: Ancient Advice for a Modern Revolution,Spirituality,32.24,32.24,0.0,16,0,5
+73,Spark Joy: An Illustrated Master Class on the Art of Organizing and Tidying Up,Nonfiction,41.83,41.83,0.0,16,0,4
+74,Soul Reader,Default,39.58,39.58,0.0,16,0,2
+75,Security,Horror,39.25,39.25,0.0,16,0,2
+76,"Saga, Volume 6 (Saga (Collected Editions) #6)",Fantasy,25.02,25.02,0.0,16,0,3
+77,"Saga, Volume 5 (Saga (Collected Editions) #5)",Sequential Art,51.04,51.04,0.0,16,0,2
+78,Reskilling America: Learning to Labor in the Twenty-First Century,Nonfiction,19.83,19.83,0.0,16,0,2
+79,"Rat Queens, Vol. 3: Demons (Rat Queens (Collected Editions) #11-15)",Sequential Art,50.4,50.4,0.0,16,0,3
+80,"Princess Jellyfish 2-in-1 Omnibus, Vol. 01 (Princess Jellyfish 2-in-1 Omnibus #1)",Sequential Art,13.61,13.61,0.0,16,0,5
+81,Princess Between Worlds (Wide-Awake Princess #5),Fantasy,13.34,13.34,0.0,16,0,5
+82,"Pop Gun War, Volume 1: Gift",Sequential Art,18.97,18.97,0.0,16,0,1
+83,"Political Suicide: Missteps, Peccadilloes, Bad Calls, Backroom Hijinx, Sordid Pasts, Rotten Breaks, and Just Plain Dumb Mistakes in the Annals of American Politics",History,36.28,36.28,0.0,16,0,2
+84,Patience,Sequential Art,10.16,10.16,0.0,16,0,3
+85,"Outcast, Vol. 1: A Darkness Surrounds Him (Outcast #1)",Sequential Art,15.44,15.44,0.0,16,0,4
+86,orange: The Complete Collection 1 (orange: The Complete Collection #1),Sequential Art,48.41,48.41,0.0,16,0,1
+87,Online Marketing for Busy Authors: A Step-By-Step Guide,Self Help,46.35,46.35,0.0,16,0,1
+88,On a Midnight Clear,Add a comment,14.07,14.07,0.0,16,0,3
+89,Obsidian (Lux #1),Young Adult,14.86,14.86,0.0,16,0,2
+90,My Paris Kitchen: Recipes and Stories,Food and Drink,33.37,33.37,0.0,16,0,2
+91,Masks and Shadows,Fantasy,56.4,56.4,0.0,16,0,2
+92,"Mama Tried: Traditional Italian Cooking for the Screwed, Crude, Vegan, and Tattooed",Food and Drink,14.02,14.02,0.0,16,0,4
+93,"Lumberjanes, Vol. 2: Friendship to the Max (Lumberjanes #5-8)",Sequential Art,46.91,46.91,0.0,16,0,2
+94,"Lumberjanes, Vol. 1: Beware the Kitten Holy (Lumberjanes #1-4)",Sequential Art,45.61,45.61,0.0,16,0,3
+95,Lumberjanes Vol. 3: A Terrible Plan (Lumberjanes #9-12),Sequential Art,19.92,19.92,0.0,16,0,2
+96,"Layered: Baking, Building, and Styling Spectacular Cakes",Food and Drink,40.11,40.11,0.0,16,0,1
+97,Judo: Seven Steps to Black Belt (an Introductory Guide for Beginners),Add a comment,53.9,53.9,0.0,16,0,2
+98,Join,Science Fiction,35.67,35.67,0.0,16,0,5
+99,In the Country We Love: My Family Divided,Nonfiction,22.0,22.0,0.0,16,0,4
+100,Immunity: How Elie Metchnikoff Changed the Course of Modern Medicine,Science,57.36,57.36,0.0,16,0,5
+101,"I Hate Fairyland, Vol. 1: Madly Ever After (I Hate Fairyland (Compilations) #1-5)",Sequential Art,29.17,29.17,0.0,16,0,2
+102,I am a Hero Omnibus Volume 1,Sequential Art,54.63,54.63,0.0,16,0,3
+103,How to Be Miserable: 40 Strategies You Already Use,Self Help,46.03,46.03,0.0,16,0,1
+104,Her Backup Boyfriend (The Sorensen Family #1),Romance,33.97,33.97,0.0,16,0,1
+105,"Giant Days, Vol. 2 (Giant Days #5-8)",Sequential Art,22.11,22.11,0.0,16,0,2
+106,Forever and Forever: The Courtship of Henry Longfellow and Fanny Appleton,Historical Fiction,29.69,29.69,0.0,16,0,3
+107,First and First (Five Boroughs #3),Romance,15.97,15.97,0.0,16,0,4
+108,Fifty Shades Darker (Fifty Shades #2),Romance,21.96,21.96,0.0,16,0,1
+109,Everydata: The Misinformation Hidden in the Little Data You Consume Every Day,Nonfiction,54.35,54.35,0.0,16,0,2
+110,"Don't Be a Jerk: And Other Practical Advice from Dogen, Japan's Greatest Zen Master",Religion,37.97,37.97,0.0,16,0,2
+111,Danganronpa Volume 1,Sequential Art,51.99,51.99,0.0,16,0,4
+112,Crown of Midnight (Throne of Glass #2),Fantasy,43.29,43.29,0.0,16,0,3
+113,"Codename Baboushka, Volume 1: The Conclave of Death",Sequential Art,36.72,36.72,0.0,16,0,4
+114,Camp Midnight,Sequential Art,17.08,17.08,0.0,16,0,4
+115,Call the Nurse: True Stories of a Country Nurse on a Scottish Isle,Nonfiction,29.14,29.14,0.0,16,0,5
+116,Burning,Young Adult,28.81,28.81,0.0,16,0,3
+117,Bossypants,Default,49.46,49.46,0.0,16,0,2
+118,"Bitch Planet, Vol. 1: Extraordinary Machine (Bitch Planet (Collected Editions))",Sequential Art,37.92,37.92,0.0,16,0,2
+119,"Avatar: The Last Airbender: Smoke and Shadow, Part 3 (Smoke and Shadow #3)",Fantasy,28.09,28.09,0.0,16,0,2
+120,Algorithms to Live By: The Computer Science of Human Decisions,Nonfiction,30.81,30.81,0.0,16,0,1
+121,A World of Flavor: Your Gluten Free Passport,Default,42.95,42.95,0.0,16,0,1
+122,"A Piece of Sky, a Grain of Rice: A Memoir in Four Meditations",Default,56.76,56.76,0.0,16,0,5
+123,A Murder in Time,Mystery,16.64,16.64,0.0,16,0,1
+124,A Flight of Arrows (The Pathfinders #2),Historical Fiction,55.53,55.53,0.0,16,0,5
+125,A Fierce and Subtle Poison,Young Adult,28.13,28.13,0.0,16,0,4
+126,A Court of Thorns and Roses (A Court of Thorns and Roses #1),Fantasy,52.37,52.37,0.0,16,0,1
+127,(Un)Qualified: How God Uses Broken People to Do Big Things,Christian,54.0,54.0,0.0,16,0,5
+128,You Are What You Love: The Spiritual Power of Habit,Religion,21.87,21.87,0.0,15,0,4
+129,"William Shakespeare's Star Wars: Verily, A New Hope (William Shakespeare's Star Wars #4)",Science Fiction,43.3,43.3,0.0,15,0,4
+130,Tuesday Nights in 1980,Fiction,21.04,21.04,0.0,15,0,2
+131,Tracing Numbers on a Train,Default,41.6,41.6,0.0,15,0,3
+132,Throne of Glass (Throne of Glass #1),Fantasy,35.07,35.07,0.0,15,0,3
+133,Thomas Jefferson and the Tripoli Pirates: The Forgotten War That Changed American History,History,59.64,59.64,0.0,15,0,1
+134,Thirteen Reasons Why,Default,52.72,52.72,0.0,15,0,1
+135,The White Cat and the Monk: A Retelling of the Poem âPangur BÃ¡nâ,Childrens,58.08,58.08,0.0,15,0,4
+136,The Wedding Dress,Romance,24.12,24.12,0.0,15,0,1
+137,The Vacationers,Fiction,42.15,42.15,0.0,15,0,4
+138,The Third Wave: An Entrepreneurâs Vision of the Future,Business,12.61,12.61,0.0,15,0,5
+139,The Stranger,Philosophy,17.44,17.44,0.0,15,0,4
+140,The Shadow Hero (The Shadow Hero),Sequential Art,33.14,33.14,0.0,15,0,1
+141,The Secret (The Secret #1),Default,27.37,27.37,0.0,15,0,4
+142,The Regional Office Is Under Attack!,Fiction,51.36,51.36,0.0,15,0,5
+143,The Psychopath Test: A Journey Through the Madness Industry,Default,36.0,36.0,0.0,15,0,2
+144,The Project,Science Fiction,10.65,10.65,0.0,15,0,1
+145,The Power of Now: A Guide to Spiritual Enlightenment,Nonfiction,43.54,43.54,0.0,15,0,2
+146,The Omnivore's Dilemma: A Natural History of Four Meals,Nonfiction,38.21,38.21,0.0,15,0,2
+147,The Nerdy Nummies Cookbook: Sweet Treats for the Geek in All of Us,Food and Drink,37.34,37.34,0.0,15,0,5
+148,The Murder of Roger Ackroyd (Hercule Poirot #4),Mystery,44.1,44.1,0.0,15,0,4
+149,The Mistake (Off-Campus #2),New Adult,43.29,43.29,0.0,15,0,3
+150,The Matchmaker's Playbook (Wingmen Inc. #1),New Adult,55.85,55.85,0.0,15,0,1
+151,The Love and Lemons Cookbook: An Apple-to-Zucchini Celebration of Impromptu Cooking,Food and Drink,37.6,37.6,0.0,15,0,2
+152,The Long Shadow of Small Ghosts: Murder and Memory in an American City,Crime,10.97,10.97,0.0,15,0,1
+153,The Kite Runner,Default,41.82,41.82,0.0,15,0,4
+154,The House by the Lake,Historical Fiction,36.95,36.95,0.0,15,0,1
+155,The Glittering Court (The Glittering Court #1),Fantasy,44.28,44.28,0.0,15,0,1
+156,The Girl on the Train,Default,55.02,55.02,0.0,15,0,2
+157,The Genius of Birds,Nonfiction,17.24,17.24,0.0,15,0,1
+158,The Emerald Mystery,Default,23.15,23.15,0.0,15,0,2
+159,The Cookies & Cups Cookbook: 125+ sweet & savory recipes reminding you to Always Eat Dessert First,Food and Drink,41.25,41.25,0.0,15,0,1
+160,The Bridge to Consciousness: I'm Writing the Bridge Between Science and Our Old and New Beliefs.,Default,32.0,32.0,0.0,15,0,3
+161,The Artist's Way: A Spiritual Path to Higher Creativity,Nonfiction,38.49,38.49,0.0,15,0,5
+162,The Art of War,Default,33.34,33.34,0.0,15,0,5
+163,The Argonauts,Autobiography,10.93,10.93,0.0,15,0,2
+164,The 10% Entrepreneur: Live Your Startup Dream Without Quitting Your Day Job,Business,27.55,27.55,0.0,15,0,3
+165,Suddenly in Love (Lake Haven #1),Romance,55.99,55.99,0.0,15,0,2
+166,Something More Than This,Romance,16.24,16.24,0.0,15,0,4
+167,Soft Apocalypse,Science Fiction,26.12,26.12,0.0,15,0,2
+168,So You've Been Publicly Shamed,Nonfiction,12.23,12.23,0.0,15,0,2
+169,Shoe Dog: A Memoir by the Creator of NIKE,Business,23.99,23.99,0.0,15,0,2
+170,"Shobu Samurai, Project Aryoku (#3)",Add a comment,29.06,29.06,0.0,15,0,3
+171,Secrets and Lace (Fatal Hearts #1),Default,20.27,20.27,0.0,15,0,1
+172,Scarlett Epstein Hates It Here,Young Adult,43.55,43.55,0.0,15,0,5
+173,Romero and Juliet: A Tragic Tale of Love and Zombies,Default,36.94,36.94,0.0,15,0,1
+174,Redeeming Love,Christian Fiction,20.47,20.47,0.0,15,0,5
+175,Poses for Artists Volume 1 - Dynamic and Sitting Poses: An Essential Reference for Figure Drawing and the Human Form,Default,41.06,41.06,0.0,15,0,1
+176,Poems That Make Grown Women Cry,Poetry,14.19,14.19,0.0,15,0,4
+177,"Nightingale, Sing",Young Adult,38.28,38.28,0.0,15,0,1
+178,Night Sky with Exit Wounds,Poetry,41.05,41.05,0.0,15,0,1
+179,Mrs. Houdini,Historical Fiction,30.25,30.25,0.0,15,0,5
+180,Modern Romance,Add a comment,28.26,28.26,0.0,15,0,5
+181,Miss Peregrineâs Home for Peculiar Children (Miss Peregrineâs Peculiar Children #1),Default,10.76,10.76,0.0,15,0,1
+182,Louisa: The Extraordinary Life of Mrs. Adams,Biography,16.85,16.85,0.0,15,0,2
+183,Little Red,Childrens,13.47,13.47,0.0,15,0,3
+184,Library of Souls (Miss Peregrineâs Peculiar Children #3),Young Adult,48.56,48.56,0.0,15,0,5
+185,Large Print Heart of the Pride,Default,19.15,19.15,0.0,15,0,2
+186,I Had a Nice Time And Other Lies...: How to find love & sh*t like that,Womens Fiction,57.36,57.36,0.0,15,0,4
+187,Hollow City (Miss Peregrineâs Peculiar Children #2),Fantasy,42.98,42.98,0.0,15,0,1
+188,Grumbles,Default,22.16,22.16,0.0,15,0,2
+189,Full Moon over Noahâs Ark: An Odyssey to Mount Ararat and Beyond,Travel,49.43,49.43,0.0,15,0,4
+190,Frostbite (Vampire Academy #2),Young Adult,29.99,29.99,0.0,15,0,5
+191,Follow You Home,Horror,21.36,21.36,0.0,15,0,1
+192,First Steps for New Christians (Print Edition),Default,29.0,29.0,0.0,15,0,1
+193,Finders Keepers (Bill Hodges Trilogy #2),Fiction,53.53,53.53,0.0,15,0,5
+194,"Fables, Vol. 1: Legends in Exile (Fables #1)",Sequential Art,41.62,41.62,0.0,15,0,4
+195,Eureka Trivia 6.0,Default,54.59,54.59,0.0,15,0,4
+196,Drive: The Surprising Truth About What Motivates Us,Default,34.95,34.95,0.0,15,0,4
+197,Done Rubbed Out (Reightman & Bailey #1),Default,37.72,37.72,0.0,15,0,5
+198,Doing It Over (Most Likely To #1),Romance,35.61,35.61,0.0,15,0,3
+199,"Deliciously Ella Every Day: Quick and Easy Recipes for Gluten-Free Snacks, Packed Lunches, and Simple Meals",Food and Drink,42.16,42.16,0.0,15,0,3
+200,Dark Notes,Erotica,19.19,19.19,0.0,15,0,5
+201,"Daring Greatly: How the Courage to Be Vulnerable Transforms the Way We Live, Love, Parent, and Lead",Nonfiction,19.43,19.43,0.0,15,0,3
+202,Close to You,Christian Fiction,49.46,49.46,0.0,15,0,4
+203,Chasing Heaven: What Dying Taught Me About Living,Spirituality,37.8,37.8,0.0,15,0,2
+204,Big Magic: Creative Living Beyond Fear,Nonfiction,30.8,30.8,0.0,15,0,3
+205,Becoming Wise: An Inquiry into the Mystery and Art of Living,Nonfiction,27.43,27.43,0.0,15,0,2
+206,Beauty Restored (Riley Family Legacy Novellas #3),Default,11.11,11.11,0.0,15,0,2
+207,Batman: The Long Halloween (Batman),Sequential Art,36.5,36.5,0.0,15,0,2
+208,Batman: The Dark Knight Returns (Batman),Sequential Art,15.38,15.38,0.0,15,0,5
+209,Ayumi's Violin,Default,15.48,15.48,0.0,15,0,2
+210,Anonymous,Default,46.82,46.82,0.0,15,0,4
+211,Amy Meets the Saints and Sages,Default,18.46,18.46,0.0,15,0,3
+212,Amid the Chaos,Cultural,36.58,36.58,0.0,15,0,1
+213,Amatus,Default,50.54,50.54,0.0,15,0,5
+214,Agnostic: A Spirited Manifesto,Nonfiction,12.51,12.51,0.0,15,0,5
+215,Zealot: The Life and Times of Jesus of Nazareth,History,24.7,24.7,0.0,14,0,3
+216,You (You #1),Thriller,43.61,43.61,0.0,14,0,5
+217,"Wonder Woman: Earth One, Volume One (Wonder Woman: Earth One #1)",Sequential Art,37.34,37.34,0.0,14,0,4
+218,Wild Swans,Young Adult,14.36,14.36,0.0,14,0,2
+219,Why the Right Went Wrong: Conservatism--From Goldwater to the Tea Party and Beyond,Politics,52.65,52.65,0.0,14,0,4
+220,Whole Lotta Creativity Going On: 60 Fun and Unusual Exercises to Awaken and Strengthen Your Creativity,Nonfiction,38.2,38.2,0.0,14,0,4
+221,What's It Like in Space?: Stories from Astronauts Who've Been There,Nonfiction,19.6,19.6,0.0,14,0,2
+222,"We Are Robin, Vol. 1: The Vigilante Business (We Are Robin #1)",Sequential Art,53.9,53.9,0.0,14,0,1
+223,Walt Disney's Alice in Wonderland,Childrens,12.96,12.96,0.0,14,0,5
+224,V for Vendetta (V for Vendetta Complete),Default,37.1,37.1,0.0,14,0,4
+225,Until Friday Night (The Field Party #1),Young Adult,46.31,46.31,0.0,14,0,2
+226,"Unbroken: A World War II Story of Survival, Resilience, and Redemption",Default,45.95,45.95,0.0,14,0,2
+227,Twenty Yawns,Childrens,22.08,22.08,0.0,14,0,2
+228,Through the Woods,Sequential Art,25.38,25.38,0.0,14,0,2
+229,This Is Where It Ends,Young Adult,27.12,27.12,0.0,14,0,2
+230,The Year of Magical Thinking,Nonfiction,43.04,43.04,0.0,14,0,2
+231,The Wright Brothers,Default,56.8,56.8,0.0,14,0,4
+232,The White Queen (The Cousins' War #1),Add a comment,25.91,25.91,0.0,14,0,5
+233,The Wedding Pact (The O'Malleys #2),Romance,32.61,32.61,0.0,14,0,3
+234,The Time Keeper,Fiction,27.88,27.88,0.0,14,0,5
+235,The Testament of Mary,Fiction,52.67,52.67,0.0,14,0,4
+236,The Star-Touched Queen,Fantasy,46.02,46.02,0.0,14,0,5
+237,The Songs of the Gods,Default,44.48,44.48,0.0,14,0,5
+238,The Song of Achilles,Add a comment,37.4,37.4,0.0,14,0,5
+239,The Rosie Project (Don Tillman #1),Default,54.04,54.04,0.0,14,0,1
+240,The Power of Habit: Why We Do What We Do in Life and Business,Default,16.88,16.88,0.0,14,0,3
+241,The Marriage of Opposites,Historical Fiction,28.08,28.08,0.0,14,0,4
+242,The Lucifer Effect: Understanding How Good People Turn Evil,Psychology,10.4,10.4,0.0,14,0,1
+243,The Long Haul (Diary of a Wimpy Kid #9),Humor,44.07,44.07,0.0,14,0,1
+244,The Loney,Horror,23.4,23.4,0.0,14,0,1
+245,The Literature Book (Big Ideas Simply Explained),Nonfiction,17.43,17.43,0.0,14,0,3
+246,The Last Mile (Amos Decker #2),Mystery,54.21,54.21,0.0,14,0,2
+247,The Immortal Life of Henrietta Lacks,Add a comment,40.67,40.67,0.0,14,0,2
+248,The Hidden Oracle (The Trials of Apollo #1),Fantasy,52.26,52.26,0.0,14,0,2
+249,The Help Yourself Cookbook for Kids: 60 Easy Plant-Based Recipes Kids Can Make to Stay Healthy and Save the Earth,Food and Drink,28.77,28.77,0.0,14,0,3
+250,The Guilty (Will Robie #4),Thriller,13.82,13.82,0.0,14,0,2
+251,The First Hostage (J.B. Collins #2),Fiction,25.85,25.85,0.0,14,0,3
+252,The Dovekeepers,Add a comment,48.78,48.78,0.0,14,0,1
+253,The Darkest Lie,Young Adult,35.35,35.35,0.0,14,0,5
+254,The Bane Chronicles (The Bane Chronicles #1-11),Fantasy,44.73,44.73,0.0,14,0,4
+255,The Bad-Ass Librarians of Timbuktu: And Their Race to Save the Worldâs Most Precious Manuscripts,Nonfiction,15.77,15.77,0.0,14,0,1
+256,The 14th Colony (Cotton Malone #11),Thriller,39.24,39.24,0.0,14,0,1
+257,That Darkness (Gardiner and Renner #1),Mystery,13.92,13.92,0.0,14,0,1
+258,Tastes Like Fear (DI Marnie Rome #3),Mystery,10.69,10.69,0.0,14,0,1
+259,Take Me with You,Fiction,45.21,45.21,0.0,14,0,3
+260,Swell: A Year of Waves,Nonfiction,45.58,45.58,0.0,14,0,1
+261,Superman Vol. 1: Before Truth (Superman by Gene Luen Yang #1),Sequential Art,11.89,11.89,0.0,14,0,5
+262,Still Life with Bread Crumbs,Fiction,26.41,26.41,0.0,14,0,3
+263,Steve Jobs,Default,39.5,39.5,0.0,14,0,5
+264,Sorting the Beef from the Bull: The Science of Food Fraud Forensics,Science,44.74,44.74,0.0,14,0,4
+265,Someone Like You (The Harrisons #2),Contemporary,52.79,52.79,0.0,14,0,5
+266,"So Cute It Hurts!!, Vol. 6 (So Cute It Hurts!! #6)",Sequential Art,35.43,35.43,0.0,14,0,4
+267,Shtum,Fiction,55.84,55.84,0.0,14,0,4
+268,See America: A Celebration of Our National Parks & Treasured Sites,Travel,48.87,48.87,0.0,14,0,3
+269,salt.,Poetry,46.78,46.78,0.0,14,0,4
+270,Robin War,Sequential Art,47.82,47.82,0.0,14,0,3
+271,"Red Hood/Arsenal, Vol. 1: Open for Business (Red Hood/Arsenal #1)",Sequential Art,25.48,25.48,0.0,14,0,2
+272,Rain Fish,Childrens,23.57,23.57,0.0,14,0,3
+273,"Quarter Life Poetry: Poems for the Young, Broke and Hangry",Poetry,50.89,50.89,0.0,14,0,5
+274,Pet Sematary,Horror,10.56,10.56,0.0,14,0,3
+275,"Overload: How to Unplug, Unwind, and Unleash Yourself from the Pressure of Stress",Self Help,52.15,52.15,0.0,14,0,3
+276,Once Was a Time,Childrens,18.28,18.28,0.0,14,0,2
+277,Old School (Diary of a Wimpy Kid #10),Humor,11.83,11.83,0.0,14,0,5
+278,No Dream Is Too High: Life Lessons From a Man Who Walked on the Moon,Nonfiction,21.95,21.95,0.0,14,0,2
+279,"Naruto (3-in-1 Edition), Vol. 14: Includes Vols. 40, 41 & 42 (Naruto: Omnibus #14)",Sequential Art,38.39,38.39,0.0,14,0,2
+280,My Name Is Lucy Barton,Fiction,41.56,41.56,0.0,14,0,1
+281,My Mrs. Brown,Fiction,24.48,24.48,0.0,14,0,3
+282,My Kind of Crazy,Young Adult,40.36,40.36,0.0,14,0,1
+283,Mr. Mercedes (Bill Hodges Trilogy #1),Fiction,28.9,28.9,0.0,14,0,1
+284,More Than Music (Chasing the Dream #1),Add a comment,37.61,37.61,0.0,14,0,2
+285,Made to Stick: Why Some Ideas Survive and Others Die,Business,38.85,38.85,0.0,14,0,5
+286,Luis Paints the World,Childrens,53.95,53.95,0.0,14,0,3
+287,Luckiest Girl Alive,Default,49.83,49.83,0.0,14,0,3
+288,Lowriders to the Center of the Earth (Lowriders in Space #2),Sequential Art,51.51,51.51,0.0,14,0,2
+289,Love Is a Mix Tape (Music #1),Music,18.03,18.03,0.0,14,0,1
+290,Looking for Lovely: Collecting the Moments that Matter,Nonfiction,29.14,29.14,0.0,14,0,5
+291,"Living Leadership by Insight: A Good Leader Achieves, a Great Leader Builds Monuments",Default,46.91,46.91,0.0,14,0,4
+292,Let It Out: A Journey Through Journaling,Nonfiction,26.79,26.79,0.0,14,0,5
+293,Lady Midnight (The Dark Artifices #1),Default,16.28,16.28,0.0,14,0,5
+294,"It's All Easy: Healthy, Delicious Weeknight Meals in under 30 Minutes",Food and Drink,19.55,19.55,0.0,14,0,1
+295,Island of Dragons (Unwanteds #7),Fantasy,29.65,29.65,0.0,14,0,1
+296,I Know What I'm Doing -- and Other Lies I Tell Myself: Dispatches from a Life Under Construction,Humor,25.98,25.98,0.0,14,0,4
+297,I Am Pilgrim (Pilgrim #1),Fiction,10.6,10.6,0.0,14,0,4
+298,"Hyperbole and a Half: Unfortunate Situations, Flawed Coping Mechanisms, Mayhem, and Other Things That Happened",Humor,14.75,14.75,0.0,14,0,5
+299,"Hush, Hush (Hush, Hush #1)",Default,47.02,47.02,0.0,14,0,3
+300,Hold Your Breath (Search and Rescue #1),Romance,28.82,28.82,0.0,14,0,1
+301,Hamilton: The Revolution,Nonfiction,58.79,58.79,0.0,14,0,3
+302,Greek Mythic History,Default,10.23,10.23,0.0,14,0,5
+303,God: The Most Unpleasant Character in All Fiction,Religion,30.03,30.03,0.0,14,0,5
+304,Glory over Everything: Beyond The Kitchen House,Historical Fiction,45.84,45.84,0.0,14,0,3
+305,Feathers: Displays of Brilliant Plumage,Art,49.05,49.05,0.0,14,0,3
+306,"Far & Away: Places on the Brink of Change: Seven Continents, Twenty-Five Years",Nonfiction,15.06,15.06,0.0,14,0,4
+307,Every Last Word,Default,46.47,46.47,0.0,14,0,3
+308,Eligible (The Austen Project #4),Fiction,27.09,27.09,0.0,14,0,3
+309,El Deafo,Sequential Art,57.62,57.62,0.0,14,0,5
+310,Eight Hundred Grapes,Fiction,14.39,14.39,0.0,14,0,4
+311,"Eaternity: More than 150 Deliciously Easy Vegan Recipes for a Long, Healthy, Satisfied, Joyful Life",Nonfiction,51.75,51.75,0.0,14,0,5
+312,"Eat Fat, Get Thin",Health,54.07,54.07,0.0,14,0,2
+313,Don't Get Caught,Young Adult,55.35,55.35,0.0,14,0,1
+314,Doctor Sleep (The Shining #2),Horror,40.12,40.12,0.0,14,0,2
+315,Demigods & Magicians: Percy and Annabeth Meet the Kanes (Percy Jackson & Kane Chronicles Crossover #1-3),Fantasy,37.51,37.51,0.0,14,0,5
+316,Dear Mr. Knightley,Fiction,11.21,11.21,0.0,14,0,5
+317,Daily Fantasy Sports,Default,36.58,36.58,0.0,14,0,1
+318,Crazy Love: Overwhelmed by a Relentless God,Christian,47.72,47.72,0.0,14,0,2
+319,Cometh the Hour (The Clifton Chronicles #6),Fiction,25.01,25.01,0.0,14,0,3
+320,Code Name Verity (Code Name Verity #1),Add a comment,22.13,22.13,0.0,14,0,4
+321,Clockwork Angel (The Infernal Devices #1),Default,44.14,44.14,0.0,14,0,1
+322,City of Glass (The Mortal Instruments #3),Fantasy,56.02,56.02,0.0,14,0,4
+323,City of Fallen Angels (The Mortal Instruments #4),Default,11.23,11.23,0.0,14,0,4
+324,City of Bones (The Mortal Instruments #1),Default,43.28,43.28,0.0,14,0,1
+325,City of Ashes (The Mortal Instruments #2),Default,47.27,47.27,0.0,14,0,1
+326,Cell,Add a comment,20.29,20.29,0.0,14,0,4
+327,Catching Jordan (Hundred Oaks),Young Adult,50.83,50.83,0.0,14,0,3
+328,"Carry On, Warrior: Thoughts on Life Unarmed",Default,31.85,31.85,0.0,14,0,3
+329,Carrie,Default,46.23,46.23,0.0,14,0,2
+330,Buying In: The Secret Dialogue Between What We Buy and Who We Are,Nonfiction,37.8,37.8,0.0,14,0,4
+331,Brain on Fire: My Month of Madness,Nonfiction,49.32,49.32,0.0,14,0,5
+332,Batman: Europa,Sequential Art,32.01,32.01,0.0,14,0,2
+333,Barefoot Contessa Back to Basics,Food and Drink,28.01,28.01,0.0,14,0,1
+334,Barefoot Contessa at Home: Everyday Recipes You'll Make Over and Over Again,Food and Drink,50.62,50.62,0.0,14,0,5
+335,Balloon Animals,Fiction,17.03,17.03,0.0,14,0,3
+336,Art Ops Vol. 1,Sequential Art,48.8,48.8,0.0,14,0,3
+337,Aristotle and Dante Discover the Secrets of the Universe (Aristotle and Dante Discover the Secrets of the Universe #1),Young Adult,58.14,58.14,0.0,14,0,4
+338,Angels Walking (Angels Walking #1),Add a comment,34.2,34.2,0.0,14,0,2
+339,Angels & Demons (Robert Langdon #1),Default,51.48,51.48,0.0,14,0,3
+340,All the Light We Cannot See,Historical,29.87,29.87,0.0,14,0,5
+341,"Adulthood Is a Myth: A ""Sarah's Scribbles"" Collection",Sequential Art,10.9,10.9,0.0,14,0,2
+342,Abstract City,Nonfiction,56.37,56.37,0.0,14,0,5
+343,A Time of Torment (Charlie Parker #14),Mystery,48.35,48.35,0.0,14,0,5
+344,A Study in Scarlet (Sherlock Holmes #1),Mystery,16.73,16.73,0.0,14,0,2
+345,"A Series of Catastrophes and Miracles: A True Story of Love, Science, and Cancer",Add a comment,56.48,56.48,0.0,14,0,2
+346,A People's History of the United States,Add a comment,40.79,40.79,0.0,14,0,2
+347,A Man Called Ove,Fiction,39.72,39.72,0.0,14,0,1
+348,A Distant Mirror: The Calamitous 14th Century,History,14.58,14.58,0.0,14,0,3
+349,A Brush of Wings (Angels Walking #3),Add a comment,55.51,55.51,0.0,14,0,1
+350,1491: New Revelations of the Americas Before Columbus,History,21.8,21.8,0.0,14,0,3
+351,"The Three Searches, Meaning, and the Story",Default,13.33,13.33,0.0,13,0,3
+352,Searching for Meaning in Gailana,Fantasy,38.73,38.73,0.0,13,0,1
+353,Rook,Add a comment,37.86,37.86,0.0,13,0,4
+354,My Kitchen Year: 136 Recipes That Saved My Life,Food and Drink,11.53,11.53,0.0,13,0,2
+355,13 Hours: The Inside Account of What Really Happened In Benghazi,Nonfiction,27.06,27.06,0.0,13,0,1
+356,Will You Won't You Want Me?,Womens Fiction,13.86,13.86,0.0,12,0,3
+357,Tipping Point for Planet Earth: How Close Are We to the Edge?,Science,37.55,37.55,0.0,12,0,1
+358,The Star-Touched Queen,Fantasy,32.3,32.3,0.0,12,0,5
+359,The Silent Sister (Riley MacPherson #1),Fiction,46.29,46.29,0.0,12,0,5
+360,The Midnight Watch: A Novel of the Titanic and the Californian,Add a comment,26.2,26.2,0.0,12,0,1
+361,The Lonely City: Adventures in the Art of Being Alone,Nonfiction,33.26,33.26,0.0,12,0,2
+362,The Gray Rhino: How to Recognize and Act on the Obvious Dangers We Ignore,Add a comment,59.15,59.15,0.0,12,0,4
+363,The Golden Condom: And Other Essays on Love Lost and Found,Psychology,39.43,39.43,0.0,12,0,1
+364,The Epidemic (The Program 0.6),Young Adult,14.44,14.44,0.0,12,0,5
+365,The Dinner Party,Fiction,56.54,56.54,0.0,12,0,2
+366,The Diary of a Young Girl,Nonfiction,59.9,59.9,0.0,12,0,3
+367,The Children,Add a comment,11.88,11.88,0.0,12,0,3
+368,Stars Above (The Lunar Chronicles #4.5),Young Adult,48.05,48.05,0.0,12,0,2
+369,Snatched: How A Drug Queen Went Undercover for the DEA and Was Kidnapped By Colombian Guerillas,Nonfiction,21.21,21.21,0.0,12,0,3
+370,Raspberry Pi Electronics Projects for the Evil Genius,Default,49.67,49.67,0.0,12,0,4
+371,Quench Your Own Thirst: Business Lessons Learned Over a Beer or Two,Business,43.14,43.14,0.0,12,0,1
+372,Psycho: Sanitarium (Psycho #1.5),Horror,36.97,36.97,0.0,12,0,5
+373,Poisonous (Max Revere Novels #3),Mystery,26.8,26.8,0.0,12,0,3
+374,One with You (Crossfire #5),Add a comment,15.71,15.71,0.0,12,0,4
+375,No Love Allowed (Dodge Cove #1),Young Adult,54.65,54.65,0.0,12,0,4
+376,Murder at the 42nd Street Library (Raymond Ambler #1),Mystery,54.36,54.36,0.0,12,0,4
+377,Most Wanted,Mystery,35.28,35.28,0.0,12,0,3
+378,"Love, Lies and Spies",Historical Fiction,20.55,20.55,0.0,12,0,2
+379,How to Speak Golf: An Illustrated Guide to Links Lingo,Default,58.32,58.32,0.0,12,0,5
+380,Hide Away (Eve Duncan #20),Mystery,11.84,11.84,0.0,12,0,1
+381,Furiously Happy: A Funny Book About Horrible Things,Nonfiction,41.46,41.46,0.0,12,0,4
+382,Everyday Italian: 125 Simple and Delicious Recipes,Food and Drink,20.1,20.1,0.0,12,0,5
+383,Equal Is Unfair: America's Misguided Fight Against Income Inequality,Politics,56.86,56.86,0.0,12,0,1
+384,Eleanor & Park,Default,56.51,56.51,0.0,12,0,5
+385,Dirty (Dive Bar #1),Romance,40.83,40.83,0.0,12,0,4
+386,Can You Keep a Secret? (Fear Street Relaunch #4),Horror,48.64,48.64,0.0,12,0,1
+387,Boar Island (Anna Pigeon #19),Mystery,59.48,59.48,0.0,12,0,3
+388,A Paris Apartment,Historical Fiction,39.01,39.01,0.0,12,0,4
+389,"A la Mode: 120 Recipes in 60 Pairings: Pies, Tarts, Cakes, Crisps, and More Topped with Ice Cream, Gelato, Frozen Custard, and More",Food and Drink,38.77,38.77,0.0,12,0,1
+390,Troublemaker: Surviving Hollywood and Scientology,Default,48.39,48.39,0.0,11,0,2
+391,The Widow,Mystery,27.26,27.26,0.0,11,0,2
+392,"The Sleep Revolution: Transforming Your Life, One Night at a Time",Nonfiction,11.68,11.68,0.0,11,0,4
+393,The Improbability of Love,Fiction,59.45,59.45,0.0,11,0,1
+394,The Art of Startup Fundraising,Business,21.0,21.0,0.0,11,0,3
+395,Take Me Home Tonight (Rock Star Romance #3),Romance,53.98,53.98,0.0,11,0,3
+396,Sleeping Giants (Themis Files #1),Science Fiction,48.74,48.74,0.0,11,0,1
+397,"Setting the World on Fire: The Brief, Astonishing Life of St. Catherine of Siena",Biography,21.15,21.15,0.0,11,0,2
+398,Playing with Fire,Mystery,13.71,13.71,0.0,11,0,3
+399,Off the Hook (Fishing for Trouble #1),Romance,47.67,47.67,0.0,11,0,3
+400,Mothering Sunday,Fiction,13.34,13.34,0.0,11,0,2
+401,"Mother, Can You Not?",Nonfiction,16.89,16.89,0.0,11,0,5
+402,M Train,Autobiography,27.18,27.18,0.0,11,0,1
+403,Lilac Girls,Historical Fiction,17.28,17.28,0.0,11,0,2
+404,Lies and Other Acts of Love,Fiction,45.14,45.14,0.0,11,0,1
+405,Lab Girl,Autobiography,40.85,40.85,0.0,11,0,1
+406,Keep Me Posted,Womens Fiction,20.46,20.46,0.0,11,0,4
+407,It Didn't Start with You: How Inherited Family Trauma Shapes Who We Are and How to End the Cycle,Psychology,56.27,56.27,0.0,11,0,3
+408,Grey (Fifty Shades #4),Womens Fiction,48.49,48.49,0.0,11,0,4
+409,"Exit, Pursued by a Bear",Young Adult,51.34,51.34,0.0,11,0,4
+410,Daredevils,Fiction,16.34,16.34,0.0,11,0,3
+411,Cravings: Recipes for What You Want to Eat,Food and Drink,20.5,20.5,0.0,11,0,3
+412,Born for This: How to Find the Work You Were Meant to Do,Business,21.59,21.59,0.0,11,0,5
+413,Arena,Science Fiction,21.36,21.36,0.0,11,0,4
+414,Adultery,Default,20.88,20.88,0.0,11,0,5
+415,A Mother's Reckoning: Living in the Aftermath of Tragedy,Nonfiction,19.53,19.53,0.0,11,0,3
+416,A Gentleman's Position (Society of Gentlemen #3),Romance,14.75,14.75,0.0,11,0,5
+417,11/22/63,Fiction,48.48,48.48,0.0,11,0,3
+418,"10% Happier: How I Tamed the Voice in My Head, Reduced Stress Without Losing My Edge, and Found Self-Help That Actually Works",Nonfiction,24.57,24.57,0.0,10,0,2
+419,10-Day Green Smoothie Cleanse: Lose Up to 15 Pounds in 10 Days!,Health,49.71,49.71,0.0,10,0,5
+420,Without Shame,Add a comment,48.27,48.27,0.0,9,0,5
+421,Watchmen,Add a comment,58.05,58.05,0.0,9,0,4
+422,Unlimited Intuition Now,Default,58.87,58.87,0.0,9,0,4
+423,Underlying Notes,Default,11.82,11.82,0.0,9,0,2
+424,The Shack,Fiction,28.03,28.03,0.0,9,0,1
+425,The New Brand You: Your New Image Makes the Sale for You,Default,44.05,44.05,0.0,9,0,5
+426,"The Moosewood Cookbook: Recipes from Moosewood Restaurant, Ithaca, New York",Food and Drink,12.34,12.34,0.0,9,0,4
+427,The Flowers Lied,Default,16.68,16.68,0.0,9,0,2
+428,"The Fabric of the Cosmos: Space, Time, and the Texture of Reality",Science,55.91,55.91,0.0,9,0,1
+429,The Book of Mormon,Religion,24.57,24.57,0.0,9,0,3
+430,The Art and Science of Low Carbohydrate Living,Health,52.98,52.98,0.0,9,0,5
+431,The Alien Club,Young Adult,54.4,54.4,0.0,9,0,1
+432,Suzie Snowflake: One beautiful flake (a self-esteem story),Novels,54.81,54.81,0.0,9,0,5
+433,Nap-a-Roo,Childrens,25.08,25.08,0.0,9,0,1
+434,"NaNo What Now? Finding your editing process, revising your NaNoWriMo book and building a writing career through publishing and beyond",Default,10.41,10.41,0.0,9,0,4
+435,Modern Day Fables,Default,47.44,47.44,0.0,9,0,2
+436,If I Gave You God's Phone Number....: Searching for Spirituality in America,Spirituality,20.91,20.91,0.0,9,0,1
+437,"Fruits Basket, Vol. 9 (Fruits Basket #9)",Sequential Art,33.95,33.95,0.0,9,0,4
+438,Dress Your Family in Corduroy and Denim,Humor,43.68,43.68,0.0,9,0,3
+439,Don't Forget Steven,Young Adult,33.23,33.23,0.0,9,0,1
+440,Chernobyl 01:23:40: The Incredible True Story of the World's Worst Nuclear Disaster,Nonfiction,35.92,35.92,0.0,9,0,2
+441,Art and Fear: Observations on the Perils (and Rewards) of Artmaking,Art,48.63,48.63,0.0,9,0,4
+442,A Shard of Ice (The Black Symphony Saga #1),Fantasy,56.63,56.63,0.0,9,0,3
+443,A Hero's Curse (The Unseen Chronicles #1),Add a comment,50.49,50.49,0.0,9,0,3
+444,23 Degrees South: A Tropical Tale of Changing Whether...,Add a comment,35.79,35.79,0.0,9,0,2
+445,"Zero to One: Notes on Startups, or How to Build the Future",Nonfiction,34.06,34.06,0.0,8,0,3
+446,Why Not Me?,Nonfiction,17.76,17.76,0.0,8,0,1
+447,When Breath Becomes Air,Nonfiction,39.36,39.36,0.0,8,0,2
+448,Vagabonding: An Uncommon Guide to the Art of Long-Term World Travel,Travel,36.94,36.94,0.0,8,0,2
+449,The Unlikely Pilgrimage of Harold Fry (Harold Fry #1),Default,43.62,43.62,0.0,8,0,5
+450,The New Drawing on the Right Side of the Brain,Art,43.02,43.02,0.0,8,0,3
+451,"The Midnight Assassin: Panic, Scandal, and the Hunt for America's First Serial Killer",Nonfiction,28.45,28.45,0.0,8,0,4
+452,The Martian (The Martian #1),Default,41.39,41.39,0.0,8,0,2
+453,The High Mountains of Portugal,Fiction,51.15,51.15,0.0,8,0,1
+454,The Grownup,Short Stories,35.88,35.88,0.0,8,0,1
+455,The E-Myth Revisited: Why Most Small Businesses Don't Work and What to Do About It,Business,36.91,36.91,0.0,8,0,1
+456,South of Sunshine,Young Adult,28.93,28.93,0.0,8,0,1
+457,Smarter Faster Better: The Secrets of Being Productive in Life and Business,Nonfiction,38.89,38.89,0.0,8,0,5
+458,Silence in the Dark (Logan Point #4),Suspense,58.33,58.33,0.0,8,0,3
+459,Shadows of the Past (Logan Point #1),Christian Fiction,39.67,39.67,0.0,8,0,5
+460,Roller Girl,Sequential Art,14.1,14.1,0.0,8,0,5
+461,Rising Strong,Nonfiction,21.82,21.82,0.0,8,0,3
+462,Proofs of God: Classical Arguments from Tertullian to Barth,Philosophy,54.21,54.21,0.0,8,0,1
+463,Please Kill Me: The Uncensored Oral History of Punk,Music,31.19,31.19,0.0,8,0,4
+464,Out of Print: City Lights Spotlight No. 14,Poetry,53.64,53.64,0.0,8,0,5
+465,My Life Next Door (My Life Next Door ),Young Adult,36.39,36.39,0.0,8,0,5
+466,Miller's Valley,Fiction,58.54,58.54,0.0,8,0,2
+467,Man's Search for Meaning,Nonfiction,29.48,29.48,0.0,8,0,3
+468,"Love That Boy: What Two Presidents, Eight Road Trips, and My Son Taught Me About a Parent's Expectations",Nonfiction,25.06,25.06,0.0,8,0,2
+469,Living Forward: A Proven Plan to Stop Drifting and Get the Life You Want,Nonfiction,12.55,12.55,0.0,8,0,3
+470,Les Fleurs du Mal,Poetry,29.04,29.04,0.0,8,0,5
+471,Left Behind (Left Behind #1),Default,40.72,40.72,0.0,8,0,2
+472,Kill 'Em and Leave: Searching for James Brown and the American Soul,Music,45.05,45.05,0.0,8,0,5
+473,Kierkegaard: A Christian Missionary to Christians,Philosophy,47.13,47.13,0.0,8,0,1
+474,John Vassos: Industrial Design for Modern Life,Default,20.22,20.22,0.0,8,0,4
+475,I'll Give You the Sun,Default,56.48,56.48,0.0,8,0,1
+476,I Will Find You,Nonfiction,44.21,44.21,0.0,8,0,1
+477,Hystopia: A Novel,Fiction,21.96,21.96,0.0,8,0,4
+478,Howl and Other Poems,Poetry,40.45,40.45,0.0,8,0,2
+479,History of Beauty,Art,10.29,10.29,0.0,8,0,4
+480,Heaven is for Real: A Little Boy's Astounding Story of His Trip to Heaven and Back,Default,52.86,52.86,0.0,8,0,2
+481,Future Shock (Future Shock #1),Young Adult,55.65,55.65,0.0,8,0,5
+482,Ender's Game (The Ender Quintet #1),Default,43.64,43.64,0.0,8,0,1
+483,Diary of a Citizen Scientist: Chasing Tiger Beetles and Other New Ways of Engaging the World,Science,28.41,28.41,0.0,8,0,1
+484,Death by Leisure: A Cautionary Tale,Default,37.51,37.51,0.0,8,0,4
+485,Brilliant Beacons: A History of the American Lighthouse,History,11.45,11.45,0.0,8,0,3
+486,Brazen: The Courage to Find the You That's Been Hiding,Nonfiction,19.22,19.22,0.0,8,0,2
+487,Between the World and Me,Nonfiction,56.91,56.91,0.0,8,0,4
+488,Being Mortal: Medicine and What Matters in the End,Nonfiction,55.06,55.06,0.0,8,0,4
+489,"A Murder Over a Girl: Justice, Gender, Junior High",Nonfiction,13.2,13.2,0.0,8,0,3
+490,32 Yolks,Food and Drink,53.63,53.63,0.0,8,0,2
+491,"""Most Blessed of the Patriarchs"": Thomas Jefferson and the Empire of the Imagination",History,44.48,44.48,0.0,8,0,5
+492,You Are a Badass: How to Stop Doubting Your Greatness and Start Living an Awesome Life,Self Help,12.08,12.08,0.0,7,0,3
+493,Wildlife of New York: A Five-Borough Coloring Book,Default,22.14,22.14,0.0,7,0,2
+494,What Happened on Beale Street (Secrets of the South Mysteries #2),Mystery,25.37,25.37,0.0,7,0,5
+495,Unreasonable Hope: Finding Faith in the God Who Brings Purpose to Your Pain,Spirituality,46.33,46.33,0.0,7,0,2
+496,Under the Tuscan Sun,Travel,37.33,37.33,0.0,7,0,3
+497,Toddlers Are A**holes: It's Not Your Fault,Humor,25.55,25.55,0.0,7,0,1
+498,The Year of Living Biblically: One Man's Humble Quest to Follow the Bible as Literally as Possible,Default,34.72,34.72,0.0,7,0,1
+499,The Whale,Childrens,35.96,35.96,0.0,7,0,4
+500,The Story of Art,Art,41.14,41.14,0.0,7,0,4
+501,The Origin of Species,Science,10.01,10.01,0.0,7,0,4
+502,The Great Gatsby,Default,36.05,36.05,0.0,7,0,4
+503,The Good Girl,Default,49.03,49.03,0.0,7,0,3
+504,The Glass Castle,Add a comment,16.24,16.24,0.0,7,0,1
+505,The Faith of Christopher Hitchens: The Restless Soul of the World's Most Notorious Atheist,Biography,39.55,39.55,0.0,7,0,1
+506,The Drowning Girls,Add a comment,35.67,35.67,0.0,7,0,3
+507,The Constant Princess (The Tudor Court #1),Historical Fiction,16.62,16.62,0.0,7,0,3
+508,The Bourne Identity (Jason Bourne #1),Fiction,42.78,42.78,0.0,7,0,4
+509,The Bachelor Girl's Guide to Murder (Herringford and Watts Mysteries #1),Mystery,52.3,52.3,0.0,7,0,5
+510,The Art Book,Art,32.34,32.34,0.0,7,0,2
+511,The 7 Habits of Highly Effective People: Powerful Lessons in Personal Change,Default,33.17,33.17,0.0,7,0,4
+512,Team of Rivals: The Political Genius of Abraham Lincoln,Add a comment,20.12,20.12,0.0,7,0,5
+513,Steal Like an Artist: 10 Things Nobody Told You About Being Creative,Default,20.9,20.9,0.0,7,0,2
+514,"Sit, Stay, Love",Romance,20.9,20.9,0.0,7,0,3
+515,Sister Dear,Fiction,40.2,40.2,0.0,7,0,4
+516,"Shrunken Treasures: Literary Classics, Short, Sweet, and Silly",Childrens,52.87,52.87,0.0,7,0,3
+517,"Rich Dad, Poor Dad",Business,51.74,51.74,0.0,7,0,1
+518,Raymie Nightingale,Childrens,34.41,34.41,0.0,7,0,2
+519,Playing from the Heart,Childrens,32.38,32.38,0.0,7,0,1
+520,Nightstruck: A Novel,Young Adult,50.35,50.35,0.0,7,0,4
+521,"Naturally Lean: 125 Nourishing Gluten-Free, Plant-Based Recipes--All Under 300 Calories",Food and Drink,11.38,11.38,0.0,7,0,5
+522,Meternity,Womens Fiction,43.58,43.58,0.0,7,0,3
+523,Memoirs of a Geisha,Fiction,49.67,49.67,0.0,7,0,3
+524,Like Never Before (Walker Family #2),Christian Fiction,28.77,28.77,0.0,7,0,2
+525,Life of Pi,Default,13.22,13.22,0.0,7,0,4
+526,Leave This Song Behind: Teen Poetry at Its Best,Poetry,51.17,51.17,0.0,7,0,5
+527,King's Folly (The Kinsman Chronicles #1),Fantasy,39.61,39.61,0.0,7,0,5
+528,John Adams,Add a comment,57.43,57.43,0.0,7,0,4
+529,How to Cook Everything Vegetarian: Simple Meatless Recipes for Great Food (How to Cook Everything),Food and Drink,46.01,46.01,0.0,7,0,4
+530,How to Be a Domestic Goddess: Baking and the Art of Comfort Cooking,Food and Drink,28.25,28.25,0.0,7,0,2
+531,Good in Bed (Cannie Shapiro #1),Add a comment,37.05,37.05,0.0,7,0,5
+532,"Fruits Basket, Vol. 7 (Fruits Basket #7)",Sequential Art,19.57,19.57,0.0,7,0,1
+533,For the Love: Fighting for Grace in a World of Impossible Standards,Nonfiction,45.13,45.13,0.0,7,0,3
+534,Finding God in the Ruins: How God Redeems Pain,Nonfiction,46.64,46.64,0.0,7,0,2
+535,Every Heart a Doorway (Every Heart A Doorway #1),Fantasy,12.16,12.16,0.0,7,0,5
+536,Delivering the Truth (Quaker Midwife Mystery #1),Mystery,20.89,20.89,0.0,7,0,4
+537,Counted With the Stars (Out from Egypt #1),Christian Fiction,17.97,17.97,0.0,7,0,5
+538,"Chronicles, Vol. 1",Music,52.6,52.6,0.0,7,0,2
+539,Blue Like Jazz: Nonreligious Thoughts on Christian Spirituality,Christian,25.77,25.77,0.0,7,0,1
+540,Benjamin Franklin: An American Life,Biography,48.19,48.19,0.0,7,0,3
+541,"At The Existentialist CafÃ©: Freedom, Being, and apricot cocktails with: Jean-Paul Sartre, Simone de Beauvoir, Albert Camus, Martin Heidegger, Edmund Husserl, Karl Jaspers, Maurice Merleau-Ponty and others",Philosophy,29.93,29.93,0.0,7,0,5
+542,A Summer In Europe,Travel,44.34,44.34,0.0,7,0,2
+543,A Short History of Nearly Everything,History,52.4,52.4,0.0,7,0,5
+544,A Gathering of Shadows (Shades of Magic #2),Fantasy,44.81,44.81,0.0,7,0,4
+545,The Sound Of Love,Default,57.84,57.84,0.0,6,0,5
+546,The Rise and Fall of the Third Reich: A History of Nazi Germany,History,39.67,39.67,0.0,6,0,2
+547,The Perks of Being a Wallflower,Default,55.02,55.02,0.0,6,0,3
+548,The Mysterious Affair at Styles (Hercule Poirot #1),Mystery,24.8,24.8,0.0,6,0,4
+549,The Man Who Mistook His Wife for a Hat and Other Clinical Tales,Nonfiction,59.45,59.45,0.0,6,0,4
+550,The Makings of a Fatherless Child,Default,31.58,31.58,0.0,6,0,2
+551,The Joy of Cooking,Add a comment,43.27,43.27,0.0,6,0,4
+552,The Invention of Wings,Historical Fiction,37.34,37.34,0.0,6,0,1
+553,The Hobbit (Middle-Earth Universe),Default,17.8,17.8,0.0,6,0,5
+554,The Great Railway Bazaar,Travel,30.54,30.54,0.0,6,0,1
+555,The Golden Compass (His Dark Materials #1),Add a comment,18.77,18.77,0.0,6,0,1
+556,The God Delusion,Add a comment,46.85,46.85,0.0,6,0,3
+557,The Girl You Left Behind (The Girl You Left Behind #1),Historical,15.79,15.79,0.0,6,0,1
+558,The Fellowship of the Ring (The Lord of the Rings #1),Default,10.27,10.27,0.0,6,0,2
+559,The Collected Poems of W.B. Yeats (The Collected Works of W.B. Yeats #1),Poetry,15.42,15.42,0.0,6,0,5
+560,The Barefoot Contessa Cookbook,Food and Drink,59.92,59.92,0.0,6,0,5
+561,Tell the Wolves I'm Home,Young Adult,50.96,50.96,0.0,6,0,2
+562,Ship Leaves Harbor: Essays on Travel by a Recovering Journeyman,Default,30.6,30.6,0.0,6,0,3
+563,Pride and Prejudice,Add a comment,19.27,19.27,0.0,6,0,4
+564,Musicophilia: Tales of Music and the Brain,Default,46.58,46.58,0.0,6,0,1
+565,Mere Christianity,Add a comment,48.51,48.51,0.0,6,0,3
+566,Me Before You (Me Before You #1),Fiction,19.02,19.02,0.0,6,0,1
+567,In the Woods (Dublin Murder Squad #1),Mystery,38.38,38.38,0.0,6,0,2
+568,In Cold Blood,Nonfiction,49.98,49.98,0.0,6,0,4
+569,How to Stop Worrying and Start Living,Self Help,46.49,46.49,0.0,6,0,5
+570,Give It Back,Thriller,18.32,18.32,0.0,6,0,2
+571,"Girl, Interrupted",Nonfiction,42.14,42.14,0.0,6,0,3
+572,Fun Home: A Family Tragicomic,Add a comment,56.59,56.59,0.0,6,0,4
+573,"Fruits Basket, Vol. 6 (Fruits Basket #6)",Sequential Art,20.96,20.96,0.0,6,0,4
+574,Deception Point,Fiction,40.32,40.32,0.0,6,0,4
+575,"Death Note, Vol. 6: Give-and-Take (Death Note #6)",Sequential Art,36.39,36.39,0.0,6,0,3
+576,Catherine the Great: Portrait of a Woman,History,58.55,58.55,0.0,6,0,4
+577,Better Homes and Gardens New Cook Book,Food and Drink,39.61,39.61,0.0,6,0,3
+578,An Unquiet Mind: A Memoir of Moods and Madness,Psychology,21.3,21.3,0.0,6,0,3
+579,A Year in Provence (Provence #1),Travel,56.88,56.88,0.0,6,0,4
+580,World Without End (The Pillars of the Earth #2),Historical Fiction,32.97,32.97,0.0,5,0,4
+581,"Will Grayson, Will Grayson (Will Grayson, Will Grayson)",Young Adult,47.31,47.31,0.0,5,0,4
+582,Why Save the Bankers?: And Other Essays on Our Economic and Political Crisis,Nonfiction,48.67,48.67,0.0,5,0,2
+583,Where She Went (If I Stay #2),Young Adult,41.73,41.73,0.0,5,0,4
+584,What If?: Serious Scientific Answers to Absurd Hypothetical Questions,Default,53.68,53.68,0.0,5,0,4
+585,Two Summers,Young Adult,14.64,14.64,0.0,5,0,1
+586,This Is Your Brain on Music: The Science of a Human Obsession,Music,38.4,38.4,0.0,5,0,1
+587,The Secret Garden,Classics,15.08,15.08,0.0,5,0,4
+588,The Raven King (The Raven Cycle #4),Add a comment,30.57,30.57,0.0,5,0,2
+589,The Raven Boys (The Raven Cycle #1),Fantasy,57.74,57.74,0.0,5,0,4
+590,The Power Greens Cookbook: 140 Delicious Superfood Recipes,Food and Drink,11.05,11.05,0.0,5,0,5
+591,The Metamorphosis,Classics,28.58,28.58,0.0,5,0,1
+592,The Mathews Men: Seven Brothers and the War Against Hitler's U-boats,History,42.91,42.91,0.0,5,0,5
+593,The Little Paris Bookshop,Fiction,24.73,24.73,0.0,5,0,3
+594,The Hiding Place,History,55.91,55.91,0.0,5,0,4
+595,The Grand Design,Science,13.76,13.76,0.0,5,0,3
+596,The Firm,Fiction,45.56,45.56,0.0,5,0,3
+597,The Fault in Our Stars,Default,47.22,47.22,0.0,5,0,1
+598,The False Prince (The Ascendance Trilogy #1),Fantasy,56.0,56.0,0.0,5,0,5
+599,The Expatriates,Fiction,44.58,44.58,0.0,5,0,2
+600,The Dream Thieves (The Raven Cycle #2),Default,34.5,34.5,0.0,5,0,1
+601,The Darkest Corners,Young Adult,11.33,11.33,0.0,5,0,5
+602,The Crossover,Poetry,38.77,38.77,0.0,5,0,4
+603,The 5th Wave (The 5th Wave #1),Default,11.83,11.83,0.0,5,0,2
+604,Tell the Wind and Fire,Fantasy,45.51,45.51,0.0,5,0,3
+605,Tell Me Three Things,Young Adult,41.81,41.81,0.0,5,0,1
+606,Talking to Girls About Duran Duran: One Young Man's Quest for True Love and a Cooler Haircut,Nonfiction,25.15,25.15,0.0,5,0,4
+607,Siddhartha,Fiction,34.22,34.22,0.0,5,0,5
+608,Shiver (The Wolves of Mercy Falls #1),Default,16.23,16.23,0.0,5,0,5
+609,Remember Me?,Default,11.48,11.48,0.0,5,0,3
+610,Red Dragon (Hannibal Lecter #1),Horror,23.37,23.37,0.0,5,0,3
+611,Peak: Secrets from the New Science of Expertise,Science,16.28,16.28,0.0,5,0,2
+612,My Mother Was Nuts,Nonfiction,31.63,31.63,0.0,5,0,4
+613,Mexican Today: New and Rediscovered Recipes for Contemporary Kitchens,Food and Drink,24.91,24.91,0.0,5,0,5
+614,Maybe Something Beautiful: How Art Transformed a Neighborhood,Childrens,22.54,22.54,0.0,5,0,1
+615,Lola and the Boy Next Door (Anna and the French Kiss #2),Young Adult,23.63,23.63,0.0,5,0,4
+616,Logan Kade (Fallen Crest High #5.5),Academic,13.12,13.12,0.0,5,0,2
+617,Last One Home (New Beginnings #1),Fiction,59.98,59.98,0.0,5,0,3
+618,Killing Floor (Jack Reacher #1),Thriller,31.49,31.49,0.0,5,0,4
+619,Kill the Boy Band,Young Adult,15.52,15.52,0.0,5,0,5
+620,Isla and the Happily Ever After (Anna and the French Kiss #3),Young Adult,48.13,48.13,0.0,5,0,5
+621,If I Stay (If I Stay #1),Default,38.13,38.13,0.0,5,0,5
+622,I Know Why the Caged Bird Sings (Maya Angelou's Autobiography #1),Default,36.55,36.55,0.0,5,0,2
+623,Harry Potter and the Deathly Hallows (Harry Potter #7),Default,23.32,23.32,0.0,5,0,1
+624,"Fruits Basket, Vol. 5 (Fruits Basket #5)",Sequential Art,16.33,16.33,0.0,5,0,1
+625,Foundation (Foundation (Publication Order) #1),Science Fiction,32.42,32.42,0.0,5,0,1
+626,Fool Me Once,Default,16.96,16.96,0.0,5,0,1
+627,Find Her (Detective D.D. Warren #8),Add a comment,22.37,22.37,0.0,5,0,1
+628,Evicted: Poverty and Profit in the American City,Add a comment,42.27,42.27,0.0,5,0,1
+629,Drama,Default,38.7,38.7,0.0,5,0,2
+630,Dracula the Un-Dead,Horror,35.63,35.63,0.0,5,0,5
+631,Digital Fortress,Fiction,58.0,58.0,0.0,5,0,5
+632,"Death Note, Vol. 5: Whiteout (Death Note #5)",Sequential Art,52.41,52.41,0.0,5,0,1
+633,"Data, A Love Story: How I Gamed Online Dating to Meet My Match",Nonfiction,32.35,32.35,0.0,5,0,3
+634,Critique of Pure Reason,Philosophy,20.75,20.75,0.0,5,0,1
+635,Booked,Poetry,17.49,17.49,0.0,5,0,5
+636,"Blue Lily, Lily Blue (The Raven Cycle #3)",Default,34.13,34.13,0.0,5,0,5
+637,Approval Junkie: Adventures in Caring Too Much,Autobiography,58.81,58.81,0.0,5,0,5
+638,An Abundance of Katherines,Young Adult,10.0,10.0,0.0,5,0,5
+639,America's War for the Greater Middle East: A Military History,History,51.22,51.22,0.0,5,0,2
+640,Alight (The Generations Trilogy #2),Default,58.59,58.59,0.0,5,0,4
+641,A Girl's Guide to Moving On (New Beginnings #2),Romance,31.3,31.3,0.0,5,0,1
+642,A Game of Thrones (A Song of Ice and Fire #1),Add a comment,46.42,46.42,0.0,5,0,2
+643,A Feast for Crows (A Song of Ice and Fire #4),Fantasy,17.21,17.21,0.0,5,0,4
+644,A Clash of Kings (A Song of Ice and Fire #2),Add a comment,10.79,10.79,0.0,5,0,3
+645,Vogue Colors A to Z: A Fashion Coloring Book,Default,52.35,52.35,0.0,4,0,4
+646,The Shining (The Shining #1),Default,27.88,27.88,0.0,4,0,3
+647,The Pilgrim's Progress,Classics,50.26,50.26,0.0,4,0,2
+648,The Perfect Play (Play by Play #1),Romance,59.99,59.99,0.0,4,0,3
+649,The Passion of Dolssa,Historical Fiction,28.32,28.32,0.0,4,0,5
+650,The Jazz of Physics: The Secret Link Between Music and the Structure of the Universe,Nonfiction,38.71,38.71,0.0,4,0,3
+651,The Hunger Games (The Hunger Games #1),Default,29.85,29.85,0.0,4,0,5
+652,The Hound of the Baskervilles (Sherlock Holmes #5),Classics,14.82,14.82,0.0,4,0,2
+653,The Gunning of America: Business and the Making of American Gun Culture,Nonfiction,16.81,16.81,0.0,4,0,4
+654,The Geography of Bliss: One Grump's Search for the Happiest Places in the World,Nonfiction,28.23,28.23,0.0,4,0,2
+655,The Demonists (Demonist #1),Fantasy,52.11,52.11,0.0,4,0,2
+656,"The Demon Prince of Momochi House, Vol. 4 (The Demon Prince of Momochi House #4)",Sequential Art,27.88,27.88,0.0,4,0,2
+657,The Bone Hunters (Lexy Vaughan & Steven Macaulay #2),Thriller,59.71,59.71,0.0,4,0,3
+658,The Beast (Black Dagger Brotherhood #14),Fantasy,46.08,46.08,0.0,4,0,5
+659,Some Women,Womens Fiction,13.73,13.73,0.0,4,0,5
+660,Shopaholic Ties the Knot (Shopaholic #3),Womens Fiction,48.39,48.39,0.0,4,0,5
+661,Paper and Fire (The Great Library #2),Fantasy,49.45,49.45,0.0,4,0,5
+662,Outlander (Outlander #1),Default,19.67,19.67,0.0,4,0,5
+663,"Orchestra of Exiles: The Story of Bronislaw Huberman, the Israel Philharmonic, and the One Thousand Jews He Saved from Nazi Horrors",Music,12.36,12.36,0.0,4,0,3
+664,No One Here Gets Out Alive,Music,20.02,20.02,0.0,4,0,5
+665,Night Shift (Night Shift #1-20),Horror,12.75,12.75,0.0,4,0,4
+666,Needful Things,Horror,47.51,47.51,0.0,4,0,4
+667,Mockingjay (The Hunger Games #3),Default,20.44,20.44,0.0,4,0,4
+668,Misery,Horror,34.79,34.79,0.0,4,0,2
+669,Little Women (Little Women #1),Classics,28.07,28.07,0.0,4,0,4
+670,It,Horror,25.01,25.01,0.0,4,0,3
+671,Harry Potter and the Sorcerer's Stone (Harry Potter #1),Default,13.9,13.9,0.0,4,0,3
+672,Harry Potter and the Prisoner of Azkaban (Harry Potter #3),Young Adult,24.17,24.17,0.0,4,0,4
+673,Harry Potter and the Order of the Phoenix (Harry Potter #5),Fantasy,31.63,31.63,0.0,4,0,4
+674,Harry Potter and the Half-Blood Prince (Harry Potter #6),Fantasy,48.75,48.75,0.0,4,0,5
+675,Harry Potter and the Chamber of Secrets (Harry Potter #2),Fantasy,14.74,14.74,0.0,4,0,1
+676,Gone with the Wind,Classics,32.49,32.49,0.0,4,0,3
+677,God Is Not Great: How Religion Poisons Everything,Nonfiction,27.8,27.8,0.0,4,0,1
+678,Girl With a Pearl Earring,Historical Fiction,26.77,26.77,0.0,4,0,1
+679,"Fruits Basket, Vol. 4 (Fruits Basket #4)",Sequential Art,50.44,50.44,0.0,4,0,4
+680,Far From True (Promise Falls Trilogy #2),Thriller,34.93,34.93,0.0,4,0,2
+681,Dark Lover (Black Dagger Brotherhood #1),Romance,12.87,12.87,0.0,4,0,1
+682,Confessions of a Shopaholic (Shopaholic #1),Default,48.94,48.94,0.0,4,0,2
+683,Changing the Game (Play by Play #2),Romance,13.38,13.38,0.0,4,0,3
+684,Candide,Classics,58.63,58.63,0.0,4,0,3
+685,Can You Keep a Secret?,Womens Fiction,21.94,21.94,0.0,4,0,1
+686,Atlas Shrugged,Fiction,26.58,26.58,0.0,4,0,5
+687,Animal Farm,Classics,57.22,57.22,0.0,4,0,3
+688,A Walk to Remember,Romance,56.43,56.43,0.0,4,0,1
+689,A New Earth: Awakening to Your Life's Purpose,Spirituality,55.65,55.65,0.0,4,0,5
+690,"A History of God: The 4,000-Year Quest of Judaism, Christianity, and Islam",Religion,27.62,27.62,0.0,4,0,1
+691,'Salem's Lot,Horror,49.56,49.56,0.0,4,0,4
+692,Zero History (Blue Ant #3),Default,34.77,34.77,0.0,3,0,1
+693,Wuthering Heights,Classics,17.73,17.73,0.0,3,0,3
+694,World War Z: An Oral History of the Zombie War,Default,21.8,21.8,0.0,3,0,1
+695,Wild: From Lost to Found on the Pacific Crest Trail,Default,46.02,46.02,0.0,3,0,3
+696,"Where'd You Go, Bernadette",Default,18.13,18.13,0.0,3,0,1
+697,When You Are Engulfed in Flames,Humor,30.89,30.89,0.0,3,0,5
+698,We the People: The Modern-Day Figures Who Have Reshaped and Affirmed the Founding Fathers' Vision of America,Nonfiction,31.95,31.95,0.0,3,0,3
+699,We Are All Completely Beside Ourselves,Contemporary,24.04,24.04,0.0,3,0,1
+700,Walk the Edge (Thunder Road #2),Young Adult,32.36,32.36,0.0,3,0,3
+701,Voyager (Outlander #3),Historical Fiction,21.07,21.07,0.0,3,0,5
+702,Very Good Lives: The Fringe Benefits of Failure and the Importance of Imagination,Nonfiction,50.66,50.66,0.0,3,0,3
+703,Vegan Vegetarian Omnivore: Dinner for Everyone at the Table,Food and Drink,13.66,13.66,0.0,3,0,2
+704,"Unstuffed: Decluttering Your Home, Mind, and Soul",Nonfiction,58.09,58.09,0.0,3,0,1
+705,Under the Banner of Heaven: A Story of Violent Faith,Nonfiction,30.0,30.0,0.0,3,0,1
+706,Two Boys Kissing,Young Adult,32.74,32.74,0.0,3,0,2
+707,Twilight (Twilight #1),Default,41.93,41.93,0.0,3,0,2
+708,Twenties Girl,Womens Fiction,42.8,42.8,0.0,3,0,2
+709,"Trespassing Across America: One Man's Epic, Never-Done-Before (and Sort of Illegal) Hike Across the Heartland",Nonfiction,53.51,53.51,0.0,3,0,1
+710,Three-Martini Lunch,Fiction,23.21,23.21,0.0,3,0,3
+711,"Thinking, Fast and Slow",Psychology,21.14,21.14,0.0,3,0,1
+712,The Wild Robot,Childrens,56.07,56.07,0.0,3,0,3
+713,"The Wicked + The Divine, Vol. 3: Commercial Suicide (The Wicked + The Divine)",Sequential Art,14.41,14.41,0.0,3,0,3
+714,The Undomestic Goddess,Womens Fiction,45.75,45.75,0.0,3,0,4
+715,The Travelers,Thriller,15.77,15.77,0.0,3,0,1
+716,The Tipping Point: How Little Things Can Make a Big Difference,Add a comment,10.02,10.02,0.0,3,0,2
+717,The Thing About Jellyfish,Childrens,48.77,48.77,0.0,3,0,1
+718,The Stand,Horror,57.86,57.86,0.0,3,0,2
+719,The Smitten Kitchen Cookbook,Food and Drink,23.59,23.59,0.0,3,0,1
+720,The Silkworm (Cormoran Strike #2),Mystery,23.05,23.05,0.0,3,0,5
+721,"The Sandman, Vol. 3: Dream Country (The Sandman (volumes) #3)",Sequential Art,55.55,55.55,0.0,3,0,5
+722,The Rose & the Dagger (The Wrath and the Dawn #2),Fantasy,58.64,58.64,0.0,3,0,4
+723,The Road to Little Dribbling: Adventures of an American in Britain (Notes From a Small Island #2),Travel,23.21,23.21,0.0,3,0,1
+724,The Rise of Theodore Roosevelt (Theodore Roosevelt #1),Biography,42.57,42.57,0.0,3,0,3
+725,The Restaurant at the End of the Universe (Hitchhiker's Guide to the Galaxy #2),Science Fiction,10.92,10.92,0.0,3,0,1
+726,The Rest Is Noise: Listening to the Twentieth Century,Add a comment,34.77,34.77,0.0,3,0,1
+727,The Red Tent,Historical Fiction,35.66,35.66,0.0,3,0,5
+728,The Purpose Driven Life: What on Earth Am I Here for?,Add a comment,37.19,37.19,0.0,3,0,3
+729,The Purest Hook (Second Circle Tattoos #3),Romance,12.25,12.25,0.0,3,0,1
+730,The Picture of Dorian Gray,Classics,29.7,29.7,0.0,3,0,2
+731,The Paris Wife,Default,36.8,36.8,0.0,3,0,3
+732,The Obsession,Romance,45.43,45.43,0.0,3,0,1
+733,The Nightingale,Fiction,26.26,26.26,0.0,3,0,4
+734,The New Guy (and Other Senior Year Distractions),Young Adult,44.92,44.92,0.0,3,0,3
+735,The Nanny Diaries (Nanny #1),Womens Fiction,52.53,52.53,0.0,3,0,5
+736,The Name of God is Mercy,Nonfiction,37.25,37.25,0.0,3,0,2
+737,The Maze Runner (The Maze Runner #1),Default,20.93,20.93,0.0,3,0,1
+738,The Lover's Dictionary,Default,58.09,58.09,0.0,3,0,2
+739,The Lonely Ones,Childrens,43.59,43.59,0.0,3,0,5
+740,The Lean Startup: How Today's Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses,Business,33.92,33.92,0.0,3,0,3
+741,The Last Painting of Sara de Vos,Historical Fiction,55.55,55.55,0.0,3,0,2
+742,"The Land of 10,000 Madonnas",Young Adult,29.64,29.64,0.0,3,0,4
+743,The Infinities,Fiction,27.41,27.41,0.0,3,0,1
+744,The Husband's Secret,Fiction,52.51,52.51,0.0,3,0,5
+745,The Hitchhiker's Guide to the Galaxy (Hitchhiker's Guide to the Galaxy #1),Add a comment,47.8,47.8,0.0,3,0,3
+746,The Guns of August,History,14.54,14.54,0.0,3,0,2
+747,The Guernsey Literary and Potato Peel Pie Society,Historical Fiction,49.53,49.53,0.0,3,0,1
+748,The Goldfinch,Default,43.58,43.58,0.0,3,0,3
+749,The Giver (The Giver Quartet #1),Default,12.3,12.3,0.0,3,0,1
+750,The Girl with All the Gifts,Horror,49.47,49.47,0.0,3,0,3
+751,The Girl Who Played with Fire (Millennium Trilogy #2),Default,22.14,22.14,0.0,3,0,2
+752,The Girl Who Kicked the Hornet's Nest (Millennium Trilogy #3),Add a comment,57.48,57.48,0.0,3,0,1
+753,The Exiled,Mystery,43.45,43.45,0.0,3,0,3
+754,"The End of Faith: Religion, Terror, and the Future of Reason",Add a comment,22.13,22.13,0.0,3,0,4
+755,"The Elegant Universe: Superstrings, Hidden Dimensions, and the Quest for the Ultimate Theory",Science,13.03,13.03,0.0,3,0,4
+756,"The Disappearing Spoon: And Other True Tales of Madness, Love, and the History of the World from the Periodic Table of the Elements",Science,57.35,57.35,0.0,3,0,5
+757,The Devil Wears Prada (The Devil Wears Prada #1),Womens Fiction,44.29,44.29,0.0,3,0,1
+758,The Demon-Haunted World: Science as a Candle in the Dark,Default,52.25,52.25,0.0,3,0,4
+759,The Day the Crayons Came Home (Crayons),Childrens,26.33,26.33,0.0,3,0,5
+760,The Da Vinci Code (Robert Langdon #2),Fiction,22.96,22.96,0.0,3,0,2
+761,The Cuckoo's Calling (Cormoran Strike #1),Mystery,19.21,19.21,0.0,3,0,1
+762,The Complete Stories and Poems (The Works of Edgar Allan Poe [Cameo Edition]),Classics,26.78,26.78,0.0,3,0,4
+763,The Complete Poems,Add a comment,41.32,41.32,0.0,3,0,5
+764,The Catcher in the Rye,Add a comment,24.55,24.55,0.0,3,0,1
+765,The Cat in the Hat (Beginner Books B-1),Childrens,16.26,16.26,0.0,3,0,2
+766,The Case for Christ (Cases for Christianity),Add a comment,47.84,47.84,0.0,3,0,1
+767,The Book Thief,Default,53.49,53.49,0.0,3,0,2
+768,The Book of Basketball: The NBA According to The Sports Guy,Sports and Games,44.84,44.84,0.0,3,0,5
+769,The Blind Side: Evolution of a Game,Add a comment,53.71,53.71,0.0,3,0,5
+770,The Autobiography of Malcolm X,Default,23.43,23.43,0.0,3,0,2
+771,"The Art of Simple Food: Notes, Lessons, and Recipes from a Delicious Revolution",Food and Drink,34.32,34.32,0.0,3,0,3
+772,The Art of Fielding,Fiction,22.1,22.1,0.0,3,0,1
+773,"Surely You're Joking, Mr. Feynman!: Adventures of a Curious Character",Science,25.83,25.83,0.0,3,0,2
+774,Stiff: The Curious Lives of Human Cadavers,Nonfiction,36.74,36.74,0.0,3,0,3
+775,Spilled Milk: Based on a True Story,Nonfiction,49.51,49.51,0.0,3,0,1
+776,Something Borrowed (Darcy & Rachel #1),Womens Fiction,48.96,48.96,0.0,3,0,5
+777,Something Blue (Darcy & Rachel #2),Womens Fiction,54.62,54.62,0.0,3,0,1
+778,Soldier (Talon #3),Fantasy,24.72,24.72,0.0,3,0,2
+779,Shopaholic & Baby (Shopaholic #5),Default,46.45,46.45,0.0,3,0,2
+780,Seven Days in the Art World,Add a comment,52.33,52.33,0.0,3,0,2
+781,Seven Brief Lessons on Physics,Science,30.6,30.6,0.0,3,0,4
+782,Scarlet (The Lunar Chronicles #2),Young Adult,14.57,14.57,0.0,3,0,4
+783,Sarah's Key,Add a comment,46.29,46.29,0.0,3,0,1
+784,"Saga, Volume 3 (Saga (Collected Editions) #3)",Sequential Art,21.57,21.57,0.0,3,0,5
+785,Running with Scissors,Autobiography,12.91,12.91,0.0,3,0,4
+786,Rogue Lawyer (Rogue Lawyer #1),Add a comment,50.11,50.11,0.0,3,0,3
+787,"Rise of the Rocket Girls: The Women Who Propelled Us, from Missiles to the Moon to Mars",Nonfiction,41.67,41.67,0.0,3,0,4
+788,Rework,Business,44.88,44.88,0.0,3,0,2
+789,Reservations for Two,Romance,11.1,11.1,0.0,3,0,3
+790,Red: The True Story of Red Riding Hood,Childrens,28.54,28.54,0.0,3,0,3
+791,Ready Player One,Science Fiction,19.07,19.07,0.0,3,0,4
+792,Quiet: The Power of Introverts in a World That Can't Stop Talking,Default,43.55,43.55,0.0,3,0,1
+793,Prodigy: The Graphic Novel (Legend: The Graphic Novel #2),Sequential Art,43.63,43.63,0.0,3,0,3
+794,Persepolis: The Story of a Childhood (Persepolis #1-2),Sequential Art,39.13,39.13,0.0,3,0,1
+795,Packing for Mars: The Curious Science of Life in the Void,Default,56.68,56.68,0.0,3,0,2
+796,Outliers: The Story of Success,Nonfiction,14.16,14.16,0.0,3,0,1
+797,Original Fake,Sequential Art,31.45,31.45,0.0,3,0,3
+798,Orange Is the New Black,Default,24.61,24.61,0.0,3,0,2
+799,One for the Money (Stephanie Plum #1),Default,32.87,32.87,0.0,3,0,2
+800,Notes from a Small Island (Notes From a Small Island #1),Nonfiction,40.17,40.17,0.0,3,0,1
+801,Night (The Night Trilogy #1),Nonfiction,13.51,13.51,0.0,3,0,1
+802,Neither Here nor There: Travels in Europe,Travel,38.95,38.95,0.0,3,0,3
+803,Naked,Humor,31.69,31.69,0.0,3,0,3
+804,Morning Star (Red Rising #3),Default,29.4,29.4,0.0,3,0,1
+805,"Miracles from Heaven: A Little Girl, Her Journey to Heaven, and Her Amazing Story of Healing",Nonfiction,57.83,57.83,0.0,3,0,1
+806,Midnight Riot (Peter Grant/ Rivers of London - books #1),Fantasy,55.46,55.46,0.0,3,0,2
+807,Me Talk Pretty One Day,Autobiography,57.6,57.6,0.0,3,0,2
+808,Manuscript Found in Accra,Add a comment,34.98,34.98,0.0,3,0,2
+809,Lust & Wonder,Autobiography,11.87,11.87,0.0,3,0,2
+810,Lila (Gilead #3),Fiction,12.47,12.47,0.0,3,0,3
+811,"Life, the Universe and Everything (Hitchhiker's Guide to the Galaxy #3)",Science Fiction,33.26,33.26,0.0,3,0,2
+812,Life Without a Recipe,Autobiography,59.04,59.04,0.0,3,0,5
+813,Life After Life,Default,26.13,26.13,0.0,3,0,2
+814,Letter to a Christian Nation,Nonfiction,22.2,22.2,0.0,3,0,1
+815,Let's Pretend This Never Happened: A Mostly True Memoir,Nonfiction,45.11,45.11,0.0,3,0,1
+816,Legend (Legend #1),Young Adult,43.69,43.69,0.0,3,0,4
+817,"Lean In: Women, Work, and the Will to Lead",Default,25.02,25.02,0.0,3,0,1
+818,"Lamb: The Gospel According to Biff, Christ's Childhood Pal",Humor,55.5,55.5,0.0,3,0,5
+819,Lady Renegades (Rebel Belle #3),Young Adult,53.04,53.04,0.0,3,0,5
+820,Jurassic Park (Jurassic Park #1),Fiction,44.97,44.97,0.0,3,0,1
+821,It's Never Too Late to Begin Again: Discovering Creativity and Meaning at Midlife and Beyond,Nonfiction,42.38,42.38,0.0,3,0,1
+822,Is Everyone Hanging Out Without Me? (And Other Concerns),Default,20.11,20.11,0.0,3,0,3
+823,Into the Wild,Nonfiction,56.7,56.7,0.0,3,0,5
+824,Inferno (Robert Langdon #4),Fiction,41.0,41.0,0.0,3,0,5
+825,"In the Garden of Beasts: Love, Terror, and an American Family in Hitler's Berlin",Nonfiction,28.85,28.85,0.0,3,0,3
+826,If I Run (If I Run #1),Christian Fiction,49.97,49.97,0.0,3,0,4
+827,I've Got Your Number,Womens Fiction,19.69,19.69,0.0,3,0,1
+828,I Am Malala: The Girl Who Stood Up for Education and Was Shot by the Taliban,Nonfiction,28.88,28.88,0.0,3,0,2
+829,Hungry Girl Clean & Hungry: Easy All-Natural Recipes for Healthy Eating in the Real World,Food and Drink,33.14,33.14,0.0,3,0,3
+830,"House of Lost Worlds: Dinosaurs, Dynasties, and the Story of Life on Earth",History,43.7,43.7,0.0,3,0,2
+831,House of Leaves,Horror,54.89,54.89,0.0,3,0,1
+832,Horrible Bear!,Childrens,37.52,37.52,0.0,3,0,2
+833,Holidays on Ice,Humor,51.07,51.07,0.0,3,0,2
+834,Heir to the Sky,Fantasy,44.07,44.07,0.0,3,0,4
+835,Green Eggs and Ham (Beginner Books B-16),Childrens,10.79,10.79,0.0,3,0,4
+836,"Grayson, Vol 3: Nemesis (Grayson #3)",Sequential Art,42.72,42.72,0.0,3,0,1
+837,Gratitude,Nonfiction,26.66,26.66,0.0,3,0,5
+838,Gone Girl,Default,37.6,37.6,0.0,3,0,5
+839,Golden (Heart of Dread #3),Young Adult,42.21,42.21,0.0,3,0,4
+840,Girl in the Blue Coat,Historical Fiction,46.83,46.83,0.0,3,0,2
+841,"Fruits Basket, Vol. 3 (Fruits Basket #3)",Sequential Art,45.17,45.17,0.0,3,0,2
+842,"Friday Night Lights: A Town, a Team, and a Dream",Sports and Games,51.22,51.22,0.0,3,0,3
+843,Fire Bound (Sea Haven/Sisters of the Heart #5),Add a comment,21.28,21.28,0.0,3,0,4
+844,Fifty Shades Freed (Fifty Shades #3),Adult Fiction,15.36,15.36,0.0,3,0,5
+845,Fellside,Default,38.62,38.62,0.0,3,0,1
+846,Extreme Prey (Lucas Davenport #26),Mystery,25.4,25.4,0.0,3,0,3
+847,Eragon (The Inheritance Cycle #1),Fantasy,43.87,43.87,0.0,3,0,3
+848,Eclipse (Twilight #3),Default,18.74,18.74,0.0,3,0,1
+849,Dune (Dune #1),Science Fiction,54.86,54.86,0.0,3,0,1
+850,Dracula,Default,52.62,52.62,0.0,3,0,3
+851,Do Androids Dream of Electric Sheep? (Blade Runner #1),Science Fiction,51.48,51.48,0.0,3,0,1
+852,Disrupted: My Misadventure in the Start-Up Bubble,Nonfiction,15.28,15.28,0.0,3,0,5
+853,Dead Wake: The Last Crossing of the Lusitania,Default,39.24,39.24,0.0,3,0,5
+854,"David and Goliath: Underdogs, Misfits, and the Art of Battling Giants",Default,17.81,17.81,0.0,3,0,1
+855,Darkfever (Fever #1),Fantasy,56.02,56.02,0.0,3,0,1
+856,Dark Places,Default,23.9,23.9,0.0,3,0,5
+857,Crazy Rich Asians (Crazy Rich Asians #1),Fiction,49.13,49.13,0.0,3,0,5
+858,Counting Thyme,Childrens,10.62,10.62,0.0,3,0,1
+859,Cosmos,Add a comment,36.17,36.17,0.0,3,0,2
+860,Civilization and Its Discontents,Psychology,59.95,59.95,0.0,3,0,2
+861,Cinder (The Lunar Chronicles #1),Young Adult,26.09,26.09,0.0,3,0,1
+862,Catastrophic Happiness: Finding Joy in Childhood's Messy Years,Parenting,37.35,37.35,0.0,3,0,2
+863,Career of Evil (Cormoran Strike #3),Mystery,24.72,24.72,0.0,3,0,2
+864,Breaking Dawn (Twilight #4),Default,35.28,35.28,0.0,3,0,5
+865,Brave Enough,Nonfiction,51.32,51.32,0.0,3,0,5
+866,Boy Meets Boy,Young Adult,21.12,21.12,0.0,3,0,3
+867,"Born to Run: A Hidden Tribe, Superathletes, and the Greatest Race the World Has Never Seen",Nonfiction,27.35,27.35,0.0,3,0,2
+868,Blink: The Power of Thinking Without Thinking,Nonfiction,21.74,21.74,0.0,3,0,5
+869,Black Flags: The Rise of ISIS,Nonfiction,40.87,40.87,0.0,3,0,1
+870,"Black Butler, Vol. 1 (Black Butler #1)",Sequential Art,49.31,49.31,0.0,3,0,1
+871,Big Little Lies,Fiction,22.11,22.11,0.0,3,0,1
+872,Between Shades of Gray,Historical Fiction,20.79,20.79,0.0,3,0,5
+873,Best of My Love (Fool's Gold #20),Romance,27.41,27.41,0.0,3,0,2
+874,Beowulf,Classics,38.35,38.35,0.0,3,0,2
+875,Beautiful Creatures (Caster Chronicles #1),Default,21.55,21.55,0.0,3,0,5
+876,Awkward,Sequential Art,38.02,38.02,0.0,3,0,2
+877,Ash,Fantasy,22.06,22.06,0.0,3,0,4
+878,Are We There Yet?,Childrens,10.66,10.66,0.0,3,0,3
+879,Are We Smart Enough to Know How Smart Animals Are?,Nonfiction,56.58,56.58,0.0,3,0,1
+880,Annie on My Mind,Young Adult,36.83,36.83,0.0,3,0,5
+881,And Then There Were None,Classics,35.01,35.01,0.0,3,0,2
+882,A Walk in the Woods: Rediscovering America on the Appalachian Trail,Nonfiction,30.48,30.48,0.0,3,0,4
+883,A Visit from the Goon Squad,Default,14.08,14.08,0.0,3,0,5
+884,A Storm of Swords (A Song of Ice and Fire #3),Fantasy,31.22,31.22,0.0,3,0,2
+885,A Heartbreaking Work of Staggering Genius,Autobiography,54.29,54.29,0.0,3,0,5
+886,8 Keys to Mental Health Through Exercise,Psychology,31.04,31.04,0.0,3,0,1
+887,#GIRLBOSS,Add a comment,50.96,50.96,0.0,3,0,1
+888,"The Suffragettes (Little Black Classics, #96)",Nonfiction,11.89,11.89,0.0,2,0,2
+889,The Sense of an Ending,Add a comment,31.38,31.38,0.0,2,0,3
+890,"The Sandman, Vol. 2: The Doll's House (The Sandman (volumes) #2)",Sequential Art,54.81,54.81,0.0,2,0,1
+891,The Course of Love,Fiction,16.78,16.78,0.0,2,0,3
+892,Sugar Rush (Offensive Line #2),Sports and Games,24.42,24.42,0.0,2,0,1
+893,"Saga, Volume 2 (Saga (Collected Editions) #2)",Sequential Art,11.75,11.75,0.0,2,0,3
+894,"Run, Spot, Run: The Ethics of Keeping Pets",Philosophy,20.02,20.02,0.0,2,0,1
+895,New Moon (Twilight #2),Young Adult,12.86,12.86,0.0,2,0,4
+896,Life,Music,31.58,31.58,0.0,2,0,5
+897,Kindle Paperwhite User's Guide,Nonfiction,34.0,34.0,0.0,2,0,3
+898,H is for Hawk,Nonfiction,57.42,57.42,0.0,2,0,5
+899,Girl Online On Tour (Girl Online #2),Young Adult,53.47,53.47,0.0,2,0,1
+900,"Fruits Basket, Vol. 2 (Fruits Basket #2)",Sequential Art,11.64,11.64,0.0,2,0,5
+901,Diary of a Minecraft Zombie Book 1: A Scare of a Dare (An Unofficial Minecraft Book),Childrens,52.88,52.88,0.0,2,0,4
+902,"Y: The Last Man, Vol. 1: Unmanned (Y: The Last Man #1)",Sequential Art,18.51,18.51,0.0,1,0,4
+903,While You Were Mine,Historical Fiction,41.32,41.32,0.0,1,0,5
+904,Where Lightning Strikes (Bleeding Stars #3),Romance,39.77,39.77,0.0,1,0,3
+905,When I'm Gone,Fiction,51.96,51.96,0.0,1,0,3
+906,Ways of Seeing,Art,39.51,39.51,0.0,1,0,5
+907,"Vampire Knight, Vol. 1 (Vampire Knight #1)",Paranormal,15.4,15.4,0.0,1,0,1
+908,Vampire Girl (Vampire Girl #1),Fantasy,53.82,53.82,0.0,1,0,2
+909,Twenty Love Poems and a Song of Despair,Poetry,30.95,30.95,0.0,1,0,4
+910,Travels with Charley: In Search of America,Nonfiction,57.82,57.82,0.0,1,0,5
+911,Three Wishes (River of Time: California #1),Science Fiction,44.18,44.18,0.0,1,0,2
+912,This One Moment (Pushing Limits #1),Romance,48.71,48.71,0.0,1,0,1
+913,The Zombie Room,Default,19.69,19.69,0.0,1,0,5
+914,"The Wicked + The Divine, Vol. 1: The Faust Act (The Wicked + The Divine)",Sequential Art,36.52,36.52,0.0,1,0,2
+915,The Tumor,Nonfiction,41.56,41.56,0.0,1,0,5
+916,The Story of Hong Gildong,Classics,43.19,43.19,0.0,1,0,4
+917,The Silent Wife,Fiction,12.34,12.34,0.0,1,0,5
+918,The Silent Twin (Detective Jennifer Knight #3),Fantasy,36.25,36.25,0.0,1,0,3
+919,The Selfish Gene,Science,29.45,29.45,0.0,1,0,1
+920,The Secret Healer,Historical Fiction,34.56,34.56,0.0,1,0,3
+921,"The Sandman, Vol. 1: Preludes and Nocturnes (The Sandman (volumes) #1)",Sequential Art,54.12,54.12,0.0,1,0,3
+922,The Republic,Add a comment,33.78,33.78,0.0,1,0,3
+923,The Odyssey,Add a comment,29.64,29.64,0.0,1,0,3
+924,The No. 1 Ladies' Detective Agency (No. 1 Ladies' Detective Agency #1),Mystery,57.7,57.7,0.0,1,0,4
+925,The Nicomachean Ethics,Philosophy,36.34,36.34,0.0,1,0,1
+926,The Name of the Wind (The Kingkiller Chronicle #1),Default,50.59,50.59,0.0,1,0,3
+927,The Mirror & the Maze (The Wrath and the Dawn #1.5),Fantasy,29.38,29.38,0.0,1,0,1
+928,The Little Prince,Classics,45.42,45.42,0.0,1,0,2
+929,The Light of the Fireflies,Add a comment,54.43,54.43,0.0,1,0,1
+930,The Last Girl (The Dominion Trilogy #1),Science Fiction,36.26,36.26,0.0,1,0,2
+931,The Iliad,Add a comment,16.16,16.16,0.0,1,0,1
+932,The Hook Up (Game On #1),New Adult,36.29,36.29,0.0,1,0,5
+933,The Haters,Young Adult,27.89,27.89,0.0,1,0,5
+934,The Girl You Lost,Mystery,12.29,12.29,0.0,1,0,5
+935,The Girl In The Ice (DCI Erika Foster #1),Mystery,15.85,15.85,0.0,1,0,3
+936,The End of the Jesus Era (An Investigation #1),Nonfiction,14.4,14.4,0.0,1,0,1
+937,The Edge of Reason (Bridget Jones #2),Womens Fiction,19.18,19.18,0.0,1,0,4
+938,The Complete Maus (Maus #1-2),Sequential Art,10.64,10.64,0.0,1,0,3
+939,The Communist Manifesto,Add a comment,14.76,14.76,0.0,1,0,3
+940,The Bhagavad Gita,Religion,57.49,57.49,0.0,1,0,3
+941,The Bette Davis Club,Fiction,30.66,30.66,0.0,1,0,3
+942,The Art of Not Breathing,Young Adult,40.83,40.83,0.0,1,0,4
+943,Taking Shots (Assassins #1),Default,18.88,18.88,0.0,1,0,2
+944,Starlark,Historical Fiction,25.83,25.83,0.0,1,0,3
+945,"Skip Beat!, Vol. 01 (Skip Beat! #1)",Sequential Art,42.12,42.12,0.0,1,0,3
+946,Sister Sable (The Mad Queen #1),Fantasy,13.33,13.33,0.0,1,0,3
+947,Shatter Me (Shatter Me #1),Default,42.4,42.4,0.0,1,0,1
+948,Shameless,New Adult,58.35,58.35,0.0,1,0,3
+949,Shadow Rites (Jane Yellowrock #10),Fantasy,21.72,21.72,0.0,1,0,4
+950,Settling the Score (The Summer Games #1),Sports and Games,44.91,44.91,0.0,1,0,2
+951,Sense and Sensibility,Classics,37.46,37.46,0.0,1,0,1
+952,"Saga, Volume 1 (Saga (Collected Editions) #1)",Sequential Art,28.48,28.48,0.0,1,0,1
+953,"Rhythm, Chord & Malykhin",Romance,28.34,28.34,0.0,1,0,2
+954,"Rat Queens, Vol. 1: Sass & Sorcery (Rat Queens (Collected Editions) #1-5)",Sequential Art,46.96,46.96,0.0,1,0,5
+955,Paradise Lost (Paradise #1),Default,24.96,24.96,0.0,1,0,1
+956,"Paper Girls, Vol. 1 (Paper Girls #1-5)",Sequential Art,21.71,21.71,0.0,1,0,4
+957,"Ouran High School Host Club, Vol. 1 (Ouran High School Host Club #1)",Sequential Art,29.87,29.87,0.0,1,0,3
+958,Origins (Alphas 0.5),Fantasy,28.99,28.99,0.0,1,0,1
+959,One Second (Seven #7),Fantasy,52.94,52.94,0.0,1,0,2
+960,On the Road (Duluoz Legend),Default,32.36,32.36,0.0,1,0,3
+961,Old Records Never Die: One Man's Quest for His Vinyl and His Past,Music,55.66,55.66,0.0,1,0,2
+962,Off Sides (Off #1),New Adult,39.45,39.45,0.0,1,0,5
+963,Of Mice and Men,Classics,47.11,47.11,0.0,1,0,2
+964,Myriad (Prentor #1),Fantasy,58.75,58.75,0.0,1,0,4
+965,My Perfect Mistake (Over the Top #1),Romance,38.92,38.92,0.0,1,0,2
+966,"Ms. Marvel, Vol. 1: No Normal (Ms. Marvel (2014-2015) #1)",Sequential Art,39.39,39.39,0.0,1,0,4
+967,Meditations,Philosophy,25.89,25.89,0.0,1,0,2
+968,Matilda,Childrens,28.34,28.34,0.0,1,0,1
+969,Lost Among the Living,Historical Fiction,27.7,27.7,0.0,1,0,4
+970,Lord of the Flies,Add a comment,24.89,24.89,0.0,1,0,3
+971,Listen to Me (Fusion #1),Romance,58.99,58.99,0.0,1,0,3
+972,Kitchens of the Great Midwest,Fiction,57.2,57.2,0.0,1,0,5
+973,Jane Eyre,Default,38.43,38.43,0.0,1,0,5
+974,Imperfect Harmony,Romance,34.74,34.74,0.0,1,0,4
+975,Icing (Aces Hockey #2),Sports and Games,40.44,40.44,0.0,1,0,4
+976,"Hawkeye, Vol. 1: My Life as a Weapon (Hawkeye #1)",Sequential Art,45.24,45.24,0.0,1,0,3
+977,Having the Barbarian's Baby (Ice Planet Barbarians #7.5),Science Fiction,34.96,34.96,0.0,1,0,4
+978,"Giant Days, Vol. 1 (Giant Days #1-4)",Sequential Art,56.76,56.76,0.0,1,0,4
+979,"Fruits Basket, Vol. 1 (Fruits Basket #1)",Sequential Art,40.28,40.28,0.0,1,0,5
+980,Frankenstein,Default,38.0,38.0,0.0,1,0,2
+981,Forever Rockers (The Rocker #12),Music,28.8,28.8,0.0,1,0,3
+982,Fighting Fate (Fighting #6),Romance,39.24,39.24,0.0,1,0,3
+983,Emma,Classics,32.93,32.93,0.0,1,0,2
+984,"Eat, Pray, Love",Nonfiction,51.32,51.32,0.0,1,0,3
+985,Deep Under (Walker Security #1),Romance,47.09,47.09,0.0,1,0,5
+986,Choosing Our Religion: The Spiritual Lives of America's Nones,Religion,28.42,28.42,0.0,1,0,4
+987,Charlie and the Chocolate Factory (Charlie Bucket #1),Childrens,22.85,22.85,0.0,1,0,3
+988,Charity's Cross (Charles Towne Belles #4),Romance,41.24,41.24,0.0,1,0,1
+989,Bright Lines,Fiction,39.07,39.07,0.0,1,0,5
+990,Bridget Jones's Diary (Bridget Jones #1),Womens Fiction,29.82,29.82,0.0,1,0,1
+991,Bounty (Colorado Mountain #7),Romance,37.26,37.26,0.0,1,0,4
+992,Blood Defense (Samantha Brinkman #1),Mystery,20.3,20.3,0.0,1,0,3
+993,"Bleach, Vol. 1: Strawberry and the Soul Reapers (Bleach #1)",Sequential Art,34.65,34.65,0.0,1,0,5
+994,Beyond Good and Evil,Philosophy,43.38,43.38,0.0,1,0,1
+995,Alice in Wonderland (Alice's Adventures in Wonderland #1),Classics,55.53,55.53,0.0,1,0,1
+996,"Ajin: Demi-Human, Volume 1 (Ajin: Demi-Human #1)",Sequential Art,57.06,57.06,0.0,1,0,4
+997,A Spy's Devotion (The Regency Spies of London #1),Historical Fiction,16.97,16.97,0.0,1,0,5
+998,1st to Die (Women's Murder Club #1),Mystery,53.98,53.98,0.0,1,0,1
+999,"1,000 Places to See Before You Die",Travel,26.08,26.08,0.0,1,0,5

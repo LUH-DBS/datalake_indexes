@@ -3,8 +3,9 @@ import numpy as np
 import pandas as pd
 from collections import Counter
 import math
-from typing import Dict
+from typing import Dict, List, Tuple
 import hashlib
+from simhash import Simhash
 
 
 def get_cleaned_text(text):
@@ -30,24 +31,43 @@ def get_cleaned_text(text):
     return feature_one
 
 
-def create_cocoa_index(values):
+def create_cocoa_index(values: List[str]) -> Tuple[int, List[int], List[str], bool]:
     """
     Creates order index for given column/list of values as presented in the COCOA paper.
-    Index consists of:
-    - min_index: Index of minimum in order_list and binary_list
-    - order_list: List of indexes from which the ranks can be constructed in linear time.
-    - binary_list: List of boolean values, True if current and next value are equal
 
+    Parameters
+    ----------
+    values : List[int]
+        List of column values to generate COCOA index for.
 
-    :param values: Input column (list).
-    :return: min_index, order_list, binary_list
+    Returns
+    -------
+    Tuple[int, List[int], List[str], bool]
+        min_index : int
+            Index of minimum element in order_list.
+
+        order_list : List[int]
+            List of indexes based on which the ranks can be constructed in linear time.
+
+        binary_list : List[str]
+            List of boolean values, True if current value is equal to next value.
+
+        is_num : bool
+            True, if column consists of only numeric values.
     """
-    def is_numeric(s):
+    def is_numeric(s: str) -> bool:
         """
         Checks if given value is numeric.
 
-        :param s: Value
-        :return: True, if value is numeric
+        Parameters
+        ----------
+        s : str
+            Input value.
+
+        Returns
+        -------
+        bool
+            True, if value is numeric.
         """
         if s.lower() == 'nan':
             return True
@@ -57,12 +77,19 @@ def create_cocoa_index(values):
         except ValueError:
             return False
 
-    def is_numeric_list(value_list):
+    def is_numeric_list(value_list: List[str]) -> bool:
         """
         Checks if given list is numeric.
 
-        :param value_list: list
-        :return: True, if all values in the list are numeric.
+        Parameters
+        ----------
+        value_list : List[str]
+            Input values.
+
+        Returns
+        -------
+        bool
+            True, if all input values are numeric.
         """
         for k in np.arange(len(value_list)):
             if value_list[k] is None or value_list[k] == '':
@@ -95,7 +122,8 @@ def create_cocoa_index(values):
     for i in np.arange(len(rows) - 1):
         order_list[i] = rows_sorted_based_on_ranks[i + 1]
         # if both values are NaN we treat them as equal
-        if np.isnan(sorted_ranks[i]) and np.isnan(sorted_ranks[i + 1]) or sorted_ranks[i] == sorted_ranks[i + 1]:
+        if np.isnan(sorted_ranks[i]) and np.isnan(sorted_ranks[i + 1]) \
+                or sorted_ranks[i] == sorted_ranks[i + 1]:
             binary_list[i] = '0'
         else:
             binary_list[i] = '1'
@@ -103,31 +131,43 @@ def create_cocoa_index(values):
     binary_list[len(rows) - 1] = '0'  # Maximum value
 
     final_order_list = [x for _, x in
-                        sorted(zip(rows_sorted_based_on_ranks, order_list))]  # order list in the order index
+                        sorted(zip(rows_sorted_based_on_ranks, order_list))]
     final_binary_list = [x for _, x in
-                         sorted(zip(rows_sorted_based_on_ranks, binary_list))]  # binary list in the order index
+                         sorted(zip(rows_sorted_based_on_ranks, binary_list))]
 
     return min_index, final_order_list, final_binary_list, is_num
 
 
-def XASH(
+def generate_XASH(
         token: str,
-        hash_dict: Dict = None,
         hash_size: int = 128,
-        rotation: bool = True
+        rotation: bool = True,
+        number_of_ones: int = 5
 ) -> int:
     """
     Computes XASH value of given token.
 
-    :param token: Token
-    :return: XASH of token
-    """
-    number_of_ones = 5
+    Parameters
+    ----------
+    token : str
+        Token that is hashed.
 
+    hash_size : int
+        Size of the hash value, i.e. number of bits.
+
+    rotation : bool
+        If true, XASH rotation is used.
+
+    number_of_ones : int
+        Number of bits in the hash with value "1".
+
+    Returns
+    -------
+        XASH value.
+    """
     if token in ['', 'None', ' ', '\'\'']:
         return 0
-    if hash_dict and token in hash_dict:
-        return hash_dict[token]
+
     char = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
             'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     segment_size_dict = {64: 1, 128: 3, 256: 6, 512: 13}
@@ -168,11 +208,10 @@ def XASH(
     result = int(result) | int(
         math.pow(2, len(token) % (hash_size - length_bit_start)) * math.pow(2, length_bit_start))
 
-    if hash_dict:
-        hash_dict[token] = result
     return result
 
-def BF(token: str, hash_dict: Dict = None, hash_size: int = 128) -> int:
+
+def BF(token: str) -> int:
     """
     Computes value of given token.
 
@@ -182,15 +221,55 @@ def BF(token: str, hash_dict: Dict = None, hash_size: int = 128) -> int:
 
     # TODO: implement bloom filter
 
-    return int(hashlib.md5(token).hexdigest(), 16)
+    raise NotImplementedError
 
 
-def MD5(token: str, hash_dict: Dict = None, hash_size: int = 128) -> int:
+def generate_MD5(
+        token: str
+) -> int:
     """
-    Computes MD5 value of given token.
+    Computes MD5 hash value of given token.
 
-    :param token: Token
-    :return: XASH of token
+    Parameters
+    ----------
+    token : str
+        Token that is hashed.
+
+    hash_size : int
+        Number of bits.
+
+    Returns
+    -------
+        MD5 hash value.
+    """
+    hasher = hashlib.md5()
+    hasher.update(token.encode('UTF-8'))
+    return int(hasher.hexdigest(), 16)
+
+
+def generate_Simhash(
+        token: str,
+        hash_size: int = 128,
+) -> Tuple[Dict, int]:
+    """Calculates SIM Hash for token.
+
+    Parameters
+    ----------
+    token : str
+        Input token.
+
+    hash_size : int
+        Number of bits.
+
+    Returns
+    -------
+    Tuple[Dict, int]
+        int: Hash for given token.
     """
 
-    return int(hashlib.md5(token).hexdigest(), 16)
+    width = 3
+    token = token.lower()
+    token = re.sub(r'[^\w]+', '', token)
+    features = [token[i:i + width] for i in range(max(len(token) - width + 1, 1))]
+    return Simhash(features, f=hash_size).value
+

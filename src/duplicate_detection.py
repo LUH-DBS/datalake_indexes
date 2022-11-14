@@ -1,9 +1,8 @@
 import pandas as pd
-
 from data_handler import DataHandler
 from collections import defaultdict
 from typing import List, Tuple
-from util import get_cleaned_text, XASH
+from util import get_cleaned_text
 import numpy as np
 
 
@@ -39,7 +38,6 @@ class DuplicateDetection:
         """
         Creates a COCOA instance to enrich given datasets with external data.
 
-
         Parameters
         ----------
         data_handler : DataHandler
@@ -68,7 +66,7 @@ class DuplicateDetection:
             super_key = 0
             for _, token in row.items():
                 token = get_cleaned_text(str(token))
-                super_key |= XASH(token)
+                super_key |= self.__data_handler.hash_function(token)
                 rows[0][row_id] = sorted(list(row))
                 rows[1][row_id] = super_key
             superKeyMapping[super_key] += [row_id]

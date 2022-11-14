@@ -1,6 +1,6 @@
 import time
-from typing import Any, List, Tuple, Callable
-from util import get_cleaned_text, create_cocoa_index, XASH
+from typing import Any, List, Tuple, Callable, Union
+from util import get_cleaned_text, create_cocoa_index, generate_XASH
 import pandas as pd
 import numpy as np
 from io import StringIO
@@ -8,6 +8,9 @@ import os
 from tqdm import tqdm
 import logging
 import csv
+import arff
+from collections import defaultdict
+
 #import vertica_python
 
 # Vertica
@@ -70,20 +73,21 @@ class DataHandler:
 
     mate : bool
 
-    mate_hash_size : int
+    hash_function : str
 
     """
-    def __init__(self,
-                 conn: Any,
-                 main_table: str = 'cafe_main_tokenized',
-                 column_headers_table: str = 'cafe_columns_tokenized',
-                 table_info_table: str = 'cafe_table_info',
-                 cocoa_index_table: str = 'cafe_cocoa_index',
-                 cocoa: bool = True,
-                 mate: bool = True,
-                 hash_function: Callable = XASH,
-                 logger: Any = logging
-                 ):
+    def __init__(
+            self,
+            conn: Any,
+            main_table: str = 'cafe_main_tokenized',
+            column_headers_table: str = 'cafe_columns_tokenized',
+            table_info_table: str = 'cafe_table_info',
+            cocoa_index_table: str = 'cafe_cocoa_index',
+            cocoa: bool = True,
+            mate: bool = True,
+            logger: Any = logging,
+            hash_function: Callable[[str], int] = generate_XASH
+    ):
 
         if not cocoa and not mate:
             raise Exception('Please choose at least one tool: [COCOA, MATE].')
@@ -102,14 +106,14 @@ class DataHandler:
         self.__cocoa = cocoa
         self.__mate = mate
 
-        self.mate_hash_size = mate_hash_size
+        self.hash_function: Callable[[str], int] = hash_function
 
         self.__logger = logger
 
         self.__cur_id = 1         # next table id that will be assigned
         self.__tables = []        # stores all tables and their ids
 
-        self.__index_updated = False   # handler can only be used if index is up to date
+        self.__index_updated = False   # handler can only be used if index is up-to-date
         self.__db_ready = False        # data can only be inserted after the db preparation is done
 
         self.__inserted_tables = 0
@@ -132,7 +136,6 @@ class DataHandler:
         result += '----------------------------------------------------\n'
         result += f'COCOA enabled: {self.__cocoa}\n'
         result += f'MATE enabled: {self.__mate}\n'
-        result += f'MATE hash size: {self.mate_hash_size}\n'
 
         result += '\nCurrent State\n'
         result += '----------------------------------------------------\n'
@@ -276,7 +279,7 @@ class DataHandler:
             super_key = 0
             if self.__mate:
                 for _, token in row.items():
-                    super_key |= XASH(token, hash_size=self.mate_hash_size, hash_dict=self.__mate_hash_dict)
+                    super_key |= self.hash_function(token)
             max_row_id = max(max_row_id, int(row_id))
 
             col_id = 0
@@ -362,12 +365,15 @@ class DataHandler:
         # READ FILES
         # -----------------------------------------------------------------------------------------------------------
         for filepath in tqdm(self.__tables, ascii=True):
-            if filepath.split('.')[-1] == 'csv':
+            ending = filepath.split('.')[-1]
+            if ending == 'csv':
                 read_func = self.read_csv
-            elif filepath.split('.')[-1] == 'json':
+            elif ending == 'json':
                 read_func = self.__read_json
-            elif filepath.split('.')[-1] == 'parquet':
+            elif ending == 'parquet':
                 read_func = self.read_parquet
+            elif ending == 'arff':
+                read_func = self.read_arff
             else:
                 logging.info('Invalid file format: ' + filepath.split('.')[-1])
                 self.__file_errors += 1
@@ -381,9 +387,7 @@ class DataHandler:
                     table_name = result[0]
                     table = result[1]
             except Exception as e:
-                print(e)
                 logging.info('Unable to read file: ' + filepath)
-                self.__file_errors += 1
                 continue
 
             # --------------------------------------------------------------------------------------------------------
@@ -499,14 +503,50 @@ class DataHandler:
                 read_tables += 1
         self.__logger.info(f'Found {read_tables} tables.')
 
-    def read_csv(self, filepath) -> Tuple[str, pd.DataFrame]:
+    def read_arff(self, filepath) -> Tuple[str, pd.DataFrame]:
         """
-
+        Reads a dataset in arff format from file.
 
         Parameters
         ----------
         filepath : str
+            Dataset path.
 
+        Returns
+        -------
+        Tuple[str, pd.DataFrame]
+            Dataset name and content.
+        """
+        try:
+            data = defaultdict(list)
+            arff_gen = arff.load(filepath)
+            for row in arff_gen:
+                n_values = len(row._values)
+                keys = [key for key in list(row._data.keys())[:n_values]]
+
+                for key in keys:
+                    data[key] += [row._data[key]]
+
+            table = pd.DataFrame(data)
+        except:
+            self.__file_errors += 1
+            raise ValueError()
+
+        return filepath.split('/')[-1], table
+
+    def read_csv(self, filepath) -> Tuple[str, pd.DataFrame]:
+        """
+        Reads a dataset in csv format from file.
+
+        Parameters
+        ----------
+        filepath : str
+            Dataset path.
+
+        Returns
+        -------
+        Tuple[str, pd.DataFrame]
+            Dataset name and content.
         """
         def extract_delimiter_from_line(file: str) -> str:
             """
@@ -765,13 +805,17 @@ class DataHandler:
 
         return [item for sublist in self.__cur.fetchall() for item in sublist]
 
-    def get_pl_by_table_and_rows_incremental(self, token_list: List[str], max_parameter_length: int) -> List[str]:
+    def get_pl_by_table_and_rows_incremental(
+            self,
+            token_list: Union[List[str], pd.Series],
+            max_parameter_length: int
+    ) -> List[str]:
         """
 
 
         Parameters
         ----------
-        token_list : pd.Series
+        token_list : Union[List[str], pd.Series]
 
         max_parameter_length : int
 
@@ -807,7 +851,7 @@ class DataHandler:
 
         return pl
 
-    def get_pl_by_table_and_rows(self, joint_list: List[str]) -> List[str]:
+    def get_pl_by_table_and_rows(self, joint_list: Union[List[str], pd.Series]) -> List[str]:
         """
 
 

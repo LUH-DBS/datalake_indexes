@@ -344,6 +344,7 @@ class DataHandler:
                              null='\\N',
                              columns=columns)
         print(f"Inserted buffer of length {len(table_buffer.getvalue())}")
+        logging.info("INSERTED!!!!")
 
         # Insert column headers
         headers_buffer.seek(0)

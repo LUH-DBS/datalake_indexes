@@ -274,14 +274,13 @@ class DataHandler:
         table_buffer = StringIO()
         table.reset_index()
         table = table.copy()    # avoid fragmentation
-        max_row_id = 0
         max_col_id = 0
-        for row_id, row in table.iterrows():
+        row_id = 0
+        for _, row in table.iterrows():
             super_key = 0
             if self.__mate:
                 for _, token in row.items():
                     super_key |= self.hash_function(token)
-            max_row_id = max(max_row_id, int(row_id))
 
             col_id = 0
             for _, token in row.items():
@@ -304,6 +303,8 @@ class DataHandler:
                 table_buffer.write('\t'.join(value_list) + '\n')
 
                 col_id += 1
+            row_id += 1
+        max_row_id = row_id
 
         # -----------------------------------------------------------------------------------------------------------
         # COCOA INDEX
@@ -411,7 +412,6 @@ class DataHandler:
                 self.__inserted_tables += 1
             except Exception as e:
                 print(e)
-                exit()
                 self.__data_errors += 1
 
         self.__logger.info(f'Inserted {self.__inserted_tables} tables.')

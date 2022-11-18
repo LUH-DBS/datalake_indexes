@@ -6,7 +6,7 @@ import logging
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
-DATALAKE = "gittables_1M_demo"
+DATALAKE = "gittables_demo"
 CONFIG_PATH = "/home/becktepe/db_config.json"
 ROOT_DIR = '/home/becktepe/datasets/gittables_1M'
 

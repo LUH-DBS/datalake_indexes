@@ -273,6 +273,7 @@ class DataHandler:
         # -----------------------------------------------------------------------------------------------------------
         table_buffer = StringIO()
         table.reset_index()
+        table = table.copy()    # avoid fragmentation
         max_row_id = 0
         max_col_id = 0
         for row_id, row in table.iterrows():
@@ -342,18 +343,21 @@ class DataHandler:
                              sep='\t',
                              null='\\N',
                              columns=columns)
+        print(f"Inserted buffer of length {len(table_buffer.getvalue())}")
 
         # Insert column headers
         headers_buffer.seek(0)
         self.__cur.copy_from(headers_buffer,
                              self.column_headers_table,
                              sep='\t',
-                             null='\\N')
+                             null='\\N',
+                             columns=[column['name'] for column in COLUMNS_COLUMNS])
 
         self.__cur.execute(f'INSERT INTO {self.table_info_table} '
                            f'VALUES ({table_id}, \'{name}\', {max_row_id}, {max_col_id});')
 
-        self.__commit()
+        self.__cur.commit()
+        # self.__commit()
 
     def __create_inverted_index(self) -> None:
         """
@@ -382,7 +386,7 @@ class DataHandler:
                 self.__file_errors += 1
                 continue
 
-            table = pd.DataFrame()
+            table: pd.DataFrame()
             table_name = ''
             try:
                 result = read_func(filepath)

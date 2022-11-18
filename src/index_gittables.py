@@ -22,7 +22,7 @@ data_handler = DataHandler(
 data_handler.clean_up_db()
 for subdir, _, _ in os.walk(ROOT_DIR):
     if subdir == ROOT_DIR:
-        pass
-    print(subdir)
-    # data_handler.add_tables_folder(subdir)
-#data_handler.update_index()
+        continue
+    data_handler.add_tables_folder(subdir)
+
+data_handler.update_index()

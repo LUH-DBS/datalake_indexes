@@ -294,7 +294,10 @@ class DataHandler:
 
                 if self.__mate:
                     bin_super_key = bin(super_key)[2:]
-                    bin_super_key = bin_super_key.zfill(self.mate_hash_size)
+
+                    # TODO replace with dynamic hash size
+                    bin_super_key = bin_super_key.zfill(128)
+
                     value_list += [bin_super_key]
 
                 table_buffer.write('\t'.join(value_list) + '\n')

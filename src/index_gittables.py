@@ -2,6 +2,9 @@ from data_handler import DataHandler
 import json
 import os
 import psycopg2
+import logging
+
+logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
 DATALAKE = "gittables_1M_demo"
 CONFIG_PATH = "/home/becktepe/db_config.json"

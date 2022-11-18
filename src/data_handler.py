@@ -308,7 +308,6 @@ class DataHandler:
         # -----------------------------------------------------------------------------------------------------------
         # COCOA INDEX
         # -----------------------------------------------------------------------------------------------------------
-        logging.info("INSERTING COCOA!!!!")
         if self.__cocoa:
             for col_id in range(len(table.columns)):
                 table_col_id = str(table_id) + "_" + str(col_id)
@@ -328,6 +327,8 @@ class DataHandler:
                                        f'   \'{joint_binary_list}\''
                                        f');')
                 except Exception as e:
+                    logging.error(e)
+                    exit()
                     print(f'Error at table_col_id {table_col_id}.')
                     print(e)
                     continue

@@ -411,7 +411,6 @@ class DataHandler:
                 self.__cur_id += 1
                 self.__inserted_tables += 1
             except Exception as e:
-                print(e)
                 self.__data_errors += 1
 
         self.__logger.info(f'Inserted {self.__inserted_tables} tables.')

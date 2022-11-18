@@ -361,8 +361,7 @@ class DataHandler:
         self.__cur.execute(f'INSERT INTO {self.table_info_table} '
                            f'VALUES ({table_id}, \'{name}\', {max_row_id}, {max_col_id});')
 
-        self.__cur.commit()
-        # self.__commit()
+        self.__commit()
 
     def __create_inverted_index(self) -> None:
         """

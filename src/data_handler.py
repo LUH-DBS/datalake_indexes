@@ -336,7 +336,6 @@ class DataHandler:
         # -----------------------------------------------------------------------------------------------------------
         # INSERTION
         # -----------------------------------------------------------------------------------------------------------
-        logging.info("HERE")
         table_buffer.seek(0)
         columns = ['tokenized', 'tableid', 'colid', 'rowid', 'table_col_id']
         if self.__mate:
@@ -399,6 +398,7 @@ class DataHandler:
                     table = result[1]
             except Exception as e:
                 logging.info('Unable to read file: ' + filepath)
+                logging.error(e)
                 continue
 
             # --------------------------------------------------------------------------------------------------------

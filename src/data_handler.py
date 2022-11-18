@@ -328,23 +328,25 @@ class DataHandler:
                                        f');')
                 except Exception as e:
                     logging.error(e)
-                    exit()
                     print(f'Error at table_col_id {table_col_id}.')
-                    print(e)
                     continue
 
         # -----------------------------------------------------------------------------------------------------------
         # INSERTION
         # -----------------------------------------------------------------------------------------------------------
         table_buffer.seek(0)
+        print(1)
         columns = ['tokenized', 'tableid', 'colid', 'rowid', 'table_col_id']
+        print(2)
         if self.__mate:
             columns += ['super_key']
+        print(3)
         self.__cur.copy_from(table_buffer,
                              self.main_table,
                              sep='\t',
                              null='\\N',
                              columns=columns)
+        print(4)
         print(f"Inserted buffer of length {len(table_buffer.getvalue())}")
         logging.info("INSERTED CELLS!!!!")
 

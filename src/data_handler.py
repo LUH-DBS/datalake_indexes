@@ -79,10 +79,10 @@ class DataHandler:
     def __init__(
             self,
             conn: Any,
-            main_table: str = 'cafe_main_tokenized',
-            column_headers_table: str = 'cafe_columns_tokenized',
-            table_info_table: str = 'cafe_table_info',
-            cocoa_index_table: str = 'cafe_cocoa_index',
+            main_table: str,
+            column_headers_table: str,
+            table_info_table: str,
+            cocoa_index_table: str,
             cocoa: bool = True,
             mate: bool = True,
             logger: Any = logging,
@@ -308,6 +308,7 @@ class DataHandler:
         # -----------------------------------------------------------------------------------------------------------
         # COCOA INDEX
         # -----------------------------------------------------------------------------------------------------------
+        logging.info("INSERTING COCOA!!!!")
         if self.__cocoa:
             for col_id in range(len(table.columns)):
                 table_col_id = str(table_id) + "_" + str(col_id)
@@ -344,7 +345,7 @@ class DataHandler:
                              null='\\N',
                              columns=columns)
         print(f"Inserted buffer of length {len(table_buffer.getvalue())}")
-        logging.info("INSERTED!!!!")
+        logging.info("INSERTED CELLS!!!!")
 
         # Insert column headers
         headers_buffer.seek(0)
@@ -417,6 +418,7 @@ class DataHandler:
         self.__logger.info(f'Encountered {self.__file_errors} file errors.')
         self.__logger.info(f'Encountered {self.__data_errors} data format errors.')
 
+    '''
     def __create_cocoa_index(self) -> None:
         """
         Generates and inserts the COCOA index and stores it in the database.
@@ -467,6 +469,7 @@ class DataHandler:
                     print(e)
                     continue
             self.__commit()
+    '''
 
     # -----------------------------------------------------------------------------------------------------------
     # PUBLIC, PREPARATION

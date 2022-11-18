@@ -22,6 +22,8 @@ data_handler = DataHandler(
     cocoa_index_table=f"{DATALAKE}_cocoa_index"
 )
 
+print(data_handler)
+
 data_handler.clean_up_db()
 for subdir, _, _ in os.walk(ROOT_DIR):
     if subdir == ROOT_DIR:

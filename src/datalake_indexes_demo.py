@@ -195,8 +195,9 @@ class DatalakeIndexesDemo:
 
             try:
                 table = self.__data_handler.get_table(table_id)
-            except:
-                continue
+            except Exception as e:
+                print(e)
+                raise
             self.__tables_dict[table_id] = table
 
             column_headers = [table.columns[int(col_id)] for col_id in columns.split('_')][

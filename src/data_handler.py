@@ -682,6 +682,8 @@ class DataHandler:
                            f'ORDER BY colid;')
         table.columns = [header[0] for header in self.__cur.fetchall()]
 
+        table = table.replace('', np.nan).replace('nan', np.nan).replace('unknown', np.nan)
+
         return table
 
     # -----------------------------------------------------------------------------------------------------------

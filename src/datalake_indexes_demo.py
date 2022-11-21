@@ -100,9 +100,16 @@ class DatalakeIndexesDemo:
         rows: str
             Maximum number of rows.
         """
-        read_func = self.__data_handler.read_csv
-        if path.split(".")[-1] == "arff":
+        ext = path.split('.')[-1]
+        if ext == 'csv':
+            read_func = self.__data_handler.read_csv
+        elif ext == 'tsv':
+            read_func = self.__data_handler.read_tsv
+        elif ext == 'arff':
             read_func = self.__data_handler.read_arff
+        else:
+            print(f"Invalid file format: {ext}")
+            return
         _, self.__input_dataset = read_func(path)
 
         if rows is not None:

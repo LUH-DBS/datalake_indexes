@@ -372,14 +372,16 @@ class DataHandler:
         # READ FILES
         # -----------------------------------------------------------------------------------------------------------
         for filepath in tqdm(self.__tables, ascii=True):
-            ending = filepath.split('.')[-1]
-            if ending == 'csv':
+            ext = filepath.split('.')[-1]
+            if ext == 'csv':
                 read_func = self.read_csv
-            elif ending == 'json':
+            elif ext == 'tsv':
+                read_func = self.read_tsv
+            elif ext == 'json':
                 read_func = self.__read_json
-            elif ending == 'parquet':
+            elif ext == 'parquet':
                 read_func = self.read_parquet
-            elif ending == 'arff':
+            elif ext == 'arff':
                 read_func = self.read_arff
             else:
                 logging.info('Invalid file format: ' + filepath.split('.')[-1])
@@ -544,7 +546,25 @@ class DataHandler:
 
         return filepath.split('/')[-1], table
 
-    def read_csv(self, filepath) -> Tuple[str, pd.DataFrame]:
+    def read_tsv(self, filepath: str) -> Tuple[str, pd.DataFrame]:
+        """
+        Reads a dataset in tsv format from file.
+
+        Parameters
+        ----------
+        filepath : str
+            Dataset path.
+
+        Returns
+        -------
+        Tuple[str, pd.DataFrame]
+            Dataset name and content.
+        """
+        table = pd.read_csv(filepath, delimiter='\t')
+
+        return filepath.split('/')[-1], table
+
+    def read_csv(self, filepath: str) -> Tuple[str, pd.DataFrame]:
         """
         Reads a dataset in csv format from file.
 

@@ -19,6 +19,9 @@ import numpy.ma as ma
 import itertools
 from tqdm import tqdm
 
+import warnings
+warnings.filterwarnings('ignore')
+
 
 def highlight_cells(
         table: pd.DataFrame,

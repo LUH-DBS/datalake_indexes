@@ -31,6 +31,13 @@ COLOR_ORANGE = 'rgb(250, 180, 130)'
 COLOR_GREEN = 'rgb(141, 229, 161)'
 COLOR_PURPLE = 'rgb(208, 188, 255)'
 
+DB_CONFIG = {
+    "host": "herkules.dbs.uni-hannover.de",
+    "dbname": "pdb",
+    "user": "macodemo",
+    "password": "demonstration"
+}
+
 def highlight_cells(
         table: pd.DataFrame,
         query_columns: List[str],
@@ -70,11 +77,11 @@ class DatalakeIndexesDemo:
     """
     def __init__(
             self,
-            db_config: Dict,
             datalake: str,
             display_table_rows: int = 5
     ):
-        conn = psycopg2.connect(**db_config)
+
+        conn = psycopg2.connect(**DB_CONFIG)
 
         if datalake == "gittables":
             datalake = "gittables_demo"
@@ -271,8 +278,6 @@ class DatalakeIndexesDemo:
         plot_data = pd.DataFrame([], columns=["Table Rank", "Joinability Score"])
         plot_data["Table Rank"] = np.arange(1, len(self.__top_joinable_tables) + 1)
         plot_data["Joinability Score"] = scores
-
-        print(scores)
 
         g = sns.catplot(data=plot_data, x="Table Rank", y="Joinability Score")
         g.fig.set_size_inches(10, 3)

@@ -279,7 +279,7 @@ class COCOA:
                             ohe_sum += target_ranks[input_index]
                             ohe_qty += 1
 
-                        if binary_index[pointer] == 'T':
+                        if binary_index[pointer] == '1':
                             jump_flag = True
                         pointer = order_index[pointer]
                     cor = max_correlation
@@ -470,6 +470,12 @@ class COCOA:
                 pointer = min_dict[t_c_key]
                 order_index = order_dict[t_c_key]
                 binary_index = binary_dict[t_c_key]
+
+                # webtable corpus has different index structure
+                if ',' in binary_index:
+                    order_index = [int(idx) for idx in order_index.split(",")]
+                    binary_index = ''.join([str(i) for i in binary_index.split(",")])
+                    binary_index = binary_index.replace("T", "1").replace("F", "0")
 
                 dataset['new_external_rank'] = math.ceil(input_size / 2)
                 external_rank = dataset['new_external_rank'].values

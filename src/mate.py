@@ -465,17 +465,18 @@ class MATE:
         if self.__verbose:
             print("Generating join maps...")
 
+        # TODO make more efficient
         for table_id in join_maps:
-            for complete_matched_columns in join_maps[table_id]:
+            for columns in join_maps[table_id]:
                 final_join_map = np.full(len(orig_input_data), -1)
 
                 for _, group in orig_input_data.groupby(query_columns):
                     group_index = index_to_mate_row_id[group.iloc[0, :].name]
 
                     for row_index, _ in group.iterrows():
-                        final_join_map[row_index] = join_maps[table_id][complete_matched_columns][group_index]
+                        final_join_map[row_index] = join_maps[table_id][columns][group_index]
 
-                join_maps[table_id][complete_matched_columns] = final_join_map
+                join_maps[table_id][columns] = final_join_map
 
         top_joinable_tables_with_join_maps = [[score - 1, table_id, columns, join_maps[table_id][columns]] for score, table_id, columns in top_joinable_tables]
 
@@ -487,7 +488,7 @@ class MATE:
             stats["total_approved"] = total_approved
             stats["matching_rows"] = total_match
             stats["total_fp"] = total_fp
-            stats["precision"] = total_match / total_approved
+            stats["precision"] = total_match / max(total_approved, 1)
 
         if self.__verbose:
             print("Done.")

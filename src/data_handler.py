@@ -192,13 +192,13 @@ class DataHandler:
         """
         Initializes required database tables and datastructures.
         """
-        self.__prepare_db()
+        #self.__prepare_db()
 
         # If there is already data inside the table we have to set the table id counter to max(table id) + 1
-        self.__cur.execute(f'SELECT COUNT(*) FROM {self.main_table};')
-        if int(self.__cur.fetchall()[0][0]) > 0:
-            self.__cur.execute(f'SELECT MAX(tableid) FROM {self.main_table};')
-            self.__cur_id = int(self.__cur.fetchall()[0][0]) + 1
+        self.__cur.execute(f'SELECT MAX(tableid) FROM {self.table_info_table};')
+        self.__cur_id = int(self.__cur.fetchall()[0][0]) + 1
+
+        self.__logger.info(f"Initial table id = {self.__cur_id}")
 
         self.__db_ready = True
 
@@ -646,7 +646,7 @@ class DataHandler:
             self.__init()
 
         self.__create_inverted_index()
-        self.__create_db_indexes()
+        #self.__create_db_indexes()
 
         self.__index_updated = True
 
@@ -676,13 +676,16 @@ class DataHandler:
         for col_id, column_content in content.groupby(['colid']):
             table[col_id] = list(column_content['tokenized'])
 
-        self.__cur.execute(f'SELECT header '
-                           f'FROM {self.column_headers_table} '
-                           f'WHERE tableid = {table_id} '
-                           f'ORDER BY colid;')
-        table.columns = [header[0] for header in self.__cur.fetchall()]
+        if "gittables" in self.main_table:
+            self.__cur.execute(f'SELECT header '
+                               f'FROM {self.column_headers_table} '
+                               f'WHERE tableid = {table_id} '
+                               f'ORDER BY colid;')
 
-        table = table.replace('', np.nan).replace('nan', np.nan).replace('unknown', np.nan)
+            table.columns = [header[0] for header in self.__cur.fetchall()]
+
+        for val in ["", "nan", "unknown", "null", "none"]:
+            table = table.replace(val, np.nan, regex=True)
 
         return table
 
@@ -781,9 +784,15 @@ class DataHandler:
         """
         joint_table_ids = '\',\''.join([str(i) for i in table_ids])
 
-        self.__cur.execute(f'SELECT tableid, max_col_id '
-                           f'FROM {self.table_info_table} '
-                           f'WHERE tableid IN (\'{joint_table_ids}\');')
+        if self.table_info_table != "":
+            self.__cur.execute(f'SELECT tableid, max_col_id '
+                               f'FROM {self.table_info_table} '
+                               f'WHERE tableid IN (\'{joint_table_ids}\');')
+        else:
+            self.__cur.execute(f'SELECT tableid, MAX(colid) as max_col_id '
+                               f'FROM {self.main_table} '
+                               f'WHERE tableid IN (\'{joint_table_ids}\')'
+                               f'GROUP BY tableid;')
 
         return pd.DataFrame(self.__cur.fetchall(), columns=['tableid', 'max_col_id'])
 
@@ -829,6 +838,17 @@ class DataHandler:
         distinct_clean_values = token_list.unique()
         joint_distinct_values = '\',\''.join(distinct_clean_values)
         hash_column = MATE_COLUMNS[0]['name']
+
+        # DEBUG
+        """
+        self.__cur.execute(f'SELECT tokenized, COUNT(*) as ct '
+                           f'FROM {self.main_table} '
+                           f'WHERE tokenized IN (\'{joint_distinct_values}\') '
+                           f'GROUP BY tokenized '
+                           f'ORDER BY ct DESC;')
+        print(self.__cur.fetchall())
+        exit()
+        """
 
         self.__cur.execute(f'SELECT concat(concat(concat(concat(concat(concat(concat(concat('
                            f'  tableid,\'_\'), rowid), \';\'), colid), \'_\'), tokenized), \'$\'), {hash_column}) '

@@ -67,7 +67,7 @@ class DuplicateDetection:
             for _, token in row.items():
                 token = get_cleaned_text(str(token))
                 super_key |= self.__data_handler.hash_function(token)
-                rows[0][row_id] = sorted(list(row))
+                rows[0][row_id] = sorted(list(row.astype(str)))
                 rows[1][row_id] = super_key
             superKeyMapping[super_key] += [row_id]
 
@@ -206,6 +206,9 @@ class DuplicateDetection:
             self.__duplicate_tables.append((t1, t2))
 
     def get_relations(self, table_ids: List[int]) -> List[Tuple[int, int]]:
+        if len(table_ids) == 0:
+            return []
+
         rowValues = defaultdict(lambda: defaultdict(dict))
         rowSuperKeys = defaultdict(dict)
 

@@ -79,10 +79,10 @@ class DataHandler:
     def __init__(
             self,
             conn: Any,
-            main_table: str = 'cafe_main_tokenized',
-            column_headers_table: str = 'cafe_columns_tokenized',
-            table_info_table: str = 'cafe_table_info',
-            cocoa_index_table: str = 'cafe_cocoa_index',
+            main_table: str,
+            column_headers_table: str,
+            table_info_table: str,
+            cocoa_index_table: str,
             cocoa: bool = True,
             mate: bool = True,
             logger: Any = logging,
@@ -192,13 +192,13 @@ class DataHandler:
         """
         Initializes required database tables and datastructures.
         """
-        self.__prepare_db()
+        #self.__prepare_db()
 
         # If there is already data inside the table we have to set the table id counter to max(table id) + 1
-        self.__cur.execute(f'SELECT COUNT(*) FROM {self.main_table};')
-        if int(self.__cur.fetchall()[0][0]) > 0:
-            self.__cur.execute(f'SELECT MAX(tableid) FROM {self.main_table};')
-            self.__cur_id = int(self.__cur.fetchall()[0][0]) + 1
+        self.__cur.execute(f'SELECT MAX(tableid) FROM {self.table_info_table};')
+        self.__cur_id = int(self.__cur.fetchall()[0][0]) + 1
+
+        self.__logger.info(f"Initial table id = {self.__cur_id}")
 
         self.__db_ready = True
 
@@ -273,14 +273,14 @@ class DataHandler:
         # -----------------------------------------------------------------------------------------------------------
         table_buffer = StringIO()
         table.reset_index()
-        max_row_id = 0
+        table = table.copy()    # avoid fragmentation
         max_col_id = 0
-        for row_id, row in table.iterrows():
+        row_id = 0
+        for _, row in table.iterrows():
             super_key = 0
             if self.__mate:
                 for _, token in row.items():
                     super_key |= self.hash_function(token)
-            max_row_id = max(max_row_id, int(row_id))
 
             col_id = 0
             for _, token in row.items():
@@ -294,12 +294,17 @@ class DataHandler:
 
                 if self.__mate:
                     bin_super_key = bin(super_key)[2:]
-                    bin_super_key = bin_super_key.zfill(self.mate_hash_size)
+
+                    # TODO replace with dynamic hash size
+                    bin_super_key = bin_super_key.zfill(128)
+
                     value_list += [bin_super_key]
 
                 table_buffer.write('\t'.join(value_list) + '\n')
 
                 col_id += 1
+            row_id += 1
+        max_row_id = row_id
 
         # -----------------------------------------------------------------------------------------------------------
         # COCOA INDEX
@@ -323,8 +328,8 @@ class DataHandler:
                                        f'   \'{joint_binary_list}\''
                                        f');')
                 except Exception as e:
+                    logging.error(e)
                     print(f'Error at table_col_id {table_col_id}.')
-                    print(e)
                     continue
 
         # -----------------------------------------------------------------------------------------------------------
@@ -339,13 +344,15 @@ class DataHandler:
                              sep='\t',
                              null='\\N',
                              columns=columns)
+        logging.info("INSERTED CELLS!!!!")
 
         # Insert column headers
         headers_buffer.seek(0)
         self.__cur.copy_from(headers_buffer,
                              self.column_headers_table,
                              sep='\t',
-                             null='\\N')
+                             null='\\N',
+                             columns=[column['name'] for column in COLUMNS_COLUMNS])
 
         self.__cur.execute(f'INSERT INTO {self.table_info_table} '
                            f'VALUES ({table_id}, \'{name}\', {max_row_id}, {max_col_id});')
@@ -365,21 +372,23 @@ class DataHandler:
         # READ FILES
         # -----------------------------------------------------------------------------------------------------------
         for filepath in tqdm(self.__tables, ascii=True):
-            ending = filepath.split('.')[-1]
-            if ending == 'csv':
+            ext = filepath.split('.')[-1]
+            if ext == 'csv':
                 read_func = self.read_csv
-            elif ending == 'json':
+            elif ext == 'tsv':
+                read_func = self.read_tsv
+            elif ext == 'json':
                 read_func = self.__read_json
-            elif ending == 'parquet':
+            elif ext == 'parquet':
                 read_func = self.read_parquet
-            elif ending == 'arff':
+            elif ext == 'arff':
                 read_func = self.read_arff
             else:
                 logging.info('Invalid file format: ' + filepath.split('.')[-1])
                 self.__file_errors += 1
                 continue
 
-            table = pd.DataFrame()
+            table: pd.DataFrame()
             table_name = ''
             try:
                 result = read_func(filepath)
@@ -388,6 +397,7 @@ class DataHandler:
                     table = result[1]
             except Exception as e:
                 logging.info('Unable to read file: ' + filepath)
+                logging.error(e)
                 continue
 
             # --------------------------------------------------------------------------------------------------------
@@ -402,13 +412,14 @@ class DataHandler:
                 self.__index_table(self.__cur_id, table, table_name)
                 self.__cur_id += 1
                 self.__inserted_tables += 1
-            except Exception as _:
+            except Exception as e:
                 self.__data_errors += 1
 
         self.__logger.info(f'Inserted {self.__inserted_tables} tables.')
         self.__logger.info(f'Encountered {self.__file_errors} file errors.')
         self.__logger.info(f'Encountered {self.__data_errors} data format errors.')
 
+    '''
     def __create_cocoa_index(self) -> None:
         """
         Generates and inserts the COCOA index and stores it in the database.
@@ -459,6 +470,7 @@ class DataHandler:
                     print(e)
                     continue
             self.__commit()
+    '''
 
     # -----------------------------------------------------------------------------------------------------------
     # PUBLIC, PREPARATION
@@ -534,7 +546,25 @@ class DataHandler:
 
         return filepath.split('/')[-1], table
 
-    def read_csv(self, filepath) -> Tuple[str, pd.DataFrame]:
+    def read_tsv(self, filepath: str) -> Tuple[str, pd.DataFrame]:
+        """
+        Reads a dataset in tsv format from file.
+
+        Parameters
+        ----------
+        filepath : str
+            Dataset path.
+
+        Returns
+        -------
+        Tuple[str, pd.DataFrame]
+            Dataset name and content.
+        """
+        table = pd.read_csv(filepath, delimiter='\t')
+
+        return filepath.split('/')[-1], table
+
+    def read_csv(self, filepath: str) -> Tuple[str, pd.DataFrame]:
         """
         Reads a dataset in csv format from file.
 
@@ -616,7 +646,7 @@ class DataHandler:
             self.__init()
 
         self.__create_inverted_index()
-        self.__create_db_indexes()
+        #self.__create_db_indexes()
 
         self.__index_updated = True
 
@@ -646,11 +676,16 @@ class DataHandler:
         for col_id, column_content in content.groupby(['colid']):
             table[col_id] = list(column_content['tokenized'])
 
-        self.__cur.execute(f'SELECT header '
-                           f'FROM {self.column_headers_table} '
-                           f'WHERE tableid = {table_id} '
-                           f'ORDER BY colid;')
-        table.columns = [header[0] for header in self.__cur.fetchall()]
+        if "gittables" in self.main_table:
+            self.__cur.execute(f'SELECT header '
+                               f'FROM {self.column_headers_table} '
+                               f'WHERE tableid = {table_id} '
+                               f'ORDER BY colid;')
+
+            table.columns = [header[0] for header in self.__cur.fetchall()]
+
+        for val in ["", "nan", "unknown", "null", "none"]:
+            table = table.replace(val, np.nan, regex=True)
 
         return table
 
@@ -749,9 +784,15 @@ class DataHandler:
         """
         joint_table_ids = '\',\''.join([str(i) for i in table_ids])
 
-        self.__cur.execute(f'SELECT tableid, max_col_id '
-                           f'FROM {self.table_info_table} '
-                           f'WHERE tableid IN (\'{joint_table_ids}\');')
+        if self.table_info_table != "":
+            self.__cur.execute(f'SELECT tableid, max_col_id '
+                               f'FROM {self.table_info_table} '
+                               f'WHERE tableid IN (\'{joint_table_ids}\');')
+        else:
+            self.__cur.execute(f'SELECT tableid, MAX(colid) as max_col_id '
+                               f'FROM {self.main_table} '
+                               f'WHERE tableid IN (\'{joint_table_ids}\')'
+                               f'GROUP BY tableid;')
 
         return pd.DataFrame(self.__cur.fetchall(), columns=['tableid', 'max_col_id'])
 
@@ -797,6 +838,17 @@ class DataHandler:
         distinct_clean_values = token_list.unique()
         joint_distinct_values = '\',\''.join(distinct_clean_values)
         hash_column = MATE_COLUMNS[0]['name']
+
+        # DEBUG
+        """
+        self.__cur.execute(f'SELECT tokenized, COUNT(*) as ct '
+                           f'FROM {self.main_table} '
+                           f'WHERE tokenized IN (\'{joint_distinct_values}\') '
+                           f'GROUP BY tokenized '
+                           f'ORDER BY ct DESC;')
+        print(self.__cur.fetchall())
+        exit()
+        """
 
         self.__cur.execute(f'SELECT concat(concat(concat(concat(concat(concat(concat(concat('
                            f'  tableid,\'_\'), rowid), \';\'), colid), \'_\'), tokenized), \'$\'), {hash_column}) '

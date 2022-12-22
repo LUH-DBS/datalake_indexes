@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import time
-from tqdm import tqdm
+from tqdm.notebook import tqdm_notebook
 from heapq import heapify, heappush, heappop
 from util import get_cleaned_text
 from typing import List, Dict, Tuple
@@ -288,7 +288,7 @@ class MATE:
         iterator = sorted(table_dictionary,
                           key=lambda k: len(table_dictionary[k]), reverse=True)[:k_c]
         if self.__verbose:
-            iterator = tqdm(iterator)
+            iterator = tqdm_notebook(iterator, position=0, leave=True)
 
         for tableid in iterator:
             set_of_rowids = set()

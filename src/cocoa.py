@@ -6,7 +6,7 @@ import numpy as np
 from util import get_cleaned_text, create_cocoa_index
 from typing import Dict, List
 from data_handler import DataHandler
-from tqdm import tqdm
+from tqdm.notebook import tqdm_notebook
 
 
 class COCOA:
@@ -177,7 +177,7 @@ class COCOA:
         # CORRELATION CALCULATION
         # -----------------------------------------------------------------------------------------------------------
         self.__logger.info('Calculating correlations...')
-        for i in tqdm(np.arange(len(table_ids))):
+        for i in tqdm_notebook(np.arange(len(table_ids)), position=0, leave=True):
             column = column_ids[i]
             table = table_ids[i]
             max_col = max_column_dict[table]
@@ -453,7 +453,7 @@ class COCOA:
         # -----------------------------------------------------------------------------------------------------------
         correlation_calculation_start = time.time()
         self.__logger.info('Calculating correlations...')
-        for i in tqdm(np.arange(len(table_ids))):
+        for i in tqdm_notebook(np.arange(len(table_ids))):
             columns = column_ids[i]
             table = table_ids[i]
             max_col = max_column_dict[table]

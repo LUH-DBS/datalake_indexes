@@ -16,7 +16,9 @@ from sklearn import linear_model, model_selection, preprocessing
 from sklearn.metrics import mean_squared_error
 import numpy.ma as ma
 import itertools
-from tqdm import tqdm
+import matplotlib as mpl
+from tqdm.notebook import tqdm_notebook
+from math import sqrt
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -129,9 +131,8 @@ class DatalakeIndexesDemo:
 
         self.__display_table_rows = display_table_rows
 
-        sns.set(font_scale=1.5)
+        sns.set(font_scale=1.3)
         sns.color_palette("pastel")
-
 
     def read_input(self, path: str, rows: int = None) -> None:
         """
@@ -185,7 +186,7 @@ class DatalakeIndexesDemo:
 
         html_table = highlight_cells(self.__input_dataset.head(self.__display_table_rows),
                                      query_columns=self.__query_columns).to_html()
-        display(HTML(html_table))
+        #display(HTML(html_table))
 
     def set_target_column(self, target_column: str):
         """
@@ -280,7 +281,7 @@ class DatalakeIndexesDemo:
         plot_data["Joinability Score"] = scores
 
         g = sns.catplot(data=plot_data, x="Table Rank", y="Joinability Score")
-        g.fig.set_size_inches(10, 3)
+        g.fig.set_size_inches(8, 3)
         plt.tight_layout()
         plt.show()
 
@@ -309,9 +310,7 @@ class DatalakeIndexesDemo:
             highlighted_rows = None
         try:
             table = self.__tables_dict[table_id]
-            table.to_csv("../temp_data/joinable_table.csv")
-            table = table[['color', 'director_name', 'num_critic_for_reviews', 'duration',
-             'director_facebook_likes', 'movie_title', 'num_voted_users']]
+            #table.to_csv("../temp_data/joinable_table.csv")
 
             html_table = highlight_cells(table.head(),
                                          self.__column_headers_dict[table_id],
@@ -365,9 +364,8 @@ class DatalakeIndexesDemo:
         # Get row values to generate html tables:
         output = ""
         for table_id in duplicate_tables:
-            # print(data_handler.get_table(table_id).head(10).to_html())
-            table = self.__data_handler.get_table(table_id).head(self.__display_table_rows)
-            table = table.style.set_table_styles([{'selector': 'th', 'props': [('font-size', '12pt')]}]).set_properties(**{'font-size': '12pt'})
+            table = self.__data_handler.get_table(table_id)
+            #table = table.style.set_table_styles([{'selector': 'th', 'props': [('font-size', '12pt')]}]).set_properties(**{'font-size': '12pt'})
             output += table.to_html(table_id=f"t{table_id}", index=False)
 
         # Convert CSV table to html table
@@ -421,7 +419,7 @@ class DatalakeIndexesDemo:
         iterations = np.product([len(alt) for alt in alternations])
 
         results = defaultdict(list)
-        for hash_size, rotation, number_of_ones in tqdm(itertools.product(*alternations),
+        for hash_size, rotation, number_of_ones in tqdm_notebook(itertools.product(*alternations),
                                                         total=iterations):
             def custom_xash(s: str) -> int:
                 return generate_XASH(s,
@@ -458,10 +456,6 @@ class DatalakeIndexesDemo:
         stats = {}
         cocoa = COCOA(self.__data_handler)
 
-
-        # clean target col
-        self.__input_dataset[self.__target_column] = self.__input_dataset[self.__target_column].apply(lambda x: get_cleaned_text(x)).str.replace(" ", "")
-
         self.__top_correlating_columns = cocoa.enrich_multicolumn(self.__input_dataset,
                                                                   self.__top_joinable_tables, 10,
                                                                   target_column=self.__target_column,
@@ -489,7 +483,7 @@ class DatalakeIndexesDemo:
         plot_data["|Correlation Coefficient|"] = corr_coeffs
 
         g = sns.catplot(data=plot_data, x="Rank", y="|Correlation Coefficient|")
-        g.fig.set_size_inches(10, 4)
+        g.fig.set_size_inches(8, 3)
         plt.tight_layout()
         plt.show()
 
@@ -515,7 +509,7 @@ class DatalakeIndexesDemo:
             table = self.__tables_dict[table_id]
 
             # add correlation info
-            new_col_name = f"{table_id}_{table.columns[column_id]}"
+            new_col_name = str(table.columns[column_id])
 
             self.__external_columns += [new_col_name]
             table = table.rename(columns={table.columns[column_id]: new_col_name})
@@ -548,8 +542,9 @@ class DatalakeIndexesDemo:
         output_dataset = output_dataset[
             [c for c in output_dataset.columns if not c.endswith('_tokenized')]]
 
+        output_dataset = output_dataset[~output_dataset[self.__target_column].isna()]
         self.__output_dataset = output_dataset
-        output_dataset.to_csv("../temp_data/output_dataset.csv")
+        #output_dataset.to_csv("../temp_data/output_dataset.csv")
 
         output_sample = highlight_cells(
             output_dataset.head(),
@@ -568,12 +563,12 @@ class DatalakeIndexesDemo:
                 corr_data["Correlation coefficient"] += [corr_dict[ext_col]]
                 corr_data["Type"] += [corr_type]
 
-        plt.figure(figsize=(14, 8))
+        plt.figure(figsize=(10, 4))
         g = sns.barplot(data=pd.DataFrame(corr_data), x="External feature", y="Correlation coefficient",
                         hue="Type")
         sns.move_legend(g, "upper left", bbox_to_anchor=(1, 1))
 
-        plt.xticks(rotation=45)
+        plt.xticks(rotation=0)
 
         plt.tight_layout()
         plt.show()
@@ -598,28 +593,35 @@ class DatalakeIndexesDemo:
             if ext_col in self.__spearman_dict:
                 corr.loc[self.__target_column, ext_col] = self.__spearman_dict[ext_col]
                 corr.loc[ext_col, self.__target_column] = self.__spearman_dict[ext_col]
-        corr.to_csv("../temp_data/correlation.csv")
+        #corr.to_csv("../temp_data/correlation.csv")
 
-        plt.figure(figsize=(14, 10))
-        heatmap = sns.heatmap(corr, vmin=-1, vmax=1, annot=True)
+        plt.figure(figsize=(14, 6))
+        heatmap = sns.heatmap(corr, vmin=-1, vmax=1, annot=True, cmap=sns.color_palette("vlag", as_cmap=True))
         heatmap.set_title('Correlation Heatmap', fontdict={'fontsize': 12}, pad=12)
 
-        plt.xticks(rotation=45)
+        plt.xticks(rotation=0)
 
         plt.tight_layout()
         plt.show()
 
-    def fit_and_evaluate_model(self):
-        datasets = ["Input", "Enriched"]
+    def fit_and_evaluate_model(self, only_input=False):
         errors = []
 
-        for dataset_name, dataset in zip(datasets,
-                                         [self.__input_dataset.copy(),
-                                          self.__output_dataset.copy()]):
+        if only_input:
+            datasets = zip(["Input"], [self.__input_dataset.copy()])
+        else:
+            datasets = zip(["Input", "Enriched"],
+                           [self.__input_dataset.copy(), self.__output_dataset.copy()])
 
+        for dataset_name, dataset in datasets:
             # cleanup
-            dataset[self.__target_column] = dataset[self.__target_column].apply(get_cleaned_text).astype(float)
+            dataset[self.__target_column] = dataset[self.__target_column].astype(float)
             dataset = dataset[~dataset[self.__target_column].isna()]
+
+            # Drop NaN values to keep only joinable rows
+            if dataset_name == "Enriched":
+                for col in self.__external_columns:
+                    dataset = dataset[~dataset[col].isna()]
 
             columns = []
             for col in dataset.columns:
@@ -628,10 +630,7 @@ class DatalakeIndexesDemo:
                         # numerical feature
                         dataset[col] = dataset[col].astype(float).fillna(0)
                         columns += [col]
-                        print(col)
                     except ValueError as e:
-                        print(e)
-                        continue
                         # categorical feature
                         oh_enc = preprocessing.OneHotEncoder()
                         oh_enc.fit(dataset[[col]])
@@ -643,28 +642,32 @@ class DatalakeIndexesDemo:
 
             X, y = dataset.loc[:, columns], dataset.loc[:, self.__target_column]
 
-
-            print(dataset_name)
             X_train, X_test, y_train, y_test = model_selection.train_test_split(X,
                                                                                 y,
-                                                                                test_size=0.33,
+                                                                                test_size=0.3,
                                                                                 random_state=42)
-            print(X_train.shape)
-            print(X_test.shape)
-            print(columns)
 
             model = linear_model.LinearRegression()
             model.fit(X_train, y_train)
 
-            errors += [mean_squared_error(model.predict(X_test), y_test)]
+            errors += [sqrt(mean_squared_error(model.predict(X_test), y_test))]
+
+        if only_input:
+            dataset_names = ["Input"]
+        else:
+            dataset_names = ["Input", "Enriched"]
 
         mse_data = pd.DataFrame({
-            "Dataset": datasets,
-            "Mean Squared Error": errors
+            "Dataset": dataset_names,
+            "RMSE": errors
         })
 
-        plt.figure(figsize=(6, 6))
-        sns.barplot(data=mse_data, x="Dataset", y="Mean Squared Error")
+        plt.figure(figsize=(5, 4))
+        if len(errors) > 1:
+            rel_error = (1 - errors[1] / errors[0]) * 100
+            plt.title(f"RMSE reduced by {rel_error:.2f}%")
+
+        sns.barplot(data=mse_data, x="Dataset", y="RMSE")
 
         plt.tight_layout()
         plt.show()

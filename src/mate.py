@@ -465,7 +465,6 @@ class MATE:
         if self.__verbose:
             print("Generating join maps...")
 
-        # TODO make more efficient
         for table_id in join_maps:
             for columns in join_maps[table_id]:
                 final_join_map = np.full(len(orig_input_data), -1)

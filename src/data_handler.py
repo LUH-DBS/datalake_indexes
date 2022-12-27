@@ -192,9 +192,9 @@ class DataHandler:
         """
         Initializes required database tables and datastructures.
         """
-        #self.__prepare_db()
+        self.__prepare_db()
 
-        # If there is already data inside the table we have to set the table id counter to max(table id) + 1
+        # If there is already data in the db we have to set the ounter to max(table id) + 1
         self.__cur.execute(f'SELECT MAX(tableid) FROM {self.table_info_table};')
         self.__cur_id = int(self.__cur.fetchall()[0][0]) + 1
 
@@ -646,7 +646,7 @@ class DataHandler:
             self.__init()
 
         self.__create_inverted_index()
-        #self.__create_db_indexes()
+        self.__create_db_indexes()
 
         self.__index_updated = True
 

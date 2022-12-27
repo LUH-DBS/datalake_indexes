@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import pandas as pd
 from maco.data_handler import DataHandler
@@ -366,13 +368,21 @@ class DatalakeIndexesDemo:
         # Convert CSV table to html table
         output = output + self.__input_dataset.head().to_html(table_id='t0', index=False)
 
-        with open("./maco/demo/template.html", 'r') as file:
+        template_path = "./maco/demo/template.html"
+        new_template_path = "./maco/demo/template_new.html"
+
+        # Google Colab
+        if not os.path.exists(template_path):
+            template_path = "./template.html"
+            new_template_path = "./template_new.html"
+
+        with open(template_path, 'r') as file:
             filedata = file.read()
 
         # Replace table placeholder with actual tables html
         filedata = filedata.replace('%%tables_placeholder%%', output)
 
-        with open("./maco/demo/template_new.html", 'w') as file:
+        with open(new_template_path, 'w') as file:
             file.write(filedata)
 
         net.prep_notebook(custom_template=True, custom_template_path="./maco/demo/template_new.html")

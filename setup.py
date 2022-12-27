@@ -25,7 +25,6 @@ setup(
         'mmh3',
         'bitarray',
         'pyvis'
-        # TODO fill
     ],
     packages=find_packages(
         exclude=('datasts', 'demonstration', 'fig', 'temp_data'),

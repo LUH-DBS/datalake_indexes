@@ -1,6 +1,6 @@
 import pandas as pd
-from datalake_indexes.data_handler import DataHandler
-from datalake_indexes.util import get_cleaned_text
+from maco.data_handler import DataHandler
+from maco.util import get_cleaned_text
 from collections import defaultdict
 from typing import List, Tuple
 import numpy as np

@@ -3,8 +3,8 @@ import time
 from operator import itemgetter
 import pandas as pd
 import numpy as np
-from datalake_indexes.util import get_cleaned_text, create_cocoa_index
-from datalake_indexes.data_handler import DataHandler
+from maco.util import get_cleaned_text, create_cocoa_index
+from maco.data_handler import DataHandler
 from typing import Dict, List
 from tqdm.notebook import tqdm_notebook
 

@@ -1,13 +1,13 @@
 import numpy as np
 import pandas as pd
-from datalake_indexes.data_handler import DataHandler
-from datalake_indexes.cocoa import COCOA
-from datalake_indexes.mate import MATE
-from datalake_indexes.duplicate_detection import DuplicateDetection
+from maco.data_handler import DataHandler
+from maco.cocoa import COCOA
+from maco.mate import MATE
+from maco.duplicate_detection import DuplicateDetection
+from maco.util import get_cleaned_text, generate_XASH
 import psycopg2
 from typing import List, Tuple
 from pyvis.network import Network
-from datalake_indexes.util import get_cleaned_text, generate_XASH
 import matplotlib.pyplot as plt
 import seaborn as sns
 from IPython.display import display, HTML

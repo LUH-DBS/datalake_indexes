@@ -24,6 +24,6 @@ setup(
     ],
     packages=find_packages(
         exclude=('datasts', 'demonstration', 'fig', 'temp_data'),
-        include=('datalake_indexes')
+        include=('maco')
     )
 )

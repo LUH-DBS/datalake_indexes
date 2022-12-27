@@ -1,6 +1,6 @@
 import time
 from typing import Any, List, Tuple, Callable, Union
-from datalake_indexes.util import get_cleaned_text, create_cocoa_index, generate_XASH
+from maco.util import get_cleaned_text, create_cocoa_index, generate_XASH
 import pandas as pd
 import numpy as np
 from io import StringIO

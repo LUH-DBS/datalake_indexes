@@ -10,7 +10,7 @@ def plot_joinability_scores():
     scores = np.array([2914, 969, 969, 969, 969, 969, 969, 969, 969, 969, 969,
                        969, 969, 969, 969, 969, 969, 352, 352, 352], dtype=int)
 
-    scores = scores / int(pd.read_csv("../datasets/movie.csv").shape[0])
+    scores = scores / int(pd.read_csv("datasets/movie.csv").shape[0])
 
     plot_data = pd.DataFrame([], columns=["Table Rank", "Joinability Score"])
     plot_data["Table Rank"] = np.arange(1, len(scores) + 1)
@@ -31,7 +31,7 @@ def plot_correlation_heatmap():
     idx_y= ['Movie Title', 'Director Name', 'IMDB Score', '#Voted Users', 'Duration', '#Reviewers']
     idx_x = ['Movie\nTitle', 'Director\nName', 'IMDB\nScore', '#Voted\nUsers', 'Duration', '#Reviewers']
 
-    corr = pd.read_csv("../temp_data/correlation.csv", index_col=0)
+    corr = pd.read_csv("temp_data/correlation.csv", index_col=0)
 
     corr.columns = idx_x
     corr.index = idx_y

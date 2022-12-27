@@ -3,9 +3,9 @@ import pandas as pd
 import time
 from tqdm.notebook import tqdm_notebook
 from heapq import heapify, heappush, heappop
-from datalake_indexes.util import get_cleaned_text
-from datalake_indexes.data_handler import DataHandler
-from datalake_indexes.bloom_filter import BloomFilter
+from maco.util import get_cleaned_text
+from maco.data_handler import DataHandler
+from maco.bloom_filter import BloomFilter
 from typing import List, Dict, Tuple
 
 

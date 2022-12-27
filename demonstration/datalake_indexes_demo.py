@@ -1,13 +1,13 @@
 import numpy as np
 import pandas as pd
-from data_handler import DataHandler
-from cocoa import COCOA
-from mate import MATE
-from duplicate_detection import DuplicateDetection
+from datalake_indexes.data_handler import DataHandler
+from datalake_indexes.cocoa import COCOA
+from datalake_indexes.mate import MATE
+from datalake_indexes.duplicate_detection import DuplicateDetection
 import psycopg2
-from typing import List, Tuple, Dict
+from typing import List, Tuple
 from pyvis.network import Network
-from util import get_cleaned_text, generate_XASH
+from datalake_indexes.util import get_cleaned_text, generate_XASH
 import matplotlib.pyplot as plt
 import seaborn as sns
 from IPython.display import display, HTML
@@ -16,17 +16,11 @@ from sklearn import linear_model, model_selection, preprocessing
 from sklearn.metrics import mean_squared_error
 import numpy.ma as ma
 import itertools
-import matplotlib as mpl
 from tqdm.notebook import tqdm_notebook
 from math import sqrt
 
 import warnings
 warnings.filterwarnings('ignore')
-
-# html colors
-#COLOR_ORANGE = 'rgb(249, 165, 0)'
-#COLOR_GREEN = 'rgb(144, 238, 143)'
-#COLOR_PURPLE = 'rgb(187, 143, 206)'
 
 # seaborn colors
 COLOR_ORANGE = 'rgb(250, 180, 130)'
@@ -39,6 +33,7 @@ DB_CONFIG = {
     "user": "macodemo",
     "password": "demonstration"
 }
+
 
 def highlight_cells(
         table: pd.DataFrame,

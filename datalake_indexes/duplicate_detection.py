@@ -1,8 +1,8 @@
 import pandas as pd
-from data_handler import DataHandler
+from datalake_indexes.data_handler import DataHandler
+from datalake_indexes.util import get_cleaned_text
 from collections import defaultdict
 from typing import List, Tuple
-from util import get_cleaned_text
 import numpy as np
 
 

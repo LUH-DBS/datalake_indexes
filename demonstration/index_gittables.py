@@ -1,12 +1,12 @@
-from data_handler import DataHandler
+from datalake_indexes.data_handler import DataHandler
 import json
-import os
 import psycopg2
 import logging
+import os
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
-DATALAKE = "gittables_demo"
+DATALAKE = "gittables"
 CONFIG_PATH = "/home/becktepe/db_config.json"
 ROOT_DIR = '/home/becktepe/datasets/gittables_1M'
 

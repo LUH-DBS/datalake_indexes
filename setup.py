@@ -7,7 +7,7 @@ with open('LICENSE') as f:
     license = f.read()
 
 setup(
-    name='datalake-indexes',
+    name='maco',
     version='0.0.1',
     author='Jannis Becktepe',
     description='Multi-attribute and Order Indexes for Data Discovery',

@@ -20,7 +20,11 @@ setup(
         'seaborn',
         'tqdm',
         'sklearn',
-        'simhash'
+        'simhash',
+        'arff',
+        'mmh3',
+        'bitarray',
+        'pyvis'
         # TODO fill
     ],
     packages=find_packages(

@@ -371,6 +371,8 @@ class DatalakeIndexesDemo:
         template_path = "./maco/demo/template.html"
         new_template_path = "./maco/demo/template_new.html"
 
+        print("wd:", os.getcwd())
+
         # Google Colab
         if not os.path.exists(template_path):
             template_path = "./template.html"

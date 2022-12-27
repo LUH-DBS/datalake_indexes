@@ -19,11 +19,12 @@ setup(
         'pandas',
         'seaborn',
         'tqdm',
-        'sklearn'
+        'sklearn',
+        'simhash'
         # TODO fill
     ],
     packages=find_packages(
         exclude=('datasts', 'demonstration', 'fig', 'temp_data'),
-        include=('maco')
+        include='maco'
     )
 )

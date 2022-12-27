@@ -366,16 +366,16 @@ class DatalakeIndexesDemo:
         # Convert CSV table to html table
         output = output + self.__input_dataset.head().to_html(table_id='t0', index=False)
 
-        with open("template.html", 'r') as file:
+        with open("./maco/demo/template.html", 'r') as file:
             filedata = file.read()
 
         # Replace table placeholder with actual tables html
         filedata = filedata.replace('%%tables_placeholder%%', output)
 
-        with open("template_new.html", 'w') as file:
+        with open("./maco/demo/template_new.html", 'w') as file:
             file.write(filedata)
 
-        net.prep_notebook(custom_template=True, custom_template_path="template_new.html")
+        net.prep_notebook(custom_template=True, custom_template_path="./maco/demo/template_new.html")
         return net
 
     def remove_duplicates(self):

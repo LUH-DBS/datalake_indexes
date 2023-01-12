@@ -122,10 +122,3 @@ for corr_coeff, table_col_id, is_numeric in top_correlating_columns:
     pass
 
 ```
-
-conda create -n dacbench python=3.6
-conda activate dacbench
-git clone https://github.com/automl/DACBench.git
-cd DACBench
-git submodule update --init --recursive
-pip install .

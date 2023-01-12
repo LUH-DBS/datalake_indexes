@@ -333,9 +333,6 @@ class DatalakeIndexesDemo:
             table = self.__tables_dict[table_id]
             duplicate_tables += dup.get_duplicate_tables(table)
 
-        # DEBUG
-        duplicate_tables = duplicate_tables[:5]
-
         if len (duplicate_tables) == 0:
             print("No duplicate tables found.")
 

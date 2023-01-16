@@ -96,7 +96,7 @@ class DatalakeIndexesDemo:
             self.__data_handler = DataHandler(
                 conn,
                 main_table=f"{datalake}_main_tokenized",
-                column_headers_table=f"{datalake}_column_headers",
+                column_headers_table=f"{datalake}_column_tokenized",
                 table_info_table=f"{datalake}_table_info",
                 cocoa_index_table=f"{datalake}_cocoa_index"
             )
@@ -317,17 +317,12 @@ class DatalakeIndexesDemo:
             print(e)
             print(self.__tables_dict[table_id].head())
 
-        # DEBUG
-        #joinable_input_dataset = self.__input_dataset.iloc[highlighted_rows, :]
-        #joinable_input_dataset.to_csv("../datasets/joinable_dataset.csv", index=False)
-
     def keep_joinable_tables(self, k: int):
         self.__top_joinable_tables = self.__top_joinable_tables[:k]
 
     def duplicate_detection(self):
         dup = DuplicateDetection(self.__data_handler)
 
-        #duplicate_detection_start = time.time()
         duplicate_tables = []
         for _, table_id, _, _ in self.__top_joinable_tables:
             table = self.__tables_dict[table_id]

@@ -1,5 +1,5 @@
 import os
-
+import contextlib
 import numpy as np
 import pandas as pd
 from maco.data_handler import DataHandler
@@ -7,19 +7,17 @@ from maco.cocoa import COCOA
 from maco.mate import MATE
 from maco.duplicate_detection import DuplicateDetection
 from maco.util import get_cleaned_text, generate_XASH
+from maco.machine_learning import fit_model
 import psycopg2
-from typing import List, Tuple
+from typing import List, Tuple, Union
 from pyvis.network import Network
 import matplotlib.pyplot as plt
 import seaborn as sns
 from IPython.display import display, HTML
 from collections import defaultdict
-from sklearn import linear_model, model_selection, preprocessing
-from sklearn.metrics import mean_squared_error
 import numpy.ma as ma
 import itertools
 from tqdm.notebook import tqdm_notebook
-from math import sqrt
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -34,6 +32,17 @@ DB_CONFIG = {
     "dbname": "pdb",
     "user": "macodemo",
     "password": "demonstration"
+}
+
+
+QUERY_COLUMNS = {
+    "who": ["Country"],
+    "movie": ["movie_title", "director_name"]
+}
+
+TARGET_COLUMN = {
+    "who": "Life expectancy",
+    "movie": "imdb_score"
 }
 
 
@@ -112,8 +121,8 @@ class DatalakeIndexesDemo:
             raise ValueError("Invalid datalake:", datalake)
 
         self.__input_dataset = None
-        self.__query_columns = None
-        self.__target_column = None
+        self.__query = None
+        self.__target = None
         self.__output_dataset = None
         self.__external_columns = []
 
@@ -131,89 +140,63 @@ class DatalakeIndexesDemo:
         sns.set(font_scale=1.3)
         sns.color_palette("pastel")
 
-    def read_input(self, path: str, rows: int = None) -> None:
-        """
-        Reads and stores an input dataset from csv.
+        devnull = open(os.devnull, 'w')
+        contextlib.redirect_stderr(devnull)
 
-        Parameters
-        ----------
-        path : str
-            Path to csv file.
+    def load_dataset(
+            self,
+            dataset: str,
+            query: Union[str, List[str]] = None,
+            target: str = None
+    ) -> None:
+        # if not provided fall back to default
+        if query is None:
+            query = QUERY_COLUMNS[dataset]
+        if isinstance(query, str):
+            query = [query]
 
-        rows: str
-            Maximum number of rows.
-        """
-        ext = path.split('.')[-1]
-        if ext == 'csv':
-            read_func = self.__data_handler.read_csv
-        elif ext == 'tsv':
-            read_func = self.__data_handler.read_tsv
-        elif ext == 'arff':
-            read_func = self.__data_handler.read_arff
-        else:
-            print(f"Invalid file format: {ext}")
-            return
-        _, self.__input_dataset = read_func(path)
+        if target is None:
+            target = TARGET_COLUMN[dataset]
 
-        if rows is not None:
-            self.__input_dataset = self.__input_dataset.iloc[:rows]
+        df = pd.read_csv(f"./datasets/{dataset}.csv", sep=";")
 
-        print(f"Shape: {self.__input_dataset.shape}")
-        display(HTML(self.__input_dataset.head(self.__display_table_rows).to_html()))
+        # cleanup
+        df.columns = [str(col).strip() for col in df.columns]
+        df = df.fillna(df.mean())
 
-    def set_query_columns(self, query_columns: List[str]) -> None:
-        """
-        Sets the query columns that will be used for joinability discovery.
-
-        Parameters
-        ----------
-        query_columns : List[str]
-            List of input dataset columns.
-        """
-        if self.__input_dataset is None:
-            print("Please load input dataset first.")
-            return
-
-        for query_column in query_columns:
-            if query_column not in self.__input_dataset.columns:
+        for query_column in query:
+            if query_column not in df.columns:
                 print(f"{query_column} not in input dataset.")
                 return
+        self.__query = query
 
-        self.__query_columns = query_columns
+        if target not in df.columns:
+            print(f"{target} not in input dataset.")
+            print("Available columns:")
+            print(list(df.columns))
+            return
+        self.__target = target
+
+        # for WHO: group over years
+        if dataset == "who":
+            df = df.groupby(query).mean(numeric_only=True).reset_index()
+
+        self.__input_dataset = df
 
         html_table = highlight_cells(self.__input_dataset.head(self.__display_table_rows),
-                                     query_columns=self.__query_columns).to_html()
-        #display(HTML(html_table))
-
-    def set_target_column(self, target_column: str):
-        """
-        Sets the target column that will be used for correlation calculation.
-
-        Parameters
-        ----------
-        target_column: str
-            Input dataset column.
-        """
-        if self.__input_dataset is None:
-            print("Please load input dataset first.")
-            return
-
-        if target_column not in self.__input_dataset.columns:
-            print(f"{target_column} not in input dataset.")
-            return
-
-        self.__target_column = target_column
-
-        html_table = highlight_cells(self.__input_dataset.head(self.__display_table_rows),
-                                     query_columns=self.__query_columns,
-                                     target_column=target_column).to_html()
+                                     query_columns=self.__query,
+                                     target_column=self.__target).to_html()
         display(HTML(html_table))
 
     def joinability_discovery(
             self,
             k: int = 10,
             k_c: int = 500,
-            verbose: bool = False
+            min_join_ratio: int = 0,
+            use_hash_optimization: bool = True,
+            use_bloom_filter: bool = False,
+            online_hash_calculation: bool = False,
+            verbose: bool = True
     ) -> None:
         """
         Finds joinable tables within the datalake using MATE.
@@ -221,7 +204,22 @@ class DatalakeIndexesDemo:
         Parameters
         ----------
         k : int
-            Number of candidates that will be returned.
+            Top-k joinable tables are returned.
+
+        k_c : int
+            Number of candidate tables to evaluate based on first query column.
+
+        min_join_ratio : int
+            Minimum number of joinable rows a table must contain.
+
+        use_hash_optimization : bool
+            If false, it runs join search without hash-based filtering.
+
+        use_bloom_filter : bool
+            If true, bloom filter is used for hashing the input cells.
+
+        online_hash_calculation : bool
+            If true, row hashes are calculated during filtering and not fetched from the database.
 
         verbose : bool
             If true, detailed output is printed.
@@ -229,25 +227,36 @@ class DatalakeIndexesDemo:
         stats = {}
 
         mate = MATE(self.__data_handler, verbose=verbose)
-        self.__top_joinable_tables = mate.join_search(self.__input_dataset,
-                                                      self.__query_columns,
-                                                      k,
-                                                      stats=stats,
-                                                      k_c=k_c)
+        self.__top_joinable_tables = mate.join_search(
+            self.__input_dataset,
+            self.__query,
+            k,
+            k_c=k_c,
+            min_join_ratio=min_join_ratio,
+            use_hash_optimization=use_hash_optimization,
+            use_bloom_filter=use_bloom_filter,
+            online_hash_calculation=online_hash_calculation,
+            stats=stats
+        )
 
+        if verbose:
+            print("Fetching tables...")
         for score, table_id, columns, join_map in self.__top_joinable_tables:
             self.__joinable_columns_dict[table_id] = columns
 
             try:
                 table = self.__data_handler.get_table(table_id)
             except Exception as e:
-                print(e)
-                raise
+                print(f"Could not fetch table {table_id}")
+                continue
             self.__tables_dict[table_id] = table
 
             column_headers = [table.columns[int(col_id)] for col_id in columns.split('_')][
-                             :len(self.__query_columns)]
+                             :len(self.__query)]
             self.__column_headers_dict[table_id] = column_headers
+
+        if verbose:
+            print("Done.")
 
         # -----------------------------------------------------------------------------------------------------------
         # STATISTICS
@@ -328,7 +337,7 @@ class DatalakeIndexesDemo:
             table = self.__tables_dict[table_id]
             duplicate_tables += dup.get_duplicate_tables(table)
 
-        if len (duplicate_tables) == 0:
+        if len(duplicate_tables) == 0:
             print("No duplicate tables found.")
 
         self.__duplicate_relations = dup.get_relations(duplicate_tables)
@@ -338,7 +347,7 @@ class DatalakeIndexesDemo:
         for t in self.__duplicate_relations:
             net.add_node(t[0], str(t[0]))
             net.add_node(t[1], str(t[1]))
-            net.add_edge(t[0], t[1])
+            net.add_edge(t[0], t[1], physics=False)
 
         # net.add_node(0,"0")
         # for t in duplicate_tables_first:
@@ -431,7 +440,7 @@ class DatalakeIndexesDemo:
             mate = MATE(self.__data_handler)
 
             mate.join_search(self.__input_dataset,
-                             self.__query_columns,
+                             self.__query,
                              10,
                              online_hash_calculation=True,
                              stats=stats)
@@ -451,14 +460,29 @@ class DatalakeIndexesDemo:
 
         self.__data_handler.hash_function = generate_XASH
 
-    def correlation_calculation(self):
+    def correlation_calculation(
+            self,
+            k_c: int = 10,
+            online_index_generation: bool = False
+    ):
+        """
+        k_c : int
+            Number of features that will be returned.
+
+        online_index_generation : bool
+            If true, the COCOA order index is generated online.
+        """
         stats = {}
         cocoa = COCOA(self.__data_handler)
 
-        self.__top_correlating_columns = cocoa.enrich_multicolumn(self.__input_dataset,
-                                                                  self.__top_joinable_tables, 10,
-                                                                  target_column=self.__target_column,
-                                                                  stats=stats)
+        self.__top_correlating_columns = cocoa.enrich_multicolumn(
+            self.__input_dataset,
+            self.__top_joinable_tables,
+            k_c=k_c,
+            online_index_generation=online_index_generation,
+            target_column=self.__target,
+            stats=stats
+        )
         print("--------------------------------------------")
         print("Runtime:")
         print("--------------------------------------------")
@@ -497,7 +521,7 @@ class DatalakeIndexesDemo:
         # add tokenized input columns for the join
         output_dataset = self.__input_dataset.copy()
         self.__external_columns = []
-        for input_column in self.__query_columns:
+        for input_column in self.__query:
             output_dataset[input_column + "_tokenized"] = self.__input_dataset[input_column].apply(
                 get_cleaned_text)
 
@@ -508,31 +532,36 @@ class DatalakeIndexesDemo:
             table = self.__tables_dict[table_id]
 
             # add correlation info
-            new_col_name = str(table.columns[column_id])
+            new_col_name = str(table_col_id) + ":" + str(table.columns[column_id])
 
             self.__external_columns += [new_col_name]
             table = table.rename(columns={table.columns[column_id]: new_col_name})
 
             table = table.loc[:, self.__column_headers_dict[table_id] + [table.columns[column_id]]]
 
+            # only use the first matching token for the join
+            table = table.drop_duplicates(subset=self.__column_headers_dict[table_id])
+
             output_dataset = output_dataset.merge(
                 table,
                 how="left",
-                left_on=[col + "_tokenized" for col in self.__query_columns],
+                left_on=[col + "_tokenized" for col in self.__query],
                 right_on=self.__column_headers_dict[table_id],
                 suffixes=('', '_extern')
             )
 
             if is_numeric:
+                output_dataset[new_col_name] = output_dataset[new_col_name].astype(float)
+
                 self.__pearson_dict[new_col_name] = abs(
-                    ma.corrcoef(ma.masked_invalid(output_dataset[self.__target_column].astype(float)),
+                    ma.corrcoef(ma.masked_invalid(output_dataset[self.__target].astype(float)),
                                 ma.masked_invalid(output_dataset[new_col_name].astype(float)))[0][1]
                 )
                 self.__spearman_dict[new_col_name] = abs(cor)
 
             # remove external join columns
             for ext_col in self.__column_headers_dict[table_id]:
-                if ext_col not in self.__query_columns:
+                if ext_col not in self.__query:
                     output_dataset = output_dataset.drop(columns=[ext_col])
 
             output_dataset = output_dataset[
@@ -541,14 +570,15 @@ class DatalakeIndexesDemo:
         output_dataset = output_dataset[
             [c for c in output_dataset.columns if not c.endswith('_tokenized')]]
 
-        output_dataset = output_dataset[~output_dataset[self.__target_column].isna()]
+        output_dataset = output_dataset.fillna(output_dataset.mean())
         self.__output_dataset = output_dataset
+        print(output_dataset.shape)
         #output_dataset.to_csv("../temp_data/output_dataset.csv")
 
         output_sample = highlight_cells(
             output_dataset.head(),
-            self.__query_columns,
-            target_column=self.__target_column,
+            self.__query,
+            target_column=self.__target,
             ext_columns=self.__external_columns
         )
         display(HTML(output_sample.to_html()))
@@ -590,8 +620,8 @@ class DatalakeIndexesDemo:
         # replace correlation coefficients for external features by COCOA results
         for ext_col in self.__external_columns:
             if ext_col in self.__spearman_dict:
-                corr.loc[self.__target_column, ext_col] = self.__spearman_dict[ext_col]
-                corr.loc[ext_col, self.__target_column] = self.__spearman_dict[ext_col]
+                corr.loc[self.__target, ext_col] = self.__spearman_dict[ext_col]
+                corr.loc[ext_col, self.__target] = self.__spearman_dict[ext_col]
         #corr.to_csv("../temp_data/correlation.csv")
 
         plt.figure(figsize=(14, 6))
@@ -603,7 +633,7 @@ class DatalakeIndexesDemo:
         plt.tight_layout()
         plt.show()
 
-    def fit_and_evaluate_model(self, only_input=False):
+    def fit_and_evaluate_model(self, only_input=False, verbosity: int = 0):
         errors = []
 
         if only_input:
@@ -613,43 +643,25 @@ class DatalakeIndexesDemo:
                            [self.__input_dataset.copy(), self.__output_dataset.copy()])
 
         for dataset_name, dataset in datasets:
-            # cleanup
-            dataset[self.__target_column] = dataset[self.__target_column].astype(float)
-            dataset = dataset[~dataset[self.__target_column].isna()]
+            print(f"{dataset_name}: Learning ML model...")
+            features = []
+            for col in dataset:
+                if col not in self.__query:
+                    features += [col]
 
-            # Drop NaN values to keep only joinable rows
-            if dataset_name == "Enriched":
-                for col in self.__external_columns:
-                    dataset = dataset[~dataset[col].isna()]
+            mse, pfis = fit_model(self.__output_dataset[features], features, self.__target, verbosity=verbosity)
+            print(f"Done.")
 
-            columns = []
-            for col in dataset.columns:
-                if col != self.__target_column and ((dataset_name == "Input") or (dataset_name == "Enriched" and col not in self.__input_dataset.columns)):
-                    try:
-                        # numerical feature
-                        dataset[col] = dataset[col].astype(float).fillna(0)
-                        columns += [col]
-                    except ValueError as e:
-                        # categorical feature
-                        oh_enc = preprocessing.OneHotEncoder()
-                        oh_enc.fit(dataset[[col]])
-                        dummies = pd.DataFrame(oh_enc.transform(dataset[[col]]).todense(),
-                                               columns=oh_enc.get_feature_names_out(),
-                                               index=dataset.index)
-                        dataset = dataset.join(dummies)
-                        columns += list(oh_enc.get_feature_names_out())
+            errors += [mse]
 
-            X, y = dataset.loc[:, columns], dataset.loc[:, self.__target_column]
+            # plot feature importance
 
-            X_train, X_test, y_train, y_test = model_selection.train_test_split(X,
-                                                                                y,
-                                                                                test_size=0.3,
-                                                                                random_state=42)
+            plt.figure(figsize=(20, 20))
+            plt.xticks(rotation=90)
+            sns.barplot(data=pfis, x="feature", y="importance", errorbar="sd")
 
-            model = linear_model.LinearRegression()
-            model.fit(X_train, y_train)
-
-            errors += [sqrt(mean_squared_error(model.predict(X_test), y_test))]
+            plt.tight_layout()
+            plt.show()
 
         if only_input:
             dataset_names = ["Input"]
@@ -670,6 +682,8 @@ class DatalakeIndexesDemo:
 
         plt.tight_layout()
         plt.show()
+
+
 
     def get_table(self, table_id: int):
         return self.__data_handler.get_table(table_id)

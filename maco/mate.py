@@ -466,17 +466,30 @@ class MATE:
         if self.__verbose:
             print("Generating join maps...")
 
-        for table_id in join_maps:
-            for columns in join_maps[table_id]:
-                final_join_map = np.full(len(orig_input_data), -1)
+        # fetch table sizes
+        max_row_ids = self.__data_handler.get_max_rowids([table_id for table_id in join_maps])
+        max_row_ids = [val[0] for val in max_row_ids]
 
-                for _, group in orig_input_data.groupby(query_columns):
-                    group_index = index_to_mate_row_id[group.iloc[0, :].name]
+        for max_row_id, table_id in zip(max_row_ids, join_maps.keys()):
+                for columns in join_maps[table_id]:
+                    inverted_join_map = np.full(len(orig_input_data), -1)
 
-                    for row_index, _ in group.iterrows():
-                        final_join_map[row_index] = join_maps[table_id][columns][group_index]
+                    for _, group in orig_input_data.groupby(query_columns):
+                        group_index = index_to_mate_row_id[group.iloc[0, :].name]
 
-                join_maps[table_id][columns] = final_join_map
+                        for row_index, _ in group.iterrows():
+                            inverted_join_map[row_index] = join_maps[table_id][columns][group_index]
+
+                    # invert join map
+                    final_join_map = np.full(max_row_id + 1, -1)
+                    try:
+                        for k in range(len(inverted_join_map)):
+                            final_join_map[inverted_join_map[k]] = k
+                    except IndexError as _:
+                        print(f"Table {table_id} with columns {columns} is invalid."
+                              f"Skipping table-column combination.")
+
+                    join_maps[table_id][columns] = final_join_map
 
         top_joinable_tables_with_join_maps = [[score - 1, table_id, columns, join_maps[table_id][columns]] for score, table_id, columns in top_joinable_tables]
 

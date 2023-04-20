@@ -376,7 +376,7 @@ class COCOA:
         # -----------------------------------------------------------------------------------------------------------
         table_ids = [table[1] for table in top_joinable_tables]
         column_ids = [table[2].split('_') for table in top_joinable_tables]
-        inverted_join_maps = [table[3] for table in top_joinable_tables]
+        join_maps = [table[3] for table in top_joinable_tables]
 
         # -----------------------------------------------------------------------------------------------------------
         # INDEX PREPARATION
@@ -426,18 +426,6 @@ class COCOA:
         # -----------------------------------------------------------------------------------------------------------
         # INVERT JOIN MAPS
         # -----------------------------------------------------------------------------------------------------------
-        join_maps = []
-
-        for i in range(len(table_ids)):
-            table_id = table_ids[i]
-            inverted_join_map = inverted_join_maps[i]
-            table_size = len(order_dict[str(table_id) + '_0'])
-
-            join_map = np.full(table_size, -1)
-            for k in range(len(inverted_join_map)):
-                join_map[inverted_join_map[k]] = k
-            join_maps += [join_map]
-
         preparation_runtime = time.time() - preparation_start
 
         # -----------------------------------------------------------------------------------------------------------
@@ -554,7 +542,11 @@ class COCOA:
                             ohe_sum = 0
                             jump_flag = False
 
-                        input_index = joinMap[pointer]
+                        try:
+                            input_index = joinMap[pointer]
+                        except IndexError:
+                            print(f"Invalid table-column-combination: {t_c_key}")
+                            input_index = -1
                         if input_index != -1:
                             ohe_sum += target_ranks[input_index]
                             ohe_qty += 1

@@ -37,12 +37,12 @@ DB_CONFIG = {
 
 QUERY_COLUMNS = {
     "who": ["Country"],
-    "movie": ["movie_title", "director_name"]
+    "movie": ["Director Name", "Movie Title"]
 }
 
 TARGET_COLUMN = {
     "who": "Life expectancy",
-    "movie": "imdb_score"
+    "movie": "IMDB Score"
 }
 
 
@@ -158,7 +158,10 @@ class DatalakeIndexesDemo:
         if target is None:
             target = TARGET_COLUMN[dataset]
 
-        df = pd.read_csv(f"./datasets/{dataset}.csv", sep=";")
+        sep = ","
+        if dataset == "who":
+            sep = ";"
+        df = pd.read_csv(f"./datasets/{dataset}.csv", sep=sep)
 
         # cleanup
         df.columns = [str(col).strip() for col in df.columns]

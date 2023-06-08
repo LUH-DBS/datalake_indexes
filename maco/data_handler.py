@@ -946,10 +946,16 @@ class DataHandler:
 
     def get_max_rowids(self, table_ids: List[int]) -> Any:
         joint_table_ids = ','.join([str(val) for val in table_ids])
-        self.__cur.execute(f'SELECT tableid, MAX(rowid) '
-                           f'FROM {self.main_table} '
-                           f'WHERE tableid IN ({joint_table_ids}) '
-                           f'GROUP BY tableid')
+
+        if self.table_info_table != "":
+            self.__cur.execute(f'SELECT tableid, max_row_id '
+                               f'FROM {self.table_info_table} '
+                               f'WHERE tableid IN ({joint_table_ids});')
+        else:
+            self.__cur.execute(f'SELECT tableid, MAX(rowid) as max_row_id '
+                               f'FROM {self.main_table} '
+                               f'WHERE tableid IN ({joint_table_ids})'
+                               f'GROUP BY tableid;')
         return self.__cur.fetchall()
 
     def get_table_and_super_keys(self, table_ids: List[int]):

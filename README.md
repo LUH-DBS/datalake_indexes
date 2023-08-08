@@ -2,7 +2,7 @@
 
 This repository contains the code of our data discovery system MaCO as well as the corresponding demonstration.
 
-In [this video](https://youtu.be/cJfWn2wc_ZI), we demonstrate how the pipeline can be used to enrich a given input dataset with features from a data lake.
+For the [WHO](https://youtu.be/5wOUBFbOQkw) and [Movie](https://youtu.be/QK02LqDNFAI) datasets, we demonstrate how the pipeline can be used to enrich a given input dataset with features from a data lake.
 
 ## Interactive demo in Google Colab
 On [Google Colab](https://colab.research.google.com/github/LUH-DBS/datalake_indexes/blob/main/datalakes_indexes_demo.ipynb),
